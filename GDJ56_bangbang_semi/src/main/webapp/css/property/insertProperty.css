@@ -92,7 +92,7 @@ span{
 }
 .aTag{
     text-decoration: none;
-    color: white; 
+    color: white !important; 
     margin-left: 30px;
     margin-top: 10px;
     font-size: 12px;
