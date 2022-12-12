@@ -274,7 +274,20 @@
     	  	$("p#monthlyChargeText").text(changePrice(Number($("input#monthlyChargeRange").val())));
       	})
       
-      
+      	//매물목록 출력
+      	//맵이 켜졌을 때 5개만 출력하는 함수
+      	let cPage = 1;
+      	const drawListLoad = () => {
+      		for(let i = cPage  ; i <= cPage * 5; i ++ ){
+      			console.log(i);
+      			console.log(cPage);
+      			let cloneDiv = $("div.propertyContainer").clone().first();
+      			cloneDiv.css("display","flex");
+      			$("div#listContainer").append(cloneDiv);
+      		}
+      		cPage += 5;
+      	}
+      	
       
 
     </script>
@@ -299,6 +312,8 @@
     
     //마커배열
     let markerArray = [];
+    //property 배열
+    let propertyArray = [];
     
 	 // 마커 클러스터러를 생성합니다 
     var clusterer = new kakao.maps.MarkerClusterer({
@@ -330,6 +345,8 @@
     								$("input.applianceOption").eq(3).prop("checked"),
     								$("input.applianceOption").eq(4).prop("checked")]
     		},
+    		//ajax 를 비동기식 -> 동기식으로 변경
+    		async:false,
     		success:data=>{
     			//추가된 모든 마커를 삭제한다.
     			clusterer.clear();
@@ -341,19 +358,18 @@
     					position:new kakao.maps.LatLng(v.latitude, v.longitude),
     					image:markerImage			
     				})
-    				markerArray.push(marker);
-    				
-    				
+    				markerArray.push(marker);			
     			})
     			clusterer.addMarkers(markerArray);
     			markerArray = [];
-    			
-    			//리스트 그리기
-
-    			
-    		}
+	    		//리스트 그리기
+	    		propertyArray = null;
+	    		propertyArray = data;
+      		}
+    		
     	});
     }
+    
     
     
     
@@ -362,12 +378,16 @@
     kakao.maps.load(function(){
     	$("input#depositRange").val("40000"); 
         $("input#monthlyChargeRange").val("500");
+        //테스트중
     	searchProperty();
+    	//console.log(propertyArray); //잘돌아감
+    	drawListLoad();
     })
     
  	// 지도 시점 변화 완료 이벤트를 등록한다
 	kakao.maps.event.addListener(map, 'idle', function(){
 		searchProperty();
+    	//console.log(propertyArray); //잘돌아감
 	});
     
     
