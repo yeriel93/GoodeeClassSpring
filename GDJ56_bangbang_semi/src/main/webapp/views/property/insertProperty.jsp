@@ -13,8 +13,7 @@
 <!-- 주소 좌표값 변환 api -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=622c2a9d3d39799df3c6db829e75db1d&libraries=services"></script>
 
-<!-- <!-- 테스트~~ --> -->
-<!-- BD 테스트테스트 되랏! -->
+<!-- BD로 교감신호 발송 -->
 <body>
 	<!-- 매물등록메뉴 -->
 	<section id="all" style="display:flex;">
