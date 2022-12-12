@@ -15,7 +15,8 @@
 
 <!-- BD로 교감신호 발송 -->
 <body>
-	<!-- 매물등록메뉴 -->
+<!-- 매물등록메뉴 -->
+<form action="<%=request.getContextPath()%>/property/insertPropertyEnd.bb">
 	<section id="all" style="display:flex;">
         <div id="wrap">
             <h2>방 내놓기</h2>
@@ -28,6 +29,8 @@
                 <input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색" ><br>
             </div>
             <br>
+            <input type="text" name="addrX" hidden>
+            <input type="text" name="addrY" hidden>
             <script>
                 function sample5_execDaumPostcode() {
                     new daum.Postcode({
@@ -35,11 +38,12 @@
                             addr = data.address; // 최종 주소 변수
 
                             // 주소 정보를 해당 필드에 넣는다.
-                            document.getElementById("sample5_address").value = addr;
+                            document.getElementById("sample5_address").value = data.jibunAddress;
                           
-                			console.log(data);
-                			console.log(addr);
-                			console.log(data.jibunAddress);
+                			//console.log(data);
+                			//console.log(addr);
+                			//console.log(data.jibunAddress);
+                			console.log(document.getElementById("sample5_address").value);
                 			
 			                // 주소 좌표값(x,y)으로 변환
 			                var geocoder = new kakao.maps.services.Geocoder();
@@ -47,9 +51,14 @@
 			                
 							var callback = function(result, status) {
 			                    if (status === kakao.maps.services.Status.OK) {
-			                        console.log(result);
-			                        console.log(result[0].x);
-			                        console.log(result[0].y);
+			                        //console.log(result);
+			                        //console.log(result[0].x);
+			                        //console.log(result[0].y);
+                                    $("input[name=addrX]").val(result[0].x);
+                                    $("input[name=addrY]").val(result[0].y);
+                    
+					                console.log($("input[name=addrX]").val());
+					                console.log($("input[name=addrY]").val());
 			                    }
 			                };
 			                geocoder.addressSearch(data.jibunAddress, callback); 
@@ -57,6 +66,8 @@
                     }).open();
                 }
             </script>
+           	
+
             <div id="floor" style="display: flex; align-text: center;">
                 <span class="redtext" style="margin-right: 16px;">층수*</span>
                 <select name="floorSelect" style="margin-right: 5px;">
@@ -73,21 +84,21 @@
             <div id="price" style="display: flex; align-items: center;">
                 <span class="redtext" style="margin-right: 5px;">거래종류*</span>
                 &nbsp; 
-                <button class="greenbutton" onclick="fn_priceY()">➕ 전세</button>
+                <input type="button" class="greenbutton" onclick="fn_priceY()" value="+ 전세">
                 &nbsp;
-                <button class="greenbutton" onclick="fn_priceM()">➕ 월세</button>
+                <input type="button" class="greenbutton" onclick="fn_priceM()" value="+ 월세">
                 &nbsp;
             </div>
             <div id="priceDiv" style="margin-top: 10px;">
                 <div id="yearPrice" style="display: none;">
                     <div class="p">전세</div>
-            	    <input type="text" class="inputa" placeholder="전세금">
+            	    <input type="number" class="inputa" placeholder="전세금">
                     &nbsp; <p>만원</p>
                 </div>
                 <div id="monthlyPrice" style="display: none;">
                     <div class="p">월세</div>
-            	    <input type="text" placeholder="보증금">&nbsp; <p>/</p> &nbsp; 
-            	    <input type="text" placeholder="월세">
+            	    <input type="number" placeholder="보증금">&nbsp; <p>/</p> &nbsp; 
+            	    <input type="number" placeholder="월세">
                     &nbsp; <p>만원</p>
                 </div>
             </div>
@@ -303,7 +314,7 @@
             </script>
 
             <div id="addroom" style="text-align:center">
-                <button class="greenbutton" style="width: 300px; height: 30px;">등록하기</button>
+                <input type="submit" class="greenbutton" style="width: 300px; height: 30px;" value="등록하기">
             </div>
             <br>
         </div>
@@ -338,6 +349,7 @@
             <h4>사진</h4>
             <a href="#photo" class="aTag">방사진 등록</a> <br>
         </div>
-    </section>
+	</section>
+</form>
 </body>
 </html>
