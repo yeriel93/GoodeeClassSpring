@@ -1,0 +1,128 @@
+@charset "UTF-8";
+
+nav{
+    display:flex;
+    justify-content: space-between;
+    height:60px;
+    background-color: "#D9DFD4";
+    margin-top:15px;
+}
+div#searchContainer{
+    display:flex;
+    width:500px;
+}
+div#searchContainer>div{
+    margin:10px;
+}
+div#gudongContainer{
+    margin:10px;
+}
+div.option{
+   position:absolute;
+}
+div.option>div{ 
+    position:relative;
+    height:280px;
+    width:230px;
+    z-index : 10;
+    display:none;
+}
+div.option p {
+    margin-top:0px;
+    margin-bottom: 0px;
+    margin-left:10px;
+    margin-right:10px;
+}
+div.optionMenu * {
+	color:black;
+}
+div.option button{
+	color:white;
+}
+
+
+div.optionMenu{
+    background-color: beige;
+    border : 1px solid red;
+}
+div.optionMenu>div{
+    display:flex;
+    justify-content: space-between;
+    margin:5px 10px 5px 10px;
+}
+
+
+
+section{
+    display:flex;
+    height:700px; 
+}
+div#map{
+    width:100%;
+    height:700px;
+}
+div#listContainer{
+    width:500px;
+    height:700px;
+    background-color: white;
+    overflow:scroll;
+}
+div.propertyContainer{
+    display:flex;
+    width:350px;
+    height:150px;
+    padding:10px 10px 10px;
+    border-bottom : 1px solid gray;
+}
+div.propertyImgContainer{
+
+}
+div.propertyImgContainer>img{
+    width:150px;
+    height:150px;
+}
+div.propertyDetailContainer{
+    padding-left : 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
