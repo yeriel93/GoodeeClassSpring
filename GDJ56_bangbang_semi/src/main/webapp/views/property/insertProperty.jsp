@@ -16,7 +16,9 @@
 <!-- BD로 교감신호 발송 -->
 <body>
 <!-- 매물등록메뉴 -->
-<form action="<%=request.getContextPath()%>/property/insertPropertyEnd.bb">
+<form action="<%=request.getContextPath()%>/property/insertPropertyEnd.bb" method="post" 
+	enctype="multipart/form-data" onsubmit="return fn_invalidate();">
+   
 	<section id="all" style="display:flex;">
         <div id="wrap">
             <h2>방 내놓기</h2>
@@ -79,6 +81,17 @@
                 <span class="greytext">층</span>
             </div>
             <hr style="width: 95%;">
+            <script>
+                $("select[name=floorSelect]")[0].onchange=()=>{
+                	const floor = $("select[name=floorSelect]");
+                	if(floor.val()=="반지하" || floor.val()=="옥탑") {
+                		$("input[name=floorIn]").attr("disabled",true);
+                	}else {
+                		$("input[name=floorIn]").attr("disabled",false);
+                	}
+                    //console.log($("input[name=costIn]"));
+                }
+            </script>
 
             <h4>🔳 거래정보</h4>
             <div id="price" style="display: flex; align-items: center;">
@@ -92,24 +105,24 @@
             <div id="priceDiv" style="margin-top: 10px;">
                 <div id="yearPrice" style="display: none;">
                     <div class="p">전세</div>
-            	    <input type="number" class="inputa" placeholder="전세금">
+            	    <input type="number" class="inputa" name="yPrice" placeholder="전세금">
                     &nbsp; <p>만원</p>
                 </div>
                 <div id="monthlyPrice" style="display: none;">
                     <div class="p">월세</div>
-            	    <input type="number" placeholder="보증금">&nbsp; <p>/</p> &nbsp; 
-            	    <input type="number" placeholder="월세">
+            	    <input type="number" placeholder="보증금" name="mPrice">&nbsp; <p>/</p> &nbsp; 
+            	    <input type="number" placeholder="월세" name="mPrice2">
                     &nbsp; <p>만원</p>
                 </div>
             </div>
             <script>
                 const fn_priceY=()=>{
-                    console.log($("#yearPrice"));
+                    //console.log($("#yearPrice"));
                     $("#yearPrice").css("display","flex");
                     $("#monthlyPrice").css("display","none");
                 }
                 const fn_priceM=()=>{
-                    console.log($("#monthlyPrice"));
+                    //console.log($("#monthlyPrice"));
                     $("#yearPrice").css("display","none");
                     $("#monthlyPrice").css("display","flex");
                 }
@@ -119,9 +132,9 @@
                 <span class="redtext" style="margin-right: 16px;">관리비*</span>
                 &nbsp;
                 <input type="radio" class="radio" name="costSelect" value="있음">있음
-                <input type="number" name="costIn" min="1" placeholder="금액을 입력해주세요" style="margin-left: 5px;">
+                <input type="number" name="costIn" min="1" placeholder="금액을 입력해주세요" style="margin-left: 5px;" disabled>
                 <span class="greytext" style="margin-right: 16px;">만원</span>
-                <input type="radio" class="radio" name="costSelect" value="없음">없음
+                <input type="radio" class="radio" name="costSelect" value="없음" checked>없음
             </div>
             <br>
             <script>
@@ -137,9 +150,9 @@
             <div id="costInclude">
                 <span>관리비 포함항목</span>
                 &nbsp;
-                <input type="checkbox" class="checkbox" name="costE" value="전기">전기
-                <input type="checkbox" class="checkbox" name="costG" value="가스">가스
-                <input type="checkbox" class="checkbox" name="costW" value="수도">수도
+                <input type="checkbox" class="checkbox" name="costInclude" value="전기">전기
+                <input type="checkbox" class="checkbox" name="costInclude" value="가스">가스
+                <input type="checkbox" class="checkbox" name="costInclude" value="수도">수도
             </div>
             <hr style="width: 95%;">
 
@@ -147,8 +160,8 @@
             <div id="room">
                 <span class="redtext">방 구조*</span>
                 &nbsp;
-                <input type="radio" name="roomSelect" class="radio" value="원룸(오픈형)">원룸(오픈형)
-                <input type="radio" name="roomSelect" class="radio" value="원룸(분리형)">원룸(분리형)
+                <input type="radio" name="roomSelect" class="radio" value="오픈형(원룸)" checked>오픈형(원룸)
+                <input type="radio" name="roomSelect" class="radio" value="분리형(원룸)">분리형(원룸)
                 <input type="radio" name="roomSelect" class="radio" value="복층">복층
                 <input type="radio" name="roomSelect" class="radio" value="투룸">투룸
             </div>
@@ -156,7 +169,7 @@
             <div id="area" style="display: flex; align-text: center;">
                 <span class="redtext" style="margin-right: 38px;">면적*</span>
                 &nbsp;
-                <input type="number" name="areaIn" step="0.01">
+                <input type="number" name="areaIn" step="0.01" required>
                 <span class="greytext">㎡</span>
             </div>
             <br>
@@ -164,10 +177,10 @@
             <div id="expiryDate">
                 <span class="redtext">공실예정일*</span>
                 &nbsp;
-                <input type="radio" name="edSelect" class="radio">날짜선택
-                <input type="date" name="exdayIn">
+                <input type="radio" name="edSelect" class="radio" value="choice">날짜선택
+                <input type="date" name="exdayIn" disabled>
                 &nbsp;
-                <input type="radio" value="공실" name="edSelect" class="radio">공실
+                <input type="radio" value="공실" name="edSelect" class="radio" checked>공실
                 &nbsp;
                 <input type="radio" value="협의입주" name="edSelect" class="radio">협의입주
             </div>
@@ -201,21 +214,21 @@
             <div id="animal">
                 <span>반려동물가능여부</span>
                 &nbsp;
-                <input type="radio" value="가능" name="aniSelect" class="radio">가능
-                <input type="radio" value="불가능" name="aniSelect" class="radio">불가능
+                <input type="radio" value="Y" name="petSelect" class="radio">가능
+                <input type="radio" value="N" name="petSelect" class="radio" checked>불가능
             </div>
             <br>
             <div id="parking">
                 <span style="margin-right: 30px;">주차가능여부</span>
                 &nbsp;
-                <input type="radio" value="가능" name="parkSelect" class="radio">가능
-                <input type="radio" value="불가능" name="parkSelect" class="radio">불가능
+                <input type="radio" value="Y" name="parkSelect" class="radio">가능
+                <input type="radio" value="N" name="parkSelect" class="radio" checked>불가능
             </div>
             <br>
             <div id="comment" style="display: flex; align-items: center;">
                 <span>상세 설명</span>
                 &nbsp;
-                <textarea cols="50" rows="5" style="resize: none;" placeholder="2000자 이내로 작성해주세요"></textarea>
+                <textarea cols="50" rows="5" style="resize: none;" placeholder="3000자 이내로 작성해주세요"></textarea>
             </div>
             <hr style="width: 95%;">
 
@@ -351,5 +364,16 @@
         </div>
 	</section>
 </form>
+    <script>
+        const fn_invalidate=()=>{
+            const yPrice=$("input[name=yPrice]").val().trim();
+            const mPrice=$("input[name=mPrice]").val().trim();
+            const mPrice2=$("input[name=mPrice2]").val().trim();
+            if(yPrice.length==0 && mPrice.length==0 && mPrice2.length==0) {
+                alert("금액을 입력하세요!");
+    			return false;
+            }
+        }
+    </script>
 </body>
 </html>
