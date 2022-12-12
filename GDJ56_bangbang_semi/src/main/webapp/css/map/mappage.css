@@ -62,14 +62,14 @@ div#map{
     height:700px;
 }
 div#listContainer{
-    width:500px;
+    width:570px;
     height:700px;
     background-color: white;
     overflow:scroll;
 }
 div.propertyContainer{
     display:flex;
-    width:350px;
+    width:380px;
     height:150px;
     padding:10px 10px 10px;
     border-bottom : 1px solid gray;

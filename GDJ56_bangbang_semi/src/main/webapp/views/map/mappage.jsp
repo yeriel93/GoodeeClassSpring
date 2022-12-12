@@ -20,17 +20,17 @@
                     <div><label for=""><input class="renttype" type="checkbox" value="전세" checked> 전세</label></div>
                     <div class="twoSpace">
                         <div><p>보증금</p></div>
-                        <div><p id="depositText">4억원</p></div>
+                        <div><p id="depositText">5억원</p></div>
                     </div>    
                     <div>
-                        <input id="depositRange" type="range" min="500" max="40000" step="500" style="width:200px;">
+                        <input id="depositRange" type="range" min="500" max="50000" step="500" style="width:200px;">
                     </div>
                     <div class="twoSpace">
                         <div><p>월세</p></div>
-                        <div><p id="monthlyChargeText">500만원</p></div>
+                        <div><p id="monthlyChargeText">300만원</p></div>
                     </div>    
                     <div>
-                        <input id="monthlyChargeRange" type="range" min="25" max="500" step="25" style="width:200px;">
+                        <input id="monthlyChargeRange" type="range" min="10" max="300" step="10" style="width:200px;">
                     </div>
                     <br>
                     <div class="buttonContainer">
@@ -274,22 +274,7 @@
     	  	$("p#monthlyChargeText").text(changePrice(Number($("input#monthlyChargeRange").val())));
       	})
       
-      	//매물목록 출력
-      	//맵이 켜졌을 때 5개만 출력하는 함수
-      	let cPage = 1;
-      	const drawListLoad = () => {
-      		for(let i = cPage  ; i <= cPage * 5; i ++ ){
-      			console.log(i);
-      			console.log(cPage);
-      			let cloneDiv = $("div.propertyContainer").clone().first();
-      			cloneDiv.css("display","flex");
-      			$("div#listContainer").append(cloneDiv);
-      		}
-      		cPage += 5;
-      	}
       	
-      
-
     </script>
     
     
@@ -346,7 +331,7 @@
     								$("input.applianceOption").eq(4).prop("checked")]
     		},
     		//ajax 를 비동기식 -> 동기식으로 변경
-    		async:false,
+    		//async:false, -> 성능이 너무 떨어져서 매물리스트는 비동식으로 페이징처리 하자.
     		success:data=>{
     			//추가된 모든 마커를 삭제한다.
     			clusterer.clear();
@@ -370,24 +355,73 @@
     	});
     }
     
-    
+    let cPage = 1;
+    const searchPropertyListLoad = () => {
+    	$.ajax({
+    		url:"<%=request.getContextPath()%>/map/searchProperty.do",
+    		type:"get",
+    		traditional:true, // 배열 넘기기
+    		data:{
+    			longitudes:[map.getBounds().ha, map.getBounds().oa],
+    			latitudes:[map.getBounds().qa, map.getBounds().pa],
+    			renttypes:[$("input.renttype").first().prop("checked"), $("input.renttype").last().prop("checked")],
+    			deposit:$("input#depositRange").val(),
+    			monthlyCharge:$("input#monthlyChargeRange").val(),
+    			propertyStructures:[$("input.propertyStructure").eq(0).prop("checked"),
+    								$("input.propertyStructure").eq(1).prop("checked"),
+    								$("input.propertyStructure").eq(2).prop("checked"),
+    								$("input.propertyStructure").eq(3).prop("checked")],
+    			applianceAny:$("input.applianceAny").prop("checked"),
+    			applianceOptions:[$("input.applianceOption").eq(0).prop("checked"),
+    								$("input.applianceOption").eq(1).prop("checked"),
+    								$("input.applianceOption").eq(2).prop("checked"),
+    								$("input.applianceOption").eq(3).prop("checked"),
+    								$("input.applianceOption").eq(4).prop("checked")]
+    		},
+    		success:data=>{
+    			for(let i = 0; i < data.length ; i++){
+    				const div1 = $("<div>").attr("class","propertyImgContainer").append($("<img>").attr("src",'<%=request.getContextPath()%>/upload/property/'+data[i].thumbnail));
+    				const div2 = $("<div>").attr("class","propertyDetailContainer");
+    				const innerDiv1 = $("<div>").append($("<h3>").text(data[i].propertyStructure));
+    				let tempTxt = data[i].renttype + " " + changePrice(data[i].deposit).replace(/ /g, '').substring(0,changePrice(data[i].deposit).length-2);
+    				if(data[i].monthlyCharge > 0) tempTxt += "/"+data[i].monthlyCharge+"만";
+    				div2.append(innerDiv1).append($("<div>").text(tempTxt));
+    				let tempManage = "관리비 ";
+    				if(data[i].managementCharge > 0){
+    					tempManage += data[i].managementCharge + "만";
+    				} else {
+    					tempManage += "없음";
+    				}
+    				div2.append($("<div>").text(tempManage));
+    				let tempAddress = data[i].address.substring(0, data[i].address.lastIndexOf('동 ')+1);
+    				div2.append($("<div>").text(tempAddress));
+    				
+    				const input1 = $("<input>").attr("type","hidden").attr("id","propertyNo").val(data[i].propertyNo);
+    				$("div#listContainer").append($("<div>").attr("class","propertyContainer").attr("display","flex").append(div1).append(div2).append(input1));
+    			}
+    		}
+    	});
+    }
     
     
    	
     //카카오맵이 load 되었을 때
     kakao.maps.load(function(){
-    	$("input#depositRange").val("40000"); 
-        $("input#monthlyChargeRange").val("500");
+    	$("input#depositRange").val("50000"); 
+        $("input#monthlyChargeRange").val("300");
         //테스트중
     	searchProperty();
     	//console.log(propertyArray); //잘돌아감
-    	drawListLoad();
+    	$("div#listContainer").html("");
+    	searchPropertyListLoad();
     })
     
  	// 지도 시점 변화 완료 이벤트를 등록한다
 	kakao.maps.event.addListener(map, 'idle', function(){
 		searchProperty();
     	//console.log(propertyArray); //잘돌아감
+    	$("div#listContainer").html("");
+		searchPropertyListLoad();
 	});
     
     
