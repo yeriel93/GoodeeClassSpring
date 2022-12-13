@@ -13,7 +13,6 @@
 <!-- 주소 좌표값 변환 api -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=622c2a9d3d39799df3c6db829e75db1d&libraries=services"></script>
 
-<!-- BD로 교감신호 발송 -->
 <body>
 <!-- 매물등록메뉴 -->
 <form action="<%=request.getContextPath()%>/property/insertPropertyEnd.bb" method="post" 
@@ -59,8 +58,8 @@
                                     $("input[name=addrX]").val(result[0].x);
                                     $("input[name=addrY]").val(result[0].y);
                     
-					                console.log($("input[name=addrX]").val());
-					                console.log($("input[name=addrY]").val());
+					                //console.log($("input[name=addrX]").val());
+					                //console.log($("input[name=addrY]").val());
 			                    }
 			                };
 			                geocoder.addressSearch(data.jibunAddress, callback); 
@@ -188,15 +187,15 @@
             <script>
                 $("input[name=edSelect]")[0].onclick=()=>{
                 	$("input[name=exdayIn]").attr("disabled",false);
-                    console.log($("input[name=exdayIn]"));
+                    //console.log($("input[name=exdayIn]"));
                 }
                 $("input[name=edSelect]")[1].onclick=()=>{
                 	$("input[type=date]").attr("disabled",true);
-                	console.log($("input[name=exdayIn]"));
+                	//console.log($("input[name=exdayIn]"));
                 }
                 $("input[name=edSelect]")[2].onclick=()=>{
                 	$("input[name=costIn]").attr("disabled",true);
-                	console.log($("input[name=exdayIn]"));
+                	//console.log($("input[name=exdayIn]"));
                 }
             </script>
             <div id="option">
@@ -282,7 +281,7 @@
 	                $("input[name=upFile1]").click();
 	            }
                 $("input[name=upFile1]").change(e=>{
-                    console.dir(e.target);
+                    //console.dir(e.target);
                     const reader = new FileReader();
                     reader.onload = e=>{
                         //console.log(e.target.result); 
@@ -294,7 +293,7 @@
 	                $("input[name=upFile2]").click();
 	            }
                 $("input[name=upFile2]").change(e=>{
-                    console.dir(e.target);
+                    //console.dir(e.target);
                     const reader = new FileReader();
                     reader.onload = e=>{
                         //console.log(e.target.result); 
@@ -306,7 +305,7 @@
 	                $("input[name=upFile3]").click();
 	            }
                 $("input[name=upFile3]").change(e=>{
-                    console.dir(e.target);
+                    //console.dir(e.target);
                     const reader = new FileReader();
                     reader.onload = e=>{
                         //console.log(e.target.result); 
@@ -318,7 +317,7 @@
 	                $("input[name=upFile4]").click();
 	            }
                 $("input[name=upFile4]").change(e=>{
-                    console.dir(e.target);
+                    //console.dir(e.target);
                     const reader = new FileReader();
                     reader.onload = e=>{
                         //console.log(e.target.result); 
@@ -329,7 +328,7 @@
             </script>
 
             <div id="addroom" style="text-align:center">
-                <input type="submit" class="greenbutton" style="width: 300px; height: 30px;" value="등록하기">
+                <input type="submit" class="greenbutton" id="insertbtn" value="등록하기">
             </div>
             <br>
         </div>

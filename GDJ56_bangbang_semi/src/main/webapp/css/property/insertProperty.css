@@ -76,6 +76,12 @@ span{
 .radio{
     accent-color: green; 
 }
+#insertbtn{
+	width: 60%;
+    height: 47px;
+    font-size: 22px;
+    border-radius: 7px;
+}
 
 /* 네비게이션 바 */
 #navi{
