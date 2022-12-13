@@ -1,4 +1,4 @@
-package com.web.account.controller;
+package com.account.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class InquiryServlet
+ * Servlet implementation class UpdateBrokerMainServlet
  */
-@WebServlet("/account/inquiry.bb")
-public class InquiryCServlet extends HttpServlet {
+@WebServlet("/account/updateBrokerMain.bb")
+public class UpdateBrokerMainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InquiryCServlet() {
+    public UpdateBrokerMainServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +26,7 @@ public class InquiryCServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/views/account/inquiry_C.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/account/updateBrokerMain.jsp").forward(request, response);
 	}
 
 	/**

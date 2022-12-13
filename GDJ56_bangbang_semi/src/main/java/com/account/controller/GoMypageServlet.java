@@ -1,4 +1,4 @@
-package com.web.user.controller;
+package com.account.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class SearchPwServlet
+ * Servlet implementation class GoMypageServlet
  */
-@WebServlet("/user/searchPw.bb")
-public class SearchPwServlet extends HttpServlet {
+@WebServlet("/account.bb")
+public class GoMypageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchPwServlet() {
+    public GoMypageServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,7 +27,9 @@ public class SearchPwServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("/views/user/searchPw.jsp").forward(request, response);
+		//level b or c :  분기처리해야됨 
+		request.getRequestDispatcher("/views/common/mypageMain_C.jsp").forward(request, response);
+//		request.getRequestDispatcher("/views/common/mypageMain_B.jsp").forward(request, response);
 		
 	}
 

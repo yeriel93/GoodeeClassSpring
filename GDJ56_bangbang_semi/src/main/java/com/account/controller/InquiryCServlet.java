@@ -1,4 +1,4 @@
-package com.web.user.controller;
+package com.account.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class InquiryServlet
  */
-@WebServlet("/user/login.bb")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/account/inquiry.bb")
+public class InquiryCServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public InquiryCServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,9 +26,7 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/views/user/login.jsp").forward(request, response);
-		
+		request.getRequestDispatcher("/views/account/inquiry_C.jsp").forward(request, response);
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package com.web.account.controller;
+package com.account.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class UpdateUserServlet
+ * Servlet implementation class FakeReportServlet
  */
-@WebServlet("/account/updateUser.bb")
-public class UpdateUserServlet extends HttpServlet {
+@WebServlet("/property/propertyInfo/fakeReport.bb")
+public class FakeReportServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateUserServlet() {
+    public FakeReportServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +26,7 @@ public class UpdateUserServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/views/account/updateUser.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/property/fakeReport.jsp").forward(request, response);
 	}
 
 	/**
