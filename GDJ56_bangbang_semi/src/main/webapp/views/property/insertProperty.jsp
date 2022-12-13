@@ -130,10 +130,10 @@
             <div id="cost" style="display: flex; text-align: center;">
                 <span class="redtext" style="margin-right: 16px;">관리비*</span>
                 &nbsp;
-                <input type="radio" class="radio" name="costSelect" value="있음">있음
-                <input type="number" name="costIn" min="1" placeholder="금액을 입력해주세요" style="margin-left: 5px;" disabled>
+                <input type="radio" class="radio" name="costSelect" value="있음" checked>있음
+                <input type="number" name="costIn" min="1" placeholder="금액을 입력해주세요" style="margin-left: 5px;">
                 <span class="greytext" style="margin-right: 16px;">만원</span>
-                <input type="radio" class="radio" name="costSelect" value="없음" checked>없음
+                <input type="radio" class="radio" name="costSelect" value="없음">없음
             </div>
             <br>
             <script>
@@ -373,10 +373,9 @@
     			return false;
             }
             
-            //로직 잘 돌아가는지 확인필요
             //관리비 입력
             const costIn = $("input[name=costIn]").val().trim();
-            if($("inputp[name=costSelect]").prop("checked")==true){
+            if($("input[name=costSelect]").prop("checked")==true){
 	            if(costIn.length==0) {
 	                alert("관리비를 입력하세요!");
 	    			return false;
