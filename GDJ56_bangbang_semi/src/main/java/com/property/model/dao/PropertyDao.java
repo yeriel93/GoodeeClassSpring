@@ -54,16 +54,38 @@ public class PropertyDao {
 	}
 	
 	
-	//중개사 방내놓기 
+	//중개사 방내놓기 (Property테이블) 
 	public int insertProperty(Connection conn, Property p) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		try {
+			pstmt = conn.prepareStatement(sql.getProperty("insertProperty"));
+//			INSERT INTO PROPERTY VALUES(SEQ_PROPERTY_NO.NEXTVAL, 200000, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DEFAULT, NULL, 'N');
+			pstmt.setString(1, p.getAddress());
+			pstmt.setDouble(2, p.getLongitude());
+			pstmt.setDouble(3, p.getLatitude());
+			pstmt.setString(4, p.getFloor());
+			pstmt.setString(5, p.getRenttype());
+			pstmt.setInt(6, p.getDeposit());
+			pstmt.setInt(7, p.getMonthlyCharge());
+			pstmt.setInt(8, p.getManagementCharge());
+			pstmt.setString(9, String.valueOf(p.getElectric()));
+			pstmt.setString(10, String.valueOf(p.getWater()));
+			pstmt.setString(11, String.valueOf(p.getGas()));
+			pstmt.setString(12, p.getPropertyStructure());
+			pstmt.setDouble(13,	p.getArea());
+			pstmt.setDate(14, p.getVacancyDate()==null ? null : p.getVacancyDate());
+			pstmt.setString(15, p.getVacancy());
+			pstmt.setString(16, String.valueOf(p.getPet()));
+			pstmt.setString(17, String.valueOf(p.getParking()));
+			pstmt.setString(18, p.getDetail());
+			
+			result = pstmt.executeUpdate();
 			
 		} catch (Exception e) {
-			
+			e.printStackTrace();
 		}finally {
-			
+			close(pstmt);
 		}
 		return result;
 	}
