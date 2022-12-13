@@ -75,7 +75,7 @@ public class PropertyDao {
 			pstmt.setString(12, p.getPropertyStructure());
 			pstmt.setDouble(13,	p.getArea());
 			pstmt.setDate(14, p.getVacancyDate()==null ? null : p.getVacancyDate());
-			pstmt.setString(15, p.getVacancy());
+			pstmt.setString(15, p.getVacancy()==null ? null : p.getVacancy());
 			pstmt.setString(16, String.valueOf(p.getPet()));
 			pstmt.setString(17, String.valueOf(p.getParking()));
 			pstmt.setString(18, p.getDetail());
@@ -89,15 +89,6 @@ public class PropertyDao {
 		}
 		return result;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	private Property getRsData(ResultSet rs) {
 		Property p = null;

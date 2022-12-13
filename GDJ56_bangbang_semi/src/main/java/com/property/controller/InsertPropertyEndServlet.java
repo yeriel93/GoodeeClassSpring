@@ -176,8 +176,8 @@ public class InsertPropertyEndServlet extends HttpServlet {
 			//등록 후 
 			String msg ="",loc="";
 			if(result>0) {
-				msg = "방내놓기 성공! 축하드립니다~~>0< 짝짝짝!!";
-				loc="/";
+				msg = "방내놓기 성공! 축하드립니다~ ヽ(✿ﾟ▽ﾟ)ノ 짝짝짝!!";
+				loc = "/";
 			}else {
 				msg = "방내놓기 실패! 다시 시도해주세요~~ o(TヘTo)";
 				loc="/property/insertProperty.jsp";
