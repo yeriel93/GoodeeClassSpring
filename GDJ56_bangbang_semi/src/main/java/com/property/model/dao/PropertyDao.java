@@ -60,7 +60,7 @@ public class PropertyDao {
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("insertProperty"));
-//			INSERT INTO PROPERTY VALUES(SEQ_PROPERTY_NO.NEXTVAL, 200000, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DEFAULT, NULL, 'N');
+//			INSERT INTO PROPERTY VALUES(SEQ_PROPERTY_NO.NEXTVAL, 200000, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DEFAULT, NULL, 'N')
 			pstmt.setString(1, p.getAddress());
 			pstmt.setDouble(2, p.getLongitude());
 			pstmt.setDouble(3, p.getLatitude());
