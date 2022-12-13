@@ -414,6 +414,7 @@
     	//console.log(propertyArray); //잘돌아감
     	$("div#listContainer").html("");
     	searchPropertyListLoad();
+    	console.log(map.getBounds()); // 수정중
     })
     
  	// 지도 시점 변화 완료 이벤트를 등록한다

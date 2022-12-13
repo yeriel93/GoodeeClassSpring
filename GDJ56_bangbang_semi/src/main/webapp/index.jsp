@@ -5,6 +5,7 @@
 <%
 	List<CenterCoordinate> list = (List<CenterCoordinate>)request.getAttribute("centerCoordinate");
 	//BD 브랜치 테스트
+	//YR 브랜치 테스트
 %> 
 
 <!DOCTYPE html>
