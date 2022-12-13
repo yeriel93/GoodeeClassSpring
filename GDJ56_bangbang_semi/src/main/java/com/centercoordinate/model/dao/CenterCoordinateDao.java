@@ -13,6 +13,7 @@ import java.util.Properties;
 import static com.bangbang.common.JDBCTemplate.*;
 
 import com.centercoordinate.model.vo.CenterCoordinate;
+import com.property.model.vo.Property;
 
 public class CenterCoordinateDao {
 	private static CenterCoordinateDao centerCoordinateDao;
@@ -22,7 +23,6 @@ public class CenterCoordinateDao {
 			String path = CenterCoordinateDao.class.getResource("/sql/centercoordinate/centercoordinate_sql.properties").getPath();
 			sql.load(new FileReader(path));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -94,9 +94,6 @@ public class CenterCoordinateDao {
 		
 		return cc;
 	}
-	
-	
-	
 	
 	
 	

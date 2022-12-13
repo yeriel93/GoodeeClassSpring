@@ -54,7 +54,19 @@ public class PropertyDao {
 	}
 	
 	
-	
+	//중개사 방내놓기 
+	public int insertProperty(Connection conn, Property p) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			
+		} catch (Exception e) {
+			
+		}finally {
+			
+		}
+		return result;
+	}
 	
 	
 	
