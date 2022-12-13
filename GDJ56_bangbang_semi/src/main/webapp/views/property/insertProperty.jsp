@@ -89,7 +89,6 @@
                 	}else {
                 		$("input[name=floorIn]").attr("disabled",false);
                 	}
-                    //console.log($("input[name=costIn]"));
                 }
             </script>
 
@@ -202,14 +201,14 @@
             <div id="option">
                 <span style="margin-right: 30px;">옵션</span>
                 &nbsp;
-                <input type="checkbox" class="checkbox" name="cost" value="에어컨">에어컨
-                <input type="checkbox" class="checkbox" name="cost" value="세탁기">세탁기
-                <input type="checkbox" class="checkbox" name="cost" value="냉장고">냉장고
-                <input type="checkbox" class="checkbox" name="cost" value="인덕션">인덕션
-                <input type="checkbox" class="checkbox" name="cost" value="전자렌지">전자렌지
+                <input type="checkbox" class="checkbox" name="option" value="에어컨">에어컨
+                <input type="checkbox" class="checkbox" name="option" value="세탁기">세탁기
+                <input type="checkbox" class="checkbox" name="option" value="냉장고">냉장고
+                <input type="checkbox" class="checkbox" name="option" value="인덕션">인덕션
+                <input type="checkbox" class="checkbox" name="option" value="전자렌지">전자렌지
             </div>
             <hr style="width: 95%;">
-
+	
             <h4>🔳 추가 정보</h4>
             <div id="animal">
                 <span>반려동물가능여부</span>
@@ -228,7 +227,7 @@
             <div id="comment" style="display: flex; align-items: center;">
                 <span>상세 설명</span>
                 &nbsp;
-                <textarea cols="50" rows="5" style="resize: none;" placeholder="3000자 이내로 작성해주세요"></textarea>
+                <textarea cols="50" rows="5" name="detail" style="resize: none;" placeholder="3000자 이내로 작성해주세요"></textarea>
             </div>
             <hr style="width: 95%;">
 
@@ -238,22 +237,22 @@
                     <legend>메인 사진</legend>
                     <img src="<%=request.getContextPath()%>/images/YJ/사진추가하기.png" id="mainPhoto"
                         name="mainPhoto" onclick="fn_upfile();" width="200px" height="200px">
-                    <input type="file" name="upFile" style="display: none;">
+                    <input type="file" name="mainFile" style="display: none;">
                 </fieldset>
                 &nbsp; &nbsp;
             </div>
             <script>
 	            const fn_upfile=()=>{
-	                $("input[name=upFile]").click();
+	                $("input[name=mainFile]").click();
 	            }
 	            
-                $("input[name=upFile]").change(e=>{
+                $("input[name=mainFile]").change(e=>{
                     const reader = new FileReader();
                     reader.onload = e=>{
-                        console.log(e.target.result);
+                        //console.log(e.target.result);
                         $("img[name=mainPhoto]").attr("src",e.target.result);
                     }
-                    console.dir(e.target);
+                    //console.dir(e.target);
                     reader.readAsDataURL(e.target.files[0]);
                 });
             </script>
@@ -372,6 +371,16 @@
             if(yPrice.length==0 && mPrice.length==0 && mPrice2.length==0) {
                 alert("금액을 입력하세요!");
     			return false;
+            }
+            
+            //로직 잘 돌아가는지 확인필요
+            //관리비 입력
+            const costIn = $("input[name=costIn]").val().trim();
+            if($("inputp[name=costSelect]").prop("checked")==true){
+	            if(costIn.length==0) {
+	                alert("관리비를 입력하세요!");
+	    			return false;
+	            }
             }
         }
     </script>
