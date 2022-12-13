@@ -298,29 +298,51 @@
       		$("input#monthlyChargeRange").val(300);
       		$("input#depositRange").change();
       		$("input#monthlyChargeRange").change();
-      		//중심점 변경 추가
-      		//var latlng = map.getCenter();
-      		//map.setCenter(latlng);
+      		searchProperty();
+        	$("div#propertyWrap").html("");
+    	   	$("#listContainer").scrollTop(0);
+    	   	cPage = 1;
+    		searchPropertyListLoad(cPage);
+    		$(".optionMenu").hide();
+            hideFlag = true;
       	});
       	
       	//조건검색 roomStructure 초기화 버튼 눌렀을 때
       	$("button#initializePropertyStructure").click(e=>{
       		$("input.propertyStructure").prop("checked",true);
+      		searchProperty();
+        	$("div#propertyWrap").html("");
+    	   	$("#listContainer").scrollTop(0);
+    	   	cPage = 1;
+    		searchPropertyListLoad(cPage);
+    		$(".optionMenu").hide();
+            hideFlag = true;
       	});
       	
       	//조건검색 applianceOption 초기화 버튼 눌렀을 때
       	$("button#initializeApplianceOption").click(e=>{
       		$("input.applianceAny").prop("checked",true);
       		$("input.applianceOption").prop("checked",false);
+      		searchProperty();
+        	$("div#propertyWrap").html("");
+    	   	$("#listContainer").scrollTop(0);
+    	   	cPage = 1;
+    		searchPropertyListLoad(cPage);
+    		$(".optionMenu").hide();
+            hideFlag = true;
       	});
       	
       	//조건검색 적용 버튼을 눌렀을 때
       	$("button.applyCheck").click(e=>{
-      		//중심점 변경 추가
-      		var latlng = map.getCenter();
-      		map.setCenter(latlng);
-      		
-      	})
+      		searchProperty();
+        	$("div#propertyWrap").html("");
+    	   	$("#listContainer").scrollTop(0);
+    	   	cPage = 1;
+    		searchPropertyListLoad(cPage);
+    		$(".optionMenu").hide();
+            hideFlag = true;
+      	});
+      	
       	
     </script>
     
@@ -527,6 +549,7 @@
     	//console.log(propertyArray); //잘돌아감
     	//$("div#listContainer").html("");
     	$("div#propertyWrap").html("");
+    	$("#listContainer").scrollTop(0);
     	cPage = 1;
     	searchPropertyListLoad(cPage);
     })
@@ -538,8 +561,8 @@
     	//console.log(propertyArray); //잘돌아감
     	//$("div#listContainer").html("");
     	$("div#propertyWrap").html("");
-    	cPage = 1;
 	   	$("#listContainer").scrollTop(0);
+	   	cPage = 1;
 		searchPropertyListLoad(cPage);
 	});
     
