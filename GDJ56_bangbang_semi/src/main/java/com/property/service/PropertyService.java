@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.property.model.dao.FilesDao;
+import com.property.model.dao.OptionDao;
+import com.property.model.dao.OptionDao;
 import com.property.model.dao.PropertyDao;
 import com.property.model.vo.Files;
 import com.property.model.vo.Property;
@@ -40,7 +42,7 @@ public class PropertyService {
 	}
 	
 	//중개사 방내놓기 
-	public int insertProperty(Property p, List<Files> fileList) {
+	public int insertProperty(Property p, List<Files> fileList, String[] option) {
 		Connection conn = getConnection();
 		
 		int propertyResult = PropertyDao.getPropertyDao().insertProperty(conn, p);
@@ -53,7 +55,10 @@ public class PropertyService {
 			for(int i=0;i<fileList.size();i++) {
 				filesResult = FilesDao.getFilesDao().insertFiles(conn,propertyNo,fileList.get(i));
 			}
-//			optionResult = OptionDao.getOptionDao().insertOption(conn,propertyNo);
+			
+			for(String o : option) {
+				optionResult = OptionDao.getOptionDao().insertOption(conn,propertyNo, o);
+			}
 		}
 		int allResult = 0;
 		if(propertyResult>0 && filesResult>0 && optionResult>0) {

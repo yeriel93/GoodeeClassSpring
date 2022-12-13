@@ -186,7 +186,7 @@ public class InsertPropertyEndServlet extends HttpServlet {
 				}
 			}
 			System.out.println(p);
-			int result = PropertyService.getPropertyService().insertProperty(p, fileList);
+			int result = PropertyService.getPropertyService().insertProperty(p, fileList, option);
 			
 			//등록 후 
 			String msg ="",loc="";
