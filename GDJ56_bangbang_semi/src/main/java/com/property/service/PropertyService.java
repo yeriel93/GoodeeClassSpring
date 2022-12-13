@@ -1,14 +1,18 @@
 package com.property.service;
 
 import static com.bangbang.common.JDBCTemplate.close;
-import static com.bangbang.common.JDBCTemplate.getConnection;
 import static com.bangbang.common.JDBCTemplate.commit;
+import static com.bangbang.common.JDBCTemplate.getConnection;
 import static com.bangbang.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
 
+import com.property.model.dao.FilesDao;
+import com.property.model.dao.OptionDao;
+import com.property.model.dao.OptionDao;
 import com.property.model.dao.PropertyDao;
+import com.property.model.vo.Files;
 import com.property.model.vo.Property;
 
 public class PropertyService {
@@ -38,13 +42,32 @@ public class PropertyService {
 	}
 	
 	//중개사 방내놓기 
-	public int insertProperty(Property p) {
+	public int insertProperty(Property p, List<Files> fileList, String[] option) {
 		Connection conn = getConnection();
-		int result = PropertyDao.getPropertyDao().insertProperty(conn, p);
-		if(result>0) commit(conn);
+		
+		int propertyResult = PropertyDao.getPropertyDao().insertProperty(conn, p);
+		int propertyNo = 0;
+		int filesResult = 0;
+		int optionResult = 0;
+		if(propertyResult>0) {
+			propertyNo = PropertyDao.getPropertyDao().searchPropertyNo(conn);
+			
+			for(int i=0;i<fileList.size();i++) {
+				filesResult = FilesDao.getFilesDao().insertFiles(conn,propertyNo,fileList.get(i));
+			}
+			
+			for(String o : option) {
+				optionResult = OptionDao.getOptionDao().insertOption(conn,propertyNo, o);
+			}
+		}
+		int allResult = 0;
+		if(propertyResult>0 && filesResult>0 && optionResult>0) {
+			allResult = 1;
+		}
+		if(allResult>0) commit(conn);
 		else rollback(conn);
 		close(conn);
-		return result;
+		return allResult;
 	}
 
 }
