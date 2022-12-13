@@ -34,9 +34,9 @@
                     </div>
                     <br>
                     <div class="buttonContainer">
-                        <button style="width:100px;">초기화</button>
+                        <button style="width:100px;" id="initializeRenttype">초기화</button>
                         &nbsp;
-                        <button style="width:100px;">적용</button>
+                        <button style="width:100px;" class="applyCheck">적용</button>
                     </div>
                 </div>
             </div>
@@ -53,9 +53,9 @@
                     <div><label for=""><input class="propertyStructure" type="checkbox" value="투룸" checked> 투룸</label></div>
                     <br>
                     <div class="buttonContainer">
-                        <button style="width:100px;">초기화</button>
+                        <button style="width:100px;" id="initializePropertyStructure">초기화</button>
                         &nbsp;
-                        <button style="width:100px;">적용</button>
+                        <button style="width:100px;" class="applyCheck">적용</button>
                     </div>
                 </div>
             </div>
@@ -74,9 +74,9 @@
                     <div><label for=""><input class="applianceOption" type="checkbox" value="5"> 전자레인지 포함</label></div>
                     <br>
                     <div class="buttonContainer">
-                        <button style="width:100px;">초기화</button>
+                        <button style="width:100px;" id="initializeApplianceOption">초기화</button>
                         &nbsp;
-                        <button style="width:100px;">적용</button>
+                        <button style="width:100px;" class="applyCheck">적용</button>
                     </div>
                 </div>
             </div>
@@ -266,7 +266,7 @@
         		$("input.applianceOption").eq(4).prop("checked")==false ){
         			$("input.applianceAny").prop("checked",true);
         		}
-        })
+        });
         
         
         //조건검색 div deposit,monthlyCharge range를 변경했을때 -> 위 text 변경
@@ -289,8 +289,38 @@
         });
      	$("input#monthlyChargeRange").change(e=>{
     	  	$("p#monthlyChargeText").text(changePrice(Number($("input#monthlyChargeRange").val())));
-      	})
+      	});
       
+      	//조건검색 renttype 초기화 버튼 눌렀을 때
+      	$("button#initializeRenttype").click(e=>{
+      		$("input.renttype").prop("checked",true);
+      		$("input#depositRange").val(50000);      		
+      		$("input#monthlyChargeRange").val(300);
+      		$("input#depositRange").change();
+      		$("input#monthlyChargeRange").change();
+      		//중심점 변경 추가
+      		//var latlng = map.getCenter();
+      		//map.setCenter(latlng);
+      	});
+      	
+      	//조건검색 roomStructure 초기화 버튼 눌렀을 때
+      	$("button#initializePropertyStructure").click(e=>{
+      		$("input.propertyStructure").prop("checked",true);
+      	});
+      	
+      	//조건검색 applianceOption 초기화 버튼 눌렀을 때
+      	$("button#initializeApplianceOption").click(e=>{
+      		$("input.applianceAny").prop("checked",true);
+      		$("input.applianceOption").prop("checked",false);
+      	});
+      	
+      	//조건검색 적용 버튼을 눌렀을 때
+      	$("button.applyCheck").click(e=>{
+      		//중심점 변경 추가
+      		var latlng = map.getCenter();
+      		map.setCenter(latlng);
+      		
+      	})
       	
     </script>
     
@@ -301,7 +331,7 @@
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
         mapOption = { 
             center: new kakao.maps.LatLng(<%=cc.getLatitude()%>, <%=cc.getLongitude()%>), // 지도의 중심좌표
-            level: 4 // 지도의 확대 레벨
+            level: 3 // 지도의 확대 레벨
         };
     // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
     var map = new kakao.maps.Map(mapContainer, mapOption);
@@ -369,7 +399,7 @@
     }
     
     let cPage = 1;
-    const searchPropertyListLoad = (cPage) => {
+    const searchPropertyListLoad = () => {
     	$.ajax({
     		url:"<%=request.getContextPath()%>/map/searchMapPropertyList.do",
     		type:"get",
