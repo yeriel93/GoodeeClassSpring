@@ -100,7 +100,9 @@
         <div id="map"></div>
 
         <!-- 매물 목록을 표시할 div -->
-        <div id="listContainer"></div>
+        <div id="listContainer">
+        	<div id=propertyWrap></div>
+        </div>
         
         
         <!-- 복사용 div -->
@@ -310,7 +312,7 @@
     //ajax 방식으로 좌표 내에 있는 매물 받아오는 함수
     const searchProperty = () => {
     	$.ajax({
-    		url:"<%=request.getContextPath()%>/map/searchProperty.do",
+    		url:"<%=request.getContextPath()%>/map/searchMapProperty.do",
     		type:"get",
     		traditional:true, // 배열 넘기기
     		data:{
@@ -331,7 +333,7 @@
     								$("input.applianceOption").eq(4).prop("checked")]
     		},
     		//ajax 를 비동기식 -> 동기식으로 변경
-    		//async:false, -> 성능이 너무 떨어져서 매물리스트는 비동식으로 페이징처리 하자.
+    		//async:false, // -> 성능이 너무 떨어져서 매물리스트는 비동식으로 페이징처리 하자.
     		success:data=>{
     			//추가된 모든 마커를 삭제한다.
     			clusterer.clear();
@@ -356,9 +358,9 @@
     }
     
     let cPage = 1;
-    const searchPropertyListLoad = () => {
+    const searchPropertyListLoad = (cPage) => {
     	$.ajax({
-    		url:"<%=request.getContextPath()%>/map/searchProperty.do",
+    		url:"<%=request.getContextPath()%>/map/searchMapPropertyList.do",
     		type:"get",
     		traditional:true, // 배열 넘기기
     		data:{
@@ -378,8 +380,12 @@
     								$("input.applianceOption").eq(3).prop("checked"),
     								$("input.applianceOption").eq(4).prop("checked")]
     		},
+    		//ajax 를 비동기식 -> 동기식으로 변경
+    		async:false, //-> 성능이 너무 떨어져서 매물리스트는 비동식으로 페이징처리 하자.
     		success:data=>{
-    			for(let i = 0; i < data.length ; i++){
+    			let num = 10;
+    			if(data != null && data.length < 10) num = data.length;
+    			for(let i = 0; i < num; i++){
     				const div1 = $("<div>").attr("class","propertyImgContainer").append($("<img>").attr("src",'<%=request.getContextPath()%>/upload/property/'+data[i].thumbnail));
     				const div2 = $("<div>").attr("class","propertyDetailContainer");
     				const innerDiv1 = $("<div>").append($("<h3>").text(data[i].propertyStructure));
@@ -396,15 +402,84 @@
     				let tempAddress = data[i].address.substring(0, data[i].address.lastIndexOf('동 ')+1);
     				div2.append($("<div>").text(tempAddress));
     				
+    				//스크롤 기능 테스트 추가
+    				//페이지 스크롤 기능 테스트로 추가
+    				
     				const input1 = $("<input>").attr("type","hidden").attr("id","propertyNo").val(data[i].propertyNo);
-    				$("div#listContainer").append($("<div>").attr("class","propertyContainer").attr("display","flex").append(div1).append(div2).append(input1));
+    				//$("div#listContainer").append($("<div>").attr("class","propertyContainer").attr("display","flex").append(input1).append(div1).append(div2));
+    				$("div#propertyWrap").append($("<div>").attr("class","propertyContainer").attr("display","flex").append(input1).append(div1).append(div2));
+									
     			}
     		}
     	});
     }
     
-    
+
+    //매물 리스트를 스크롤 했을 때
+    $('#listContainer').scroll(function () {
+    	   let dh = $('#propertyWrap').height();
+    	   let wt = $('#listContainer').scrollTop();
+    	   let wh = $('#listContainer').height();
+    	   //스크롤이 끝에 닿았을 때
+    	   if (dh == (wt+wh)) {
+    	    	$.ajax({
+    	    		url:"<%=request.getContextPath()%>/map/searchMapPropertyList.do",
+    	    		type:"get",
+    	    		traditional:true, // 배열 넘기기
+    	    		data:{
+    	    			cPage:++cPage,
+    	    			longitudes:[map.getBounds().ha, map.getBounds().oa],
+    	    			latitudes:[map.getBounds().qa, map.getBounds().pa],
+    	    			renttypes:[$("input.renttype").first().prop("checked"), $("input.renttype").last().prop("checked")],
+    	    			deposit:$("input#depositRange").val(),
+    	    			monthlyCharge:$("input#monthlyChargeRange").val(),
+    	    			propertyStructures:[$("input.propertyStructure").eq(0).prop("checked"),
+    	    								$("input.propertyStructure").eq(1).prop("checked"),
+    	    								$("input.propertyStructure").eq(2).prop("checked"),
+    	    								$("input.propertyStructure").eq(3).prop("checked")],
+    	    			applianceAny:$("input.applianceAny").prop("checked"),
+    	    			applianceOptions:[$("input.applianceOption").eq(0).prop("checked"),
+    	    								$("input.applianceOption").eq(1).prop("checked"),
+    	    								$("input.applianceOption").eq(2).prop("checked"),
+    	    								$("input.applianceOption").eq(3).prop("checked"),
+    	    								$("input.applianceOption").eq(4).prop("checked")]
+    	    		},
+    	    		success:data=>{
+    	    			let num = 10;
+    	    			if(data != null && data.length < 10) num = data.length;
+    	    			for(let i = 0; i < num; i++){
+    	    				const div1 = $("<div>").attr("class","propertyImgContainer").append($("<img>").attr("src",'<%=request.getContextPath()%>/upload/property/'+data[i].thumbnail));
+    	    				const div2 = $("<div>").attr("class","propertyDetailContainer");
+    	    				const innerDiv1 = $("<div>").append($("<h3>").text(data[i].propertyStructure));
+    	    				let tempTxt = data[i].renttype + " " + changePrice(data[i].deposit).replace(/ /g, '').substring(0,changePrice(data[i].deposit).length-2);
+    	    				if(data[i].monthlyCharge > 0) tempTxt += "/"+data[i].monthlyCharge+"만";
+    	    				div2.append(innerDiv1).append($("<div>").text(tempTxt));
+    	    				let tempManage = "관리비 ";
+    	    				if(data[i].managementCharge > 0){
+    	    					tempManage += data[i].managementCharge + "만";
+    	    				} else {
+    	    					tempManage += "없음";
+    	    				}
+    	    				div2.append($("<div>").text(tempManage));
+    	    				let tempAddress = data[i].address.substring(0, data[i].address.lastIndexOf('동 ')+1);
+    	    				div2.append($("<div>").text(tempAddress));
+    	    				
+    	    				//스크롤 기능 테스트 추가
+    	    				//페이지 스크롤 기능 테스트로 추가
+    	    				
+    	    				const input1 = $("<input>").attr("type","hidden").attr("id","propertyNo").val(data[i].propertyNo);
+    	    				//$("div#listContainer").append($("<div>").attr("class","propertyContainer").attr("display","flex").append(input1).append(div1).append(div2));
+    	    				$("div#propertyWrap").append($("<div>").attr("class","propertyContainer").attr("display","flex").append(input1).append(div1).append(div2));
+    	    			}
+    	    		}
+    	    		
+    	    	})
+    	   }		
+	});
    	
+    
+    
+    
     //카카오맵이 load 되었을 때
     kakao.maps.load(function(){
     	$("input#depositRange").val("50000"); 
@@ -412,17 +487,22 @@
         //테스트중
     	searchProperty();
     	//console.log(propertyArray); //잘돌아감
-    	$("div#listContainer").html("");
-    	searchPropertyListLoad();
-    	console.log(map.getBounds()); // 수정중
+    	//$("div#listContainer").html("");
+    	$("div#propertyWrap").html("");
+    	cPage = 1;
+    	searchPropertyListLoad(cPage);
     })
+    
     
  	// 지도 시점 변화 완료 이벤트를 등록한다
 	kakao.maps.event.addListener(map, 'idle', function(){
 		searchProperty();
     	//console.log(propertyArray); //잘돌아감
-    	$("div#listContainer").html("");
-		searchPropertyListLoad();
+    	//$("div#listContainer").html("");
+    	$("div#propertyWrap").html("");
+    	cPage = 1;
+	   	$("#listContainer").scrollTop(0);
+		searchPropertyListLoad(cPage);
 	});
     
     

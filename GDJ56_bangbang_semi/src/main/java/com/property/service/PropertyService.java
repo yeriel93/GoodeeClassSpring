@@ -20,9 +20,17 @@ public class PropertyService {
 	
 	
 	//서비스 작성
-	public List<Property> searchProperty(String propertyQuery){
+	public List<Property> searchMapProperty(String propertyQuery){
 		Connection conn = getConnection();
-		List<Property> list = PropertyDao.getPropertyDao().searchProperty(conn, propertyQuery);
+		List<Property> list = PropertyDao.getPropertyDao().searchMapProperty(conn, propertyQuery);
+		close(conn);
+		
+		return list;
+	}
+	
+	public List<Property> searchMapPropertyList(String propertyQuery){
+		Connection conn = getConnection();
+		List<Property> list = PropertyDao.getPropertyDao().searchMapPropertyList(conn, propertyQuery);
 		close(conn);
 		
 		return list;
