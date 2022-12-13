@@ -1,0 +1,48 @@
+/* 상단바 아래 컨텐츠 */
+#divOuter{
+    /* border: 1px solid red; */
+    align-content: center;
+    display: flex;    
+    margin-top: 30px;
+
+}
+#enrollbroker-Container{
+    /* border: 1px solid #075A2A; */
+    width: fit-content;
+    height: fit-content;
+    margin-left: 40%;
+}
+#enrollbroker-Container>div>hr{
+    width:310px;
+    margin-left: 0px;
+}
+#enrollbroker-Container>div>h1{
+    margin-bottom: 10px;
+    padding-top: 30px;
+}
+#enrollbroker-Container>div>input{
+    width:300px;
+    height:30px;
+
+}
+
+#enrollBrokerBtn{
+    width:310px;
+    height:40px;
+    /* margin-left: 40px; */
+    margin-top: 30px;
+    margin-bottom: 10px;
+    background-color: #075A2A;
+    color: white;
+    border-color: #075a2a8c;
+    border-radius: 5px;
+}
+
+p#info{
+    width:310px;
+    height:40px;
+}
+
+#brokerInfo-Container{
+    margin-top: 200px;
+}
