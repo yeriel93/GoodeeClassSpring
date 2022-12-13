@@ -34,9 +34,9 @@
                     </div>
                     <br>
                     <div class="buttonContainer">
-                        <button style="width:100px;">초기화</button>
+                        <button style="width:100px;" id="initializeRenttype">초기화</button>
                         &nbsp;
-                        <button style="width:100px;">적용</button>
+                        <button style="width:100px;" class="applyCheck">적용</button>
                     </div>
                 </div>
             </div>
@@ -53,9 +53,9 @@
                     <div><label for=""><input class="propertyStructure" type="checkbox" value="투룸" checked> 투룸</label></div>
                     <br>
                     <div class="buttonContainer">
-                        <button style="width:100px;">초기화</button>
+                        <button style="width:100px;" id="initializePropertyStructure">초기화</button>
                         &nbsp;
-                        <button style="width:100px;">적용</button>
+                        <button style="width:100px;" class="applyCheck">적용</button>
                     </div>
                 </div>
             </div>
@@ -74,9 +74,9 @@
                     <div><label for=""><input class="applianceOption" type="checkbox" value="5"> 전자레인지 포함</label></div>
                     <br>
                     <div class="buttonContainer">
-                        <button style="width:100px;">초기화</button>
+                        <button style="width:100px;" id="initializeApplianceOption">초기화</button>
                         &nbsp;
-                        <button style="width:100px;">적용</button>
+                        <button style="width:100px;" class="applyCheck">적용</button>
                     </div>
                 </div>
             </div>
@@ -185,7 +185,7 @@
     		})
     	}
         //구를 변경하면 해당하는 구의 동을 출력해주는 함수
-        const getGu = () =>{
+        const getGu = () => {
     		let gu = $("[name=gu]").first().val();
     		<%-- location.replace('<%=request.getContextPath()%>/changedong.do?gu='+gu); --%>
     		
@@ -203,6 +203,21 @@
     			}
     		})
     	}
+        
+        //동 변경시 중심좌표 이동
+        $("select[name=dong]").change(e=>{
+        	let gu = $("select[name=gu]").first().val();
+        	let dong = $("select[name=dong]").first().val();
+        	$.ajax({
+    			url:"<%=request.getContextPath()%>/searchAddressAjax.do",
+    			type:"get",
+    			data:{gu:gu,dong:dong},
+    			success:data=>{
+    			    var moveLatLon = new kakao.maps.LatLng(data.latitude, data.longitude);
+    			    map.setCenter(moveLatLon);
+    			}
+    		})
+        })
 		
         //조건검색 div 전세, 월세 최소 한개 선택
         $("input.renttype").change(e=>{
@@ -251,7 +266,7 @@
         		$("input.applianceOption").eq(4).prop("checked")==false ){
         			$("input.applianceAny").prop("checked",true);
         		}
-        })
+        });
         
         
         //조건검색 div deposit,monthlyCharge range를 변경했을때 -> 위 text 변경
@@ -274,8 +289,38 @@
         });
      	$("input#monthlyChargeRange").change(e=>{
     	  	$("p#monthlyChargeText").text(changePrice(Number($("input#monthlyChargeRange").val())));
-      	})
+      	});
       
+      	//조건검색 renttype 초기화 버튼 눌렀을 때
+      	$("button#initializeRenttype").click(e=>{
+      		$("input.renttype").prop("checked",true);
+      		$("input#depositRange").val(50000);      		
+      		$("input#monthlyChargeRange").val(300);
+      		$("input#depositRange").change();
+      		$("input#monthlyChargeRange").change();
+      		//중심점 변경 추가
+      		//var latlng = map.getCenter();
+      		//map.setCenter(latlng);
+      	});
+      	
+      	//조건검색 roomStructure 초기화 버튼 눌렀을 때
+      	$("button#initializePropertyStructure").click(e=>{
+      		$("input.propertyStructure").prop("checked",true);
+      	});
+      	
+      	//조건검색 applianceOption 초기화 버튼 눌렀을 때
+      	$("button#initializeApplianceOption").click(e=>{
+      		$("input.applianceAny").prop("checked",true);
+      		$("input.applianceOption").prop("checked",false);
+      	});
+      	
+      	//조건검색 적용 버튼을 눌렀을 때
+      	$("button.applyCheck").click(e=>{
+      		//중심점 변경 추가
+      		var latlng = map.getCenter();
+      		map.setCenter(latlng);
+      		
+      	})
       	
     </script>
     
@@ -286,7 +331,7 @@
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
         mapOption = { 
             center: new kakao.maps.LatLng(<%=cc.getLatitude()%>, <%=cc.getLongitude()%>), // 지도의 중심좌표
-            level: 4 // 지도의 확대 레벨
+            level: 3 // 지도의 확대 레벨
         };
     // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
     var map = new kakao.maps.Map(mapContainer, mapOption);
@@ -337,33 +382,30 @@
     		success:data=>{
     			//추가된 모든 마커를 삭제한다.
     			clusterer.clear();
-    			//console.log("테스트!!");
     			data.forEach(v=>{
-    				//console.log(v);
     				//마커 찍기
     				let marker = new kakao.maps.Marker({
     					position:new kakao.maps.LatLng(v.latitude, v.longitude),
     					image:markerImage			
     				})
+    				//만든 마커를 마커배열에 담는다.
     				markerArray.push(marker);			
     			})
     			clusterer.addMarkers(markerArray);
+    			//마커는 계속 초기화 되어야 하므로 마커배열을 초기화해준다.
     			markerArray = [];
-	    		//리스트 그리기
-	    		propertyArray = null;
-	    		propertyArray = data;
       		}
-    		
     	});
     }
     
     let cPage = 1;
-    const searchPropertyListLoad = (cPage) => {
+    const searchPropertyListLoad = () => {
     	$.ajax({
     		url:"<%=request.getContextPath()%>/map/searchMapPropertyList.do",
     		type:"get",
     		traditional:true, // 배열 넘기기
     		data:{
+    			cPage:cPage,
     			longitudes:[map.getBounds().ha, map.getBounds().oa],
     			latitudes:[map.getBounds().qa, map.getBounds().pa],
     			renttypes:[$("input.renttype").first().prop("checked"), $("input.renttype").last().prop("checked")],
@@ -381,7 +423,7 @@
     								$("input.applianceOption").eq(4).prop("checked")]
     		},
     		//ajax 를 비동기식 -> 동기식으로 변경
-    		async:false, //-> 성능이 너무 떨어져서 매물리스트는 비동식으로 페이징처리 하자.
+    		//async:false, //-> 성능이 너무 떨어져서 매물리스트는 비동식으로 페이징처리 하자.
     		success:data=>{
     			let num = 10;
     			if(data != null && data.length < 10) num = data.length;
@@ -402,13 +444,9 @@
     				let tempAddress = data[i].address.substring(0, data[i].address.lastIndexOf('동 ')+1);
     				div2.append($("<div>").text(tempAddress));
     				
-    				//스크롤 기능 테스트 추가
-    				//페이지 스크롤 기능 테스트로 추가
-    				
     				const input1 = $("<input>").attr("type","hidden").attr("id","propertyNo").val(data[i].propertyNo);
     				//$("div#listContainer").append($("<div>").attr("class","propertyContainer").attr("display","flex").append(input1).append(div1).append(div2));
-    				$("div#propertyWrap").append($("<div>").attr("class","propertyContainer").attr("display","flex").append(input1).append(div1).append(div2));
-									
+    				$("div#propertyWrap").append($("<div>").attr("class","propertyContainer").attr("display","flex").append(input1).append(div1).append(div2));									
     			}
     		}
     	});
