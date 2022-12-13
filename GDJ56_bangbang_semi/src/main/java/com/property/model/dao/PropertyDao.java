@@ -89,6 +89,25 @@ public class PropertyDao {
 		}
 		return result;
 	}
+	
+	public int searchPropertyNo(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int proNo = 0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("searchPropertyNo"));
+//			SELECT SEQ_PROPERTY_NO.CURRVAL FROM DUAL
+			rs = pstmt.executeQuery();
+			if(rs.next()) proNo = rs.getInt(1);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return proNo;
+	}
 
 	public List<Property> searchMapPropertyList(Connection conn, String propertyQuery){
 		PreparedStatement pstmt = null;
@@ -149,9 +168,5 @@ public class PropertyDao {
 	
 		return p;
 	}
-	
-	
-	
-	
 	
 }

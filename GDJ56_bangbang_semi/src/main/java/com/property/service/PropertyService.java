@@ -9,8 +9,8 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.property.model.dao.FilesDao;
-import com.property.model.dao.OptionDao;
 import com.property.model.dao.PropertyDao;
+import com.property.model.vo.Files;
 import com.property.model.vo.Property;
 
 public class PropertyService {
@@ -40,15 +40,24 @@ public class PropertyService {
 	}
 	
 	//중개사 방내놓기 
-	public int insertProperty(Property p) {
+	public int insertProperty(Property p, List<Files> fileList) {
 		Connection conn = getConnection();
-		int propertyResult = PropertyDao.getPropertyDao().insertProperty(conn, p);
-		int filesResult = FilesDao.getFilesDao().insertFiles(conn);
-		int optionResult = OptionDao.getOptionDao().insertOption(conn);
 		
+		int propertyResult = PropertyDao.getPropertyDao().insertProperty(conn, p);
+		int propertyNo = 0;
+		int filesResult = 0;
+		int optionResult = 0;
+		if(propertyResult>0) {
+			propertyNo = PropertyDao.getPropertyDao().searchPropertyNo(conn);
+			
+			for(int i=0;i<fileList.size();i++) {
+				filesResult = FilesDao.getFilesDao().insertFiles(conn,propertyNo,fileList.get(i));
+			}
+//			optionResult = OptionDao.getOptionDao().insertOption(conn,propertyNo);
+		}
 		int allResult = 0;
 		if(propertyResult>0 && filesResult>0 && optionResult>0) {
-			allResult =1;
+			allResult = 1;
 		}
 		if(allResult>0) commit(conn);
 		else rollback(conn);
