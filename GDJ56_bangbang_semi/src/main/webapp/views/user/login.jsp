@@ -8,17 +8,19 @@
 <body>
     <div id="divOuter">
         <div id="loginContainer">
-            <h1>로그인</h1>
-            <hr>
-            <h3>아이디</h3>
-            <input type="text" id="userId" placeholder="아이디를 입력해주세요">
-            <h3>비밀번호</h3>
-            <input type="password" id="userPw" placeholder="비밀번호를 입력해주세요">
-            <br>
-            <button id="loginBtn2">로그인</button>
-            <!-- <input type="radio" id="loginOpt"> 로그인 상태 유지 -->
-            <br>
-            <a href="javascript:kakaoLogin();"><img src="../images/kakao_login_medium_wide.png" alt="" ></a>        
+        	<form id="loginForm" action="<%=request.getContextPath() %>/user/loginEnd.bb">
+	            <h1>로그인</h1>
+	            <hr>
+	            <h3>아이디</h3>
+	            <input type="text" name="userId" id="userId" placeholder="아이디를 입력해주세요">
+	            <h3>비밀번호</h3>
+	            <input type="password" name="userPw" id="userPw" placeholder="비밀번호를 입력해주세요">
+	            <br>
+	            <button id="loginBtn2">로그인</button>
+	            <!-- <input type="radio" id="rememberId"> 아이디 기억하기 -->
+	            <br>
+	            <a href="javascript:kakaoLogin();"><img src="../images/kakao_login_medium_wide.png" alt="" ></a>        
+	        </form>    
         </div>      
         
         <div id="etcContainer">

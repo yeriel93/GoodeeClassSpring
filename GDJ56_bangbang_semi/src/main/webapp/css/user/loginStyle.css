@@ -12,19 +12,19 @@
     margin-left: 40%;
     /* background-color: rgba(255, 255, 255, 0.792); */
 }
-#loginContainer>hr{
+#loginContainer>#loginForm>hr{
     width:260px;
     margin-left: 0px;
 }
-#loginContainer>h1{
+#loginContainer>#loginForm>h1{
     padding-top: 30px;
     margin-bottom: 10px;
 }
-#loginContainer>input{
+#loginContainer>#loginForm>input{
     width:250px;
     height:30px;
 }
-#loginContainer>a>img{
+#loginContainer>#loginForm>a>img{
     width:260px;
     margin-top: 0px;
 }
@@ -62,7 +62,7 @@
 }
 
 
-#loginContainer input{
+#loginContainer>#loginForm>input{
   width: 250px;
   height: 32px;
   font-size: 15px;
