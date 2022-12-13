@@ -31,11 +31,11 @@ public class PropertyDao {
 		return propertyDao;
 	}
 	
-	public List<Property> searchProperty(Connection conn, String propertyQuery){
+	public List<Property> searchMapProperty(Connection conn, String propertyQuery){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Property> list = null;
-		String query = sql.getProperty("searchProperty") + propertyQuery;
+		String query = sql.getProperty("searchMapPropertyAll") + propertyQuery;
 		try {
 			pstmt = conn.prepareStatement(query);
 			rs = pstmt.executeQuery();
@@ -89,6 +89,30 @@ public class PropertyDao {
 		}
 		return result;
 	}
+
+	public List<Property> searchMapPropertyList(Connection conn, String propertyQuery){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Property> list = null;
+		String query = sql.getProperty("searchMapPropertyList") + propertyQuery;
+		try {
+			pstmt = conn.prepareStatement(query);
+			rs = pstmt.executeQuery();
+			list = new ArrayList();
+			while(rs.next()) {
+				Property p = getRsData(rs);
+				list.add(p);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	
 	
 	private Property getRsData(ResultSet rs) {
 		Property p = null;

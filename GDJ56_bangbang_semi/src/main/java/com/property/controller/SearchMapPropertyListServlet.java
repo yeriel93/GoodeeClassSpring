@@ -1,7 +1,6 @@
 package com.property.controller;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -15,16 +14,16 @@ import com.property.model.vo.Property;
 import com.property.service.PropertyService;
 
 /**
- * Servlet implementation class SearchPropertyServlet
+ * Servlet implementation class SearchMapPropertyList
  */
-@WebServlet("/map/searchProperty.do")
-public class SearchPropertyServlet extends HttpServlet {
+@WebServlet("/map/searchMapPropertyList.do")
+public class SearchMapPropertyListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchPropertyServlet() {
+    public SearchMapPropertyListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,6 +33,12 @@ public class SearchPropertyServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		int cPage;
+		try {
+			cPage = Integer.parseInt(request.getParameter("cPage"));
+		} catch (NumberFormatException e) {
+			cPage = 1;
+		}
 		String[] longitudes = request.getParameterValues("longitudes");
 		String[] latitudes = request.getParameterValues("latitudes");
 		String[] renttypes = request.getParameterValues("renttypes");
@@ -43,17 +48,7 @@ public class SearchPropertyServlet extends HttpServlet {
 		String applianceAny = request.getParameter("applianceAny");
 		String[] applianceOption = request.getParameterValues("applianceOptions");
 		
-//		System.out.println(Arrays.toString(longitudes));
-//		System.out.println(Arrays.toString(latitudes));
-//		System.out.println(Arrays.toString(renttypes));
-//		System.out.println(deposit);
-//		System.out.println(monthlyCharge);
-//		System.out.println(Arrays.toString(propertyStructures));
-//		System.out.println(applianceAny);
-//		System.out.println(Arrays.toString(applianceOption));
-		
-		String propertyQuery = " WHERE ";
-		propertyQuery += " THUMBNAIL = 'Y' AND ";
+		String propertyQuery = " WHERE THUMBNAIL = 'Y' AND ";
 		//위도 경도 parsing
 		propertyQuery += " LONGITUDE BETWEEN " + longitudes[0] + " AND " + longitudes[1];
 		propertyQuery += " AND LATITUDE BETWEEN " + latitudes[0] + " AND " + latitudes[1];
@@ -82,22 +77,26 @@ public class SearchPropertyServlet extends HttpServlet {
 		if(applianceAny.equals("false")) {
 			for(int i=0; i < applianceOption.length; i++) {
 				if(applianceOption[i].equals("true")) {
-					propertyQuery += " AND APPLIANCE_NO LIKE '%"+(i+1)+"%'";
+					propertyQuery += " AND APPLIANCE_NO LIKE '%"+(i+1)+"%' ";
 				}
 			}
 		}
+		//1을 cPage로
+		propertyQuery += " ORDER BY ENROLL_DATE DESC) TT) WHERE RNUM BETWEEN "+ (cPage-1)+1 + " AND " + cPage*10 + ""; 
 		//System.out.println("쿼리문 " + propertyQuery);	
-		List<Property> list = PropertyService.getPropertyService().searchProperty(propertyQuery);
-		/*
-		 * System.out.println("구분자 ㅋㅋ"); if(list!=null) {
-		 * list.forEach(v->System.out.println(v)); } else { System.out.println("졷망"); }
-		 */
+		List<Property> list = PropertyService.getPropertyService().searchMapPropertyList(propertyQuery);
+		
+		
+//		System.out.println(cPage);
+//		if(list!=null) {
+//			list.forEach(v->System.out.println(v));
+//		} else {
+//			System.out.println("존망");
+//		}
 		
 		response.setContentType("application/json;charset=utf-8");
 		Gson g = new Gson();
 		g.toJson(list, response.getWriter());
-		
-		
 	}
 
 	/**

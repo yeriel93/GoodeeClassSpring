@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@ page import ="com.user.model.vo.User" %>
+<%
+	User loginUser = (User)session.getAttribute("loginUser");
+%>    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +41,13 @@
         <div class="menu">
             <p><a href="<%=request.getContextPath()%>/user/enrollBroker.bb">중개사 등록</a></p>
         </div>
-        <div class="buttonContainer" id="loginBtn">
-            <button><p><a href="<%=request.getContextPath()%>/user/login.bb" style="color:white">로그인 | 회원가입</a></p></button>
-        </div>
+        <%if(loginUser == null){ %>
+	        <div class="buttonContainer" id="loginBtn">
+	            <button><p><a href="<%=request.getContextPath()%>/user/login.bb" style="color:white">로그인 | 회원가입</a></p></button>
+	        </div>
+        <%} else { %>
+        	<div class="buttonContainer" id="logoutBtn">
+            	<button><p><a href="<%=request.getContextPath()%>/user/logout.bb" style="color:white">로그아웃</a></p></button>
+        	</div>
+        <%} %>
     </header>
