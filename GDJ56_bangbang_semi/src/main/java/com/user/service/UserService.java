@@ -15,10 +15,23 @@ public class UserService {
 		return userService;
 	}
 	
-	public User searchUser(String userId,String userPw) {
+	//로그인
+	public User loginUser(String userId,String userPw) {
 		Connection conn=getConnection();
-		User user=UserDao.getUserDao().searchUser(conn,userId,userPw);
+		User user=UserDao.getUserDao().loginUser(conn,userId,userPw);
 		close(conn);
 		return user;
 	}
+	
+	//회원가입
+	public int insertUser(User u) {
+		Connection conn=getConnection();
+		int result=UserDao.getUserDao().insertUser(conn, u);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
+	
+	
 }

@@ -2,37 +2,71 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp"%>
 <link href="<%=request.getContextPath() %>/css/user/enrollStyle.css" type="text/css" rel="stylesheet">
+<style>
+.enroll_input{
+  width: 290px;
+  height: 32px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(255, 255, 255);
+
+}
+
+.btns{
+    background-color: #075A2A;
+    color:white;
+    width:100px;
+    height:30px;
+    border-radius: 3px;
+    border:none;
+
+}
+#signupBtn{border:none;}
+</style>
 
 <section class="enroll-container">
 	    <div id="divOuter">
 	        <div id="signupContainer">
-		        <form id="" action="">		       
+		        <form id="enrollForm" action="<%=request.getContextPath()%>/user/enrollEnd.bb">		       
 		            <h1>회원가입</h1>
 		            <hr>
+		            <h4>* 모두 필수 입력항목입니다.
 		            <h3>아이디</h3>
-		            <input type="text" name="userId" id="userId" placeholder=" (필수) 아이디를 입력해주세요." required>
+		            <input type="text" class="enroll_input" name="userId" id="userId" placeholder="아이디를 입력해주세요." required>
 		            <input type="hidden" name="userId_chk" id="userId" readonly required>		            
 		            <button class="btns">중복확인</button>
+		            
 		            <h3>비밀번호</h3>
-		            <input type="password" name="userPw" id="userPw" placeholder=" (필수) 비밀번호를 입력해주세요." required>
+		            <input type="password" class="enroll_input" name="userPw" id="userPw" placeholder="비밀번호를 입력해주세요." required>
 		            <h3>비밀번호 확인</h3>
 					<div id="pwCheck"><div>
-		            <input type="password" name="userPw_chk" id="userPw" placeholder=" (필수) 비밀번호를 한번 더 입력해주세요." required>
+		            <input type="password" class="enroll_input" name="userPw_chk" id="userPw_chk" placeholder="비밀번호를 한번 더 입력해주세요." required>
+		            
 		            <h3>이름</h3>
-		            <input type="text" name="userName" id="userName" placeholder=" (필수) 이름을 입력해주세요." required>
+		            <input type="text" class="enroll_input" name="userName" id="userName" placeholder="이름을 입력해주세요." required>
+		            
 		            <h3>이메일</h3>
-		            <input type="text" name="userEmail" id="userEmail" placeholder=" (필수) 이메일 주소를 입력해주세요." required>
+		            <input type="text" class="enroll_input" name="userEmail" id="userEmail" placeholder="이메일 주소를 입력해주세요." required>
 		            <input type="button" class="btns" onclick="" value="이메일 인증">
+		            
 		            <h3>이메일 인증</h3>
-		            <input type="text" name="userEmail_Cert" id="userEmailCert" placeholder=" (필수) 인증코드를 입력해주세요." required>
+		            <input type="text" class="enroll_input" name="userEmail_Cert" id="userEmailCert" placeholder="인증코드를 입력해주세요." required>
 		            <input type="hidden" name="userEmail_chk" id="userId" readonly required>
 		            
 					<input type="button" class="btns" onclick="" value="인증번호 확인">
+		            
 		            <h3>휴대폰 번호</h3>
-		            <input type="text" name="userPhone" id="userPhone" placeholder=" (필수) 휴대폰 번호를 입력해주세요. (-포함)" required>
+		            <input type="text" class="enroll_input" name="userPhone" id="userPhone" placeholder="휴대폰 번호를 입력해주세요. (-포함)" required>
+		            
 		            <h3>생년월일</h3>
-		            <input type="text" name="userBirth" id="userBirth" placeholder=" (필수) 생년월일을 입력해주세요. (6자리)" required>
+		            <input type="text" class="enroll_input" name="userBirth" id="userBirth" placeholder="예시) yyyy-mm-dd" required>
+		            <!-- <input type="date" name="userBirth" id="userBirth" placeholder=" (필수) 생년월일을 입력해주세요. (6자리)" required> -->
+		            
 		            <br>            
+		            
 		            <h3>방방 이용약관</h3>
 		            <div id="signupRule1"><h4>&nbsp;방방 이용약관</h4>이용약관 
 		                본 약관은 2022년 11월 01일부터 적용됩니다. 
@@ -264,6 +298,20 @@
 	        </div>      
 	                
     	</div>
-
+		<script>
+			$("#userPw_chk").blur(e=>{
+				if(	$("#userPw").val()==("#userPw_chk").val()){
+					$("#pwCheck").text("비밀번호가 일치합니다.");
+				}else{
+					$("#pwCheck").text("비밀번호가 일치하지 않습니다.");
+					$("#userPw").val()="";
+					$("#userPw_chk").val()="";
+					$("#userPw").focus();
+				}
+				
+			})
+		</script>
 </section>
+
+
 <%-- <%@ include file="/views/common/footer.jsp"%> --%>
