@@ -1,4 +1,4 @@
-package com.user.service;
+package com.user.model.service;
 
 import java.sql.Connection;
 
