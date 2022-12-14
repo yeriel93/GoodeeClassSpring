@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
 
-<%@ include file="/views/common/mypageMain_B.jsp"%>
+<%@ include file="/views/common/mypageMain.jsp"%>
 
 <script src="<%=request.getContextPath()%>/js/jquery-3.6.1.min.js"></script>
 <link href="<%=request.getContextPath() %>/css/account/updateUserStyle.css" type="text/css" rel="stylesheet">

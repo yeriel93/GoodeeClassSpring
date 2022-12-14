@@ -1,39 +1,42 @@
-package com.account.controller;
+package com.user.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 
 /**
- * Servlet implementation class GoMypageServlet
+ * Servlet implementation class EnrollEndServlet
  */
-@WebServlet("/account.bb")
-public class GoMypageServlet extends HttpServlet {
+@WebServlet("/user/enrollEnd.bb")
+public class EnrollEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GoMypageServlet() {
+    public EnrollEndServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/**
+	/**    
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	 */    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
+		String id=request.getParameter("userId");
+		String pw=request.getParameter("userPw");
+		String name=request.getParameter("userName");
+		String email=request.getParameter("userEmail");
+		String phone=request.getParameter("userPhone");
+		String birth=request.getParameter("userBirth");
 	
-//		request.getRequestDispatcher("/views/common/mypageMain_C.jsp").forward(request, response);
-		request.getRequestDispatcher("/views/common/mypageMain_B.jsp").forward(request, response);
+		
+		
+				
+		
 		
 	}
 

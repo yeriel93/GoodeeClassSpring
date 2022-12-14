@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="/views/common/mypageMain_B.jsp"%>
+<%@ include file="/views/common/mypageMain.jsp"%>
 <link href="<%=request.getContextPath() %>/css/account/withdrawalStyle.css" type="text/css" rel="stylesheet">
 
 <section class="content">
