@@ -1,6 +1,7 @@
 package com.property.model.vo;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,5 +38,5 @@ public class Property {
 	private Date editDate;
 	private char hiding;
 	private String thumbnail;
-	private Files[]	files;
+	private List<Files> files;
 }

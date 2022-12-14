@@ -77,13 +77,19 @@ public class PropertyService {
 	public List searchPropertyInfo(int propertyNo) {
 		Connection conn = getConnection();
 		List list = new ArrayList();
-//		Property property = PropertyDao.getPropertyDao().searchPropertyNo(conn,propertyNo); 
-		Files[] files = FilesDao.getFilesDao().searchFileNames(conn, propertyNo);
-		System.out.println(Arrays.toString(files));
 		
+		Property property = PropertyDao.getPropertyDao().searchPropertyInfo(conn,propertyNo);
+//		System.out.println(property);		
+		List<Files> files = FilesDao.getFilesDao().searchFileNames(conn, propertyNo);
+		property.setFiles(files);
+//		System.out.println(files);
+		String option = OptionDao.getOptionDao().searchOption(conn,propertyNo);
+//		System.out.println(option);
+		list.add(property);
+		list.add(option);
+//		System.out.println(list);
 		close(conn);
 		return list;
 	}
 	
-
 }

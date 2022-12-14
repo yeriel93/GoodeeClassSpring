@@ -1,10 +1,13 @@
 package com.property.model.dao;
 
 import static com.bangbang.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Properties;
 
 import com.property.model.vo.Property;
@@ -25,6 +28,7 @@ public class OptionDao {
 		return optionDao;
 	}
 	
+	//옵션 insert
 	public int insertOption(Connection conn, int propertyNo,String option) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -42,5 +46,28 @@ public class OptionDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	//옵션 불러오기
+	public String searchOption(Connection conn,int propertyNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String option = "";
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("searchOption"));
+//			SELECT T.PROPERTY_NO, F.APPLIANCE_NO FROM PROPERTY T JOIN (SELECT P.PROPERTY_NO , LISTAGG(A.APPLIANCE_NO,',') WITHIN GROUP(ORDER BY A.APPLIANCE_NO) AS APPLIANCE_NO FROM PROPERTY P JOIN APPLIANCE_OPTION A ON P.PROPERTY_NO = A.PROPERTY_NO GROUP BY P.PROPERTY_NO) F ON T.PROPERTY_NO = F.PROPERTY_NO WHERE T.PROPERTY_NO = ?
+			pstmt.setInt(1, propertyNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				option = rs.getString("APPLIANCE_NO");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return option;
 	}
 }

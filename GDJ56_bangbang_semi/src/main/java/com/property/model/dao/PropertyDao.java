@@ -132,6 +132,68 @@ public class PropertyDao {
 	}
 	
 	
+	//매물상세보기(매물내용가져오기)
+	public Property searchPropertyInfo(Connection conn,int propertyNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Property result = new Property();
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("searchPropertyInfo"));
+//			SELECT * FROM PROPERTY WHERE PROPERTY_NO=?
+			pstmt.setInt(1, propertyNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = getRsDataYJ(rs);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	private Property getRsDataYJ(ResultSet rs) {
+		Property p = null;
+		try {
+			p = Property.builder()
+				.propertyNo(rs.getInt("PROPERTY_NO"))
+				.brokerNo(rs.getInt("BROKER_NO"))
+				.address(rs.getString("ADDRESS"))
+				.longitude(rs.getDouble("LONGITUDE"))
+				.latitude(rs.getDouble("LATITUDE"))
+				.floor(rs.getString("FLOOR"))
+				.renttype(rs.getString("RENTTYPE"))
+				.deposit(rs.getInt("DEPOSIT"))
+				.monthlyCharge(rs.getInt("MONTHLY_CHARGE"))
+				.managementCharge(rs.getInt("MANAGEMENT_CHARGE"))
+				.electric(rs.getString("ELETRIC").charAt(0))
+				.water(rs.getString("WATER").charAt(0))
+				.gas(rs.getString("GAS").charAt(0))
+				.propertyStructure(rs.getString("PROPERTY_STRUCTURE"))
+				.area(rs.getDouble("AREA"))
+				.vacancyDate(rs.getDate("VACANCY_DATE"))
+				.vacancy(rs.getString("VACANCY"))
+				.pet(rs.getString("PET").charAt(0))
+				.parking(rs.getString("PARKING").charAt(0))
+				.detail(rs.getString("DETAIL"))
+				.enrollDate(rs.getDate("ENROLL_DATE"))
+				.editDate(rs.getDate("EDIT_DATE"))
+				.hiding(rs.getString("HIDING").charAt(0))
+				.build();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return p;
+	}
+	
+	
+	
+	
+	
+	
 	
 	private Property getRsData(ResultSet rs) {
 		Property p = null;

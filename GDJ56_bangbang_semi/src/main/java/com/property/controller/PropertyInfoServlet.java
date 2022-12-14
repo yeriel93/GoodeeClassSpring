@@ -25,7 +25,7 @@ public class PropertyInfoServlet extends HttpServlet {
 		System.out.println(propertyNo);
 		
 		List propertyInfo = PropertyService.getPropertyService().searchPropertyInfo(propertyNo);
-		propertyInfo.forEach(p->System.out.println(p));
+//		propertyInfo.forEach(p->System.out.println(p));
 		
 		
 		

@@ -55,21 +55,22 @@ public class FilesDao {
 	}
 	
 	//매물번호로 등록된 파일 불러오기
-	public Files[] searchFileNames(Connection conn,int propertyNo) {
+	public List<Files> searchFileNames(Connection conn,int propertyNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Files[] result = null;
+		List<Files> result = new ArrayList<Files>();
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("searchFileNames"));
-//			SELECT RENAMED_FILENAME FROM FILES WHERE PROPERTY_NO=? ORDER BY THUMBNAIL DESC
+//			SELECT RENAMED_FILENAME, THUMBNAIL FROM FILES WHERE PROPERTY_NO=? ORDER BY FILES_NO ASC
 			pstmt.setInt(1, propertyNo);
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				rs.getString("RENAMED_FILENAME");
+				Files files = new Files();
+				files.setRenameFilename(rs.getString("RENAMED_FILENAME"));
+				files.setThumbnail((rs.getString("THUMBNAIL")).charAt(0));
+				result.add(files);
 			}
-			
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
