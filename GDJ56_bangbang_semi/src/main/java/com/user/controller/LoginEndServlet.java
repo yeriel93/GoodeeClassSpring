@@ -36,8 +36,8 @@ public class LoginEndServlet extends HttpServlet {
 		String userId=request.getParameter("userId");
 		String userPw=request.getParameter("userPw");
 				
-		User user=UserService.getUserService().searchUser(userId,userPw);
-		System.out.println(user);
+		User user=UserService.getUserService().loginUser(userId,userPw);
+//		System.out.println(user);
 		
 		if(user!=null) {
 			//로그인세션

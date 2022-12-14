@@ -4,6 +4,9 @@
 <link href="<%=request.getContextPath() %>/css/user/loginStyle.css" type="text/css" rel="stylesheet">
 
 <section class="content">
+<style>
+#loginBtn2{border:none;}
+</style>
 
 <body>
     <div id="divOuter">
