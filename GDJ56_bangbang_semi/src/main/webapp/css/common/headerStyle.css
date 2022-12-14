@@ -17,8 +17,8 @@ div.menu{
     margin-top:45px;
 }
 .buttonContainer>button{    
-    width:150px;
-    height:40px;     
+    width:150px !important;
+    height:40px !important;     
     background-color: rgb(7, 90, 42);
     color:white;
     border:5px;

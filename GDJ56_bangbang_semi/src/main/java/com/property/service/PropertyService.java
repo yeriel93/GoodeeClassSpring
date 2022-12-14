@@ -6,10 +6,11 @@ import static com.bangbang.common.JDBCTemplate.getConnection;
 import static com.bangbang.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.property.model.dao.FilesDao;
-import com.property.model.dao.OptionDao;
 import com.property.model.dao.OptionDao;
 import com.property.model.dao.PropertyDao;
 import com.property.model.vo.Files;
@@ -71,5 +72,24 @@ public class PropertyService {
 		close(conn);
 		return allResult;
 	}
-
+	
+	//매물상세페이지 (매물테이블+옵션+파일명)
+	public List searchPropertyInfo(int propertyNo) {
+		Connection conn = getConnection();
+		List list = new ArrayList();
+		
+		Property property = PropertyDao.getPropertyDao().searchPropertyInfo(conn,propertyNo);
+//		System.out.println(property);		
+		List<Files> files = FilesDao.getFilesDao().searchFileNames(conn, propertyNo);
+		property.setFiles(files);
+//		System.out.println(files);
+		String option = OptionDao.getOptionDao().searchOption(conn,propertyNo);
+//		System.out.println(option);
+		list.add(property);
+		list.add(option);
+//		System.out.println(list);
+		close(conn);
+		return list;
+	}
+	
 }

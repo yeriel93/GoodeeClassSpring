@@ -30,18 +30,18 @@
         <div id="rightContainer">
         
 	        <%if(loginUser == null){ %>
-		        <div class="buttonContainer" id="loginBtn">
-		            <button><p><a href="<%=request.getContextPath()%>/user/login.bb" style="color:white">로그인 | 회원가입</a></p></button>
+		        <div id="buttonContainer">
+		            <button onclick='location.replace("<%=request.getContextPath()%>/user/login.bb")'><p>로그인 | 회원가입</p></button>
 		        </div>
 	        <%} else { %>
-	        	<div class="buttonContainer" id="logoutBtn">
-	            	<button><p><a href="<%=request.getContextPath()%>/user/logout.bb" style="color:white">로그아웃</a></p></button>
+	        	<div id="buttonContainer">
+	            	<button onclick='location.replace("<%=request.getContextPath()%>/user/logout.bb")'><p>로그아웃</p></button>
 	        	</div>
 	        <%} %>
 	        
             <div id="searchContainer">
                 <div>어디를 찾고 계신가요?</div>
-                <form action="<%=request.getContextPath()%>/searchAddress.do" method="get" onsubmit="return fn_addressCheck();" >
+                <form action="<%=request.getContextPath()%>/searchAddress.do" method="post" onsubmit="return fn_addressCheck();" >
                 	<div id="addressContainer">
 	                	<div>
 	                		<select name="gu" onchange="getGu();">
@@ -67,9 +67,14 @@
     </div>
 </body>
 </html>
-
-
+<style>
+	div#interFooter{
+		height:0px !important;
+	}
+</style>
+<%@ include file ="/views/common/footer.jsp" %>
 <script>
+
 	const gu = ["강남구","강동구","강북구","강서구","관악구","광진구","구로구","금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구","서초구","성동구","성북구","송파구","양천구","영등포구", "용산구","은평구", "종로구","중구","중랑구"];
 	$(()=>{	
 		<%if(list!=null){%>

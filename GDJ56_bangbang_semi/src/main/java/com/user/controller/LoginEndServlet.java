@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.user.model.service.UserService;
 import com.user.model.vo.User;
-import com.user.service.UserService;
 
 
 /**

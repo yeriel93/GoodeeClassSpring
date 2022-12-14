@@ -1,11 +1,16 @@
 package com.property.model.dao;
 
 import static com.bangbang.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLClientInfoException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import com.property.model.vo.Files;
@@ -28,6 +33,7 @@ public class FilesDao {
 		return filesDao;
 	}
 	
+	//파일등록하기
 	public int insertFiles(Connection conn, int propertyNo, Files f) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -43,6 +49,32 @@ public class FilesDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	//매물번호로 등록된 파일 불러오기
+	public List<Files> searchFileNames(Connection conn,int propertyNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Files> result = new ArrayList<Files>();
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("searchFileNames"));
+//			SELECT RENAMED_FILENAME, THUMBNAIL FROM FILES WHERE PROPERTY_NO=? ORDER BY FILES_NO ASC
+			pstmt.setInt(1, propertyNo);
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Files files = new Files();
+				files.setRenameFilename(rs.getString("RENAMED_FILENAME"));
+				files.setThumbnail((rs.getString("THUMBNAIL")).charAt(0));
+				result.add(files);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
 			close(pstmt);
 		}
 		return result;

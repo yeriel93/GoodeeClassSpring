@@ -24,9 +24,6 @@
                 <div id="price">
                     <span>월세</span>
                 </div>
-                <div>
-                    <span>전세</span>
-                </div>
                 <br>
                 <div id="cost">
                     <span>관리비</span>
@@ -43,9 +40,6 @@
             <div id="dealDataDiv" class="data">
                 <div id="price">
                     <span>500/40</span>
-                </div>
-                <div>
-                    <span>10,000</span>
                 </div>
                 <br>
                 <div id="cost">
@@ -194,7 +188,7 @@
                 <!-- <button id="button">찜하기</button> -->
             </div>
             <br>
-            <div id="price">
+            <div id="priceFix">
                 <span>월세</span>
                 <span>500/40</span>
             </div>
@@ -238,4 +232,4 @@
     
 </section>
 
-<%-- <%@ include file="/views/common/footer.jsp" %> --%>
+<%@ include file="/views/common/footer.jsp" %>

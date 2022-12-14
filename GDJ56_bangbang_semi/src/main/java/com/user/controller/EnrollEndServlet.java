@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.user.model.vo.User;
-import com.user.service.UserService;
+import com.user.model.service.UserService;
 
 /**
  * Servlet implementation class EnrollEndServlet

@@ -38,6 +38,9 @@
            color:white;
            border:0px;
        }
+       #buttonContainer>button>p{
+       	margin:0px;
+       }
        #searchContainer{
            height:500px;
            margin-left:5%;
