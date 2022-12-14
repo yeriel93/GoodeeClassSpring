@@ -71,7 +71,7 @@
 					<hr>
 		            <h3>아이디</h3>
 		            <input type="text" class="enroll_input" name="userId" id="userId" placeholder="아이디를 입력해주세요." required>
-		            <input type="hidden" name="userId_chk" id="userId2" readonly required>	
+		            <input type="hidden" name="userId_chk" id="userId_chk" value="" readonly required>	
 					<input type="button" class="btns" id="duplicateId" value="중복확인">
 		            
 		            <h3>비밀번호</h3>					
@@ -89,7 +89,7 @@
 		            
 		            <h3>이메일 인증</h3>
 		            <input type="text" class="enroll_input" name="userEmail_Cert" id="userEmailCert" placeholder="인증코드를 입력해주세요." required>
-		            <input type="hidden" name="userEmail_chk" id="userEmail_chk" readonly required>
+		            <input type="hidden" name="userEmail_chk" id="userEmail_chk" value="" readonly required>
 		            
 					<input type="button" class="btns" onclick="" value="인증번호 확인">
 		            
@@ -333,24 +333,38 @@
 	                
     	</div>
 		<script>
-			// $("#duplicateId").onclick(e=>{
-			// 	const userId=$("#userId").val();
-			// 	$.ajax({
-			// 		url:"<%=request.getContextPath()%>/user/duplicateId.bb",
-			// 		//type:"post"
-			// 		data:{userId:userId},
-			// 		// dataType:"json"
-			// 		success:function(result){
-			// 			if(result==0){
-			// 				alert("사용할 수 없는 아이디입니다.");
-			// 			}else{
+			/* const fn_duplicateIdRequiredChk=()=>{
+				const id=$(userId).val();
+				$("userId_chk").val(id);
 
-			// 			}
-			// 		}
-			// 	})
-			// })
+			} */
+			
+			// 아이디 중복확인
+			$("#duplicateId").click(e=>{
+				const userId=$("#userId").val();
+				$.ajax({
+					url:"<%=request.getContextPath()%>/user/duplicateId.bb",
+					//type:"post"
+					data:{userId:userId},
+					// dataType:"json"
+					success:function(result){
+						if(result==0){
+							alert("🔴 이미 존재하는 아이디입니다.");
+							setTimeout(function(){ //alert 무한루프 문제 해결
+								$("#userId").focus();
+							}, 10)
+						}else{
+							alert("🟢 사용할 수 있는 아이디입니다.")
+							setTimeout(function(){ //alert 무한루프 문제 해결
+								$("#userId").focus();
+							}, 10)
+						}
+					
+					}
+				})
+			})
 
-
+			//비번 정규표현식, 일치-불일치 체크
 			$(()=>{
 				$("#userPw_chk").blur(e=>{
 					const pw=$("#userPw").val();
@@ -385,6 +399,7 @@
 					const idChk=/^[A-Za-z0-9]+$/
 					if(!idChk.test(id)||id.length<5){
 						alert("⛔ 아이디는 5자 이상, 영문자/숫자로만 구성할 수 있습니다.⛔");
+						$("#userId").val("");
 						setTimeout(function(){ //alert 무한루프 문제 해결
 							$("#userId").focus();
 						}, 10)

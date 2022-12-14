@@ -90,5 +90,27 @@ public class UserDao {
 		return result;
 	}
 
+	//아이디 중복확인
+	public int checkId(Connection conn,String id) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("checkId"));
+			pstmt.setString(1, id);
+			rs=pstmt.executeQuery();
+			if(rs.next()||id.equals("")) {
+				result=0;
+			}else {
+				result=1;
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 }

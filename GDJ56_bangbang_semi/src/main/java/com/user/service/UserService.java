@@ -33,5 +33,12 @@ public class UserService {
 		return result;
 	}
 	
+	//아이디 중복확인
+	public int checkId(String id) {
+		Connection conn=getConnection();
+		int result=UserDao.getUserDao().checkId(conn,id);
+		close(conn);
+		return result;
+	}
 	
 }
