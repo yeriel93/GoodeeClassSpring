@@ -538,7 +538,6 @@
     	    				const inputPropertyNo = $("<input>").attr("type","hidden").attr("id","propertyNo").val(data[i].propertyNo);
     	    				const inputLatitude = $("<input>").attr("type","hidden").attr("id","latitude").val(data[i].latitude);
     	    				const inputLongitude = $("<input>").attr("type","hidden").attr("id","longitude").val(data[i].longitude);
-    	    				console.log(data[i].propertyNo, data[i].latitude, data[i].longitude);
     	    				$("div#propertyWrap").append($("<div>").attr("class","propertyContainer").attr("display","flex").append(inputPropertyNo).append(inputLatitude).append(inputLongitude).append(div1).append(div2));	    	    			}
     	    		}
     	    		
@@ -564,30 +563,58 @@
 	    	latitude = $(e.target).parents("div.propertyContainer").children().eq(1).val();
 	    	longitude = $(e.target).parents("div.propertyContainer").children().eq(2).val();
    		}
-    	//console.log(latitude, longitude);
+    	//데이터를 끝부분을 잘라먹고 넣어서 알맞게 파싱함..
+    	
+    	//기존 마커 삭제
+    	markerArray.forEach((v,i)=>{
+    		//console.log(v.getPosition());
+    		let stringLng = v.getPosition().getLng().toString();
+    		let stringLat = v.getPosition().getLat().toString();
+    		if(stringLng.indexOf(longitude.substring(0,longitude.length-2)) == 0 && stringLat.indexOf(latitude.substring(0,latitude.length-2)) == 0){
+    			clusterer.removeMarker(v);
+    			return true;
+    		}
+    	})
+
+    	//selected 마커 추가
     	var newMarker = new kakao.maps.Marker({
     	    position: new kakao.maps.LatLng(latitude,longitude),
     		image:selectedMarkerImage
     	});
+    	markerArray.push(newMarker);
     	clusterer.addMarker(newMarker);
     	
-    	 markerArray.find((v)=>{
-    		if(v.getPosition().getLng().toString().indexOf(longitude) == 0 && v.getPosition().getLat().toString() == latitude){
-    			console.log("진입");
-    			return true;
-    		}
-    	}); 
     	
-    	//console.log(oldMarker);
-    	//clusterer.removeMarker(oldMaker);
-    	//console.log(latitude,longitude);
-    	//console.log(markerArray[0].getPosition().getLng().toString().indexOf(longitude));
-    	//console.log(markerArray[0].getPosition().getLat());
-    	//console.log(oldMarker);
     });
     
     $(document).on("mouseleave","div.propertyContainer",e=>{
+    	let latitude = "";
+    	let longitude = "";
+    	if($(e.target).attr("class") == "propertyContainer"){
+    		latitude = $(e.target).children().eq(1).val();
+    		longitude = $(e.target).children().eq(2).val();
+    	} else {
+	    	latitude = $(e.target).parents("div.propertyContainer").children().eq(1).val();
+	    	longitude = $(e.target).parents("div.propertyContainer").children().eq(2).val();
+   		}
     	
+    	//기존 마커 삭제
+    	markerArray.forEach((v,i)=>{
+    		//console.log(v.getPosition());
+    		let stringLng = v.getPosition().getLng().toString();
+    		let stringLat = v.getPosition().getLat().toString();
+    		if(stringLng.indexOf(longitude.substring(0,longitude.length-2)) == 0 && stringLat.indexOf(latitude.substring(0,latitude.length-2)) == 0){
+    			clusterer.removeMarker(v);
+    			return true;
+    		}
+    	});
+    	
+    	//selected 마커 추가
+    	var newMarker = new kakao.maps.Marker({
+    	    position: new kakao.maps.LatLng(latitude,longitude),
+    		image:markerImage
+    	});
+    	clusterer.addMarker(newMarker);
     })
     
     
