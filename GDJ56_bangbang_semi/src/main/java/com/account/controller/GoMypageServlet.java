@@ -33,7 +33,7 @@ public class GoMypageServlet extends HttpServlet {
 		
 	
 //		request.getRequestDispatcher("/views/common/mypageMain_C.jsp").forward(request, response);
-		request.getRequestDispatcher("/views/common/mypageMain_B.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/common/mypageMain.jsp").forward(request, response);
 		
 	}
 

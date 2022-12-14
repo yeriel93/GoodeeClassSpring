@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp"%>
-<link href="<%=request.getContextPath() %>/css/common/mypageMain_BStyle.css" type="text/css" rel="stylesheet">
+<link href="<%=request.getContextPath() %>/css/common/mypageMainStyle.css" type="text/css" rel="stylesheet">
 
 
 <%if(loginUser!=null&&loginUser.getUserLevel()=='B'){ %>
@@ -11,8 +11,7 @@
 	    </div>
 	    <div class="profile">
 	        <div class="profile2">
-	            <h5 id="userName">중개사 님</h5> 
-	            <!-- 이부분 로그인 한 이름나오게 나중에 수정 -->
+	            <h5 id="userName"><%=loginUser.getName() %> 님</h5> 
 	            <h5 id="userLevel">중개사회원</h5>
 	        </div>
 	    </div>
@@ -33,8 +32,7 @@
 	    </div>
 	    <div class="profile">
 	        <div class="profile2">
-	            <h5 id="userName">일반횐 님</h5> 
-	            <!-- 이부분 로그인 한 이름나오게 나중에 수정 -->
+	            <h5 id="userName"><%=loginUser.getName() %> 님</h5> 
 	            <h5 id="userLevel">일반회원</h5>
 	        </div>
 	    </div>
@@ -47,4 +45,5 @@
 	    </div>
 	</section>
 <%} %>
+
 <%-- <%@ include file="/views/common/footer.jsp"%> --%>
