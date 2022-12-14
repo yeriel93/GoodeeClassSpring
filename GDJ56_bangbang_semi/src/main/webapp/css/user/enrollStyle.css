@@ -34,7 +34,7 @@
     margin-top: 0px;
 }
 #signupRule1{
-    width:300px;
+    width:420px;
     height:100px;
     margin-top: 10px;
     background-color: white;
@@ -42,7 +42,7 @@
     
 }
 #signupRule2{
-    width:300px;
+    width:420px;
     height:100px;
     margin-top: 5px;
     background-color: white;
@@ -52,12 +52,12 @@
 
 #ruleContainer{    
     /* border: 1px solid green; */
-    font-size: smaller;
+    font-size: 17px;
     margin-top: 20px;
 }
 
 #signupBtn{
-    width:310px;
+    width:420px;
     height:40px;
     /* margin-left: 40px; */
     margin-top: 1px;
@@ -66,13 +66,32 @@
     color: white;
     border-color: #075a2a8c;
     border-radius: 5px;
+    border:none;
+	font-size: larger;
 }
 .btns{
     background-color: #075A2A;
     color:white;
-    width:100px;
+    width:110px;
     height:30px;
     border-radius: 3px;
-    border-color:red;
+    border:none;
+	margin-left: 10px;
 
+}
+
+.enroll_input{
+  width: 290px;
+  height: 32px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(255, 255, 255);
+
+}
+
+.enroll-container{
+	margin-top: 75px;
 }
