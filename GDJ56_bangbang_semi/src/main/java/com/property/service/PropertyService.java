@@ -56,8 +56,10 @@ public class PropertyService {
 				filesResult = FilesDao.getFilesDao().insertFiles(conn,propertyNo,fileList.get(i));
 			}
 			
-			for(String o : option) {
-				optionResult = OptionDao.getOptionDao().insertOption(conn,propertyNo, o);
+			if(option!=null) {
+				for(String o : option) {
+					optionResult = OptionDao.getOptionDao().insertOption(conn,propertyNo, o);
+				}
 			}
 		}
 		int allResult = 0;

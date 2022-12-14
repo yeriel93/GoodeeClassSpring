@@ -74,14 +74,18 @@ public class InsertPropertyEndServlet extends HttpServlet {
 				Files addFile4 = Files.builder().renameFilename(addFileName4).thumbnail('N').build();
 				fileList.add(addFile4);
 			}
-//			System.out.println(fileName+"/"+addFileName1+"/"+addFileName2+"/"+addFileName3+"/"+addFileName4);
+			System.out.println(fileName+"/"+addFileName1+"/"+addFileName2+"/"+addFileName3+"/"+addFileName4);
 			
 			//주소
 			String address = mr.getParameter("address");
 			
 			//좌표
-			double x = Double.parseDouble(mr.getParameter("addrX"));
-			double y = Double.parseDouble(mr.getParameter("addrY"));
+			double x = 0;
+			double y = 0;
+			if(mr.getParameter("addrX")!="" && mr.getParameter("addrY")!="") {
+				x = Double.parseDouble(mr.getParameter("addrX"));
+				y = Double.parseDouble(mr.getParameter("addrY"));
+			}
 //			System.out.println("지번:"+address + " x값:"+ x +" y값:"+y);
 			
 			//층
@@ -112,13 +116,15 @@ public class InsertPropertyEndServlet extends HttpServlet {
 			char water = 'N';
 			char gas = 'N';
 			String[] costInclude = mr.getParameterValues("costInclude");
-			for(String c : costInclude) {
-				if(c.contains("전기")) {
-					electric = 'Y';
-				}else if(c.contains("가스")) {
-					gas = 'Y';
-				}else if(c.contains("수도")) {
-					water = 'Y';
+			if(costInclude!=null) {
+				for(String c : costInclude) {
+					if(c.contains("전기")) {
+						electric = 'Y';
+					}else if(c.contains("가스")) {
+						gas = 'Y';
+					}else if(c.contains("수도")) {
+						water = 'Y';
+					}
 				}
 			}
 			
@@ -198,7 +204,7 @@ public class InsertPropertyEndServlet extends HttpServlet {
 				loc = "/";
 			}else {
 				msg = "방내놓기 실패! 다시 시도해주세요~~ o(TヘTo)";
-				loc="/property/insertProperty.jsp";
+				loc="/property/insertProperty.bb";
 			}
 			request.setAttribute("msg", msg);
 			request.setAttribute("loc", loc);
