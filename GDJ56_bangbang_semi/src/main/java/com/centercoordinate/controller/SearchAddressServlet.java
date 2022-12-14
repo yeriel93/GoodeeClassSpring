@@ -30,11 +30,15 @@ public class SearchAddressServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//나중에 필터 추가 후 지워야 함
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		
 		String gu = request.getParameter("gu");
 		String dong = request.getParameter("dong");
 		CenterCoordinate cc = CenterCoordinateService.getCenterCoordinateService().searchCenterCoordinate(gu, dong);
 		request.setAttribute("cc", cc);
-		request.getRequestDispatcher("/views/map/mappage.jsp").forward(request, response);;
+		request.getRequestDispatcher("/views/map/mappage.jsp").forward(request, response);
 	}
 
 	/**

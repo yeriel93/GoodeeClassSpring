@@ -41,7 +41,7 @@
 	        
             <div id="searchContainer">
                 <div>어디를 찾고 계신가요?</div>
-                <form action="<%=request.getContextPath()%>/searchAddress.do" method="get" onsubmit="return fn_addressCheck();" >
+                <form action="<%=request.getContextPath()%>/searchAddress.do" method="post" onsubmit="return fn_addressCheck();" >
                 	<div id="addressContainer">
 	                	<div>
 	                		<select name="gu" onchange="getGu();">
