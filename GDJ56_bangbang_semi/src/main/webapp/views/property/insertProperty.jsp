@@ -26,8 +26,10 @@
             <div id="address">
                 <span class="redtext">주소*</span>
                 &nbsp;
-                <input type="text" id="sample5_address" name="address" style="background-color: lightgrey; border-width:1px; height: 19px; width: 400px;">
-                <input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색" ><br>
+                <input type="text" id="sample5_address" name="address" hidden>
+                <input type="button" id="addrBtn" onclick="sample5_execDaumPostcode()" class="greenbutton" value="주소 검색" style="width: 80px;">
+                <span id="showAddr"></span>
+                <br>
             </div>
             <br>
             <input type="text" name="addrX" hidden>
@@ -40,11 +42,12 @@
 
                             // 주소 정보를 해당 필드에 넣는다.
                             document.getElementById("sample5_address").value = data.jibunAddress;
+                            document.getElementById("showAddr").innerText= data.jibunAddress;
                           
                 			//console.log(data);
                 			//console.log(addr);
                 			//console.log(data.jibunAddress);
-                			console.log(document.getElementById("sample5_address").value);
+                			//console.log(document.getElementById("sample5_address").value);
                 			
 			                // 주소 좌표값(x,y)으로 변환
 			                var geocoder = new kakao.maps.services.Geocoder();
@@ -76,7 +79,7 @@
                     <option value="반지하">반지하</option>
                     <option value="옥탑">옥탑</option>
                 </select>
-                <input type="number" name="floorIn" min="1" placeholder="숫자를 입력해주세요">
+                <input type="number" name="floorIn" min="1" placeholder="숫자를 입력해주세요" required>
                 <span class="greytext">층</span>
             </div>
             <hr style="width: 95%;">
@@ -95,7 +98,7 @@
             <div id="price" style="display: flex; align-items: center;">
                 <span class="redtext" style="margin-right: 5px;">거래종류*</span>
                 &nbsp; &nbsp;
-                <input type="button" class="greenbutton" onclick="fn_priceY()" value="+ 전세">
+                <input type="button" class="greenbutton" id="insertPrice" onclick="fn_priceY()" value="+ 전세">
                 &nbsp;&nbsp;
                 <input type="button" class="greenbutton" onclick="fn_priceM()" value="+ 월세">
                 &nbsp;
@@ -129,19 +132,21 @@
             <div id="cost" style="display: flex; text-align: center;">
                 <span class="redtext" style="margin-right: 16px;">관리비*</span>
                 &nbsp;
-                <label><input type="radio" class="radio" name="costSelect" value="있음" checked>있음</label>
-                <input type="number" name="costIn" min="1" placeholder="금액을 입력해주세요" style="margin-left: 5px;">
-                <span class="greytext" style="margin-right: 16px;">만원</span>
-                <label><input type="radio" class="radio" name="costSelect" value="없음">없음</label>
+                <label><input type="radio" class="radio" name="costSelect" value="없음" checked>없음</label> &nbsp;&nbsp;&nbsp;
+                <label><input type="radio" class="radio" name="costSelect" id="costYes" value="있음">있음</label>
+                <input type="number" name="costIn" min="1" placeholder="금액을 입력해주세요" style="margin-left: 7px;" hidden>
+                <span class="greytext" style="margin-right: 16px;" hidden>만원</span>
             </div>
             <br>
             <script>
-                $("input[name=costSelect]")[1].onclick=()=>{
-                	$("input[name=costIn]").attr("disabled",true);
+                $("input[name=costSelect]")[0].onclick=()=>{
+                	$("input[name=costIn]").hide();
+                	$("input[name=costIn]").next().hide();
                     //console.log($("input[name=costIn]"));
                 }
-                $("input[name=costSelect]")[0].onclick=()=>{
-                	$("input[name=costIn]").attr("disabled", false);
+                $("input[name=costSelect]")[1].onclick=()=>{
+                	$("input[name=costIn]").show();
+                	$("input[name=costIn]").next().show()
                     //console.log($("input[name=costIn]"));
                 }
             </script>
@@ -225,10 +230,10 @@
                 <label><input type="radio" value="N" name="parkSelect" class="radio" checked>불가능</label> &nbsp;
             </div>
             <br>
-            <div id="comment" style="display: flex; align-items: center;">
+            <div id="comment" style="display: flex; align-items: center;"> 
                 <span>상세 설명</span>
                 &nbsp; &nbsp;
-                <textarea cols="50" rows="5" name="detail" style="resize: none;" placeholder="3000자 이내로 작성해주세요"></textarea>
+                <textarea cols="60" rows="7" name="detail" style="resize: none;" placeholder="3000자 이내로 작성해주세요"></textarea>
             </div>
 			<br>
             <hr style="width: 95%;">
@@ -367,22 +372,40 @@
 </form>
     <script>
         const fn_invalidate=()=>{
+            //주소입력
+            const addr = $("#sample5_address").val().trim();
+            if(addr.length==0){
+                alert("주소를 입력하세요!");
+                $("#addrBtn").focus();
+                return false;
+            }
+
+            //전월세입력
             const yPrice=$("input[name=yPrice]").val().trim();
             const mPrice=$("input[name=mPrice]").val().trim();
             const mPrice2=$("input[name=mPrice2]").val().trim();
             if(yPrice.length==0 && mPrice.length==0 && mPrice2.length==0) {
                 alert("금액을 입력하세요!");
+                $("#insertPrice").focus();
     			return false;
             }
             
             //관리비 입력
             const costIn = $("input[name=costIn]").val().trim();
-            if($("input[name=costSelect]").prop("checked")==true){
+            if($("#costYes").prop("checked")==true){
 	            if(costIn.length==0) {
 	                alert("관리비를 입력하세요!");
 	    			return false;
 	            }
             }
+            
+            //사진 넣기
+            const mainFile = $("input[name=mainFile]").val().trim();
+            if(mainFile.length==0){
+                alert("메인 사진을 추가해주세요!");
+                return false;
+            }
+               	
         }
     </script>
 </body>
