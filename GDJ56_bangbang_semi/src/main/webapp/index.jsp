@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List, com.centercoordinate.model.vo.CenterCoordinate" %>
 
+<%@ page import ="com.user.model.vo.User" %>
+<%
+	User loginUser = (User)session.getAttribute("loginUser");
+%>  
 <%
 	List<CenterCoordinate> list = (List<CenterCoordinate>)request.getAttribute("centerCoordinate");
 	//BD 브랜치 테스트
@@ -24,9 +28,17 @@
             </div>
         </div>
         <div id="rightContainer">
-            <div id="buttonContainer">
-                <button>로그인 | 회원가입</button>
-            </div>
+        
+	        <%if(loginUser == null){ %>
+		        <div class="buttonContainer" id="loginBtn">
+		            <button><p><a href="<%=request.getContextPath()%>/user/login.bb" style="color:white">로그인 | 회원가입</a></p></button>
+		        </div>
+	        <%} else { %>
+	        	<div class="buttonContainer" id="logoutBtn">
+	            	<button><p><a href="<%=request.getContextPath()%>/user/logout.bb" style="color:white">로그아웃</a></p></button>
+	        	</div>
+	        <%} %>
+	        
             <div id="searchContainer">
                 <div>어디를 찾고 계신가요?</div>
                 <form action="<%=request.getContextPath()%>/searchAddress.do" method="get" onsubmit="return fn_addressCheck();" >

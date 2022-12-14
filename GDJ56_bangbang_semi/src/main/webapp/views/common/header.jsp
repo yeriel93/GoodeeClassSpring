@@ -41,6 +41,7 @@
         <div class="menu">
             <p><a href="<%=request.getContextPath()%>/user/enrollBroker.bb">중개사 등록</a></p>
         </div>
+        
         <%if(loginUser == null){ %>
 	        <div class="buttonContainer" id="loginBtn">
 	            <button><p><a href="<%=request.getContextPath()%>/user/login.bb" style="color:white">로그인 | 회원가입</a></p></button>
@@ -50,4 +51,5 @@
             	<button><p><a href="<%=request.getContextPath()%>/user/logout.bb" style="color:white">로그아웃</a></p></button>
         	</div>
         <%} %>
+        
     </header>

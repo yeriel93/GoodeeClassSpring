@@ -65,7 +65,22 @@
        
        
        
-       
+.buttonContainer>button{    
+    width:150px;
+    height:40px;     
+    background-color: rgb(7, 90, 42);
+    color:white;
+    border:5px;
+}
+.buttonContainer>button>p{
+    font-weight: bolder;
+    font-size:17px;
+}
+#loginBtn{
+    margin-top:20px;
+    margin-right:20px;
+    border-radius: 5px;
+}
        
        
        
