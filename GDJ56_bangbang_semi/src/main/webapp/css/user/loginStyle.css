@@ -52,6 +52,8 @@
     color: white;
     border-color: #075a2a8c;
     border-radius: 5px;
+    border:none;
+    
 }
 
 #etcContainer>h5>a{

@@ -2,37 +2,105 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp"%>
 <link href="<%=request.getContextPath() %>/css/user/enrollStyle.css" type="text/css" rel="stylesheet">
+<style>
+.enroll_input{
+  width: 290px;
+  height: 32px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(255, 255, 255);
+
+}
+
+.btns{
+    background-color: #075A2A;
+    color:white;
+    width:110px;
+    height:30px;
+    border-radius: 3px;
+    border:none;
+	margin-left: 10px;
+
+}
+#signupBtn{
+	width:420px;
+	border:none;
+	font-size: larger;
+}
+
+#signupRule1{
+    width:420px;
+    height:100px;
+    margin-top: 10px;
+    background-color: white;
+    overflow: auto;
+    
+}
+#signupRule2{
+    width:420px;
+    height:100px;
+    margin-top: 5px;
+    background-color: white;
+    overflow: auto;
+    
+}
+
+#ruleContainer{    
+    /* border: 1px solid green; */
+    font-size: 17px;
+    margin-top: 20px;
+}
+
+.enroll-container{
+	margin-top: 75px;
+}
+</style>
 
 <section class="enroll-container">
 	    <div id="divOuter">
 	        <div id="signupContainer">
-		        <form id="" action="">		       
+		        <form id="enrollForm" action="<%=request.getContextPath()%>/user/enrollEnd.bb">		       
 		            <h1>회원가입</h1>
 		            <hr>
+		            <h4>❗모두 필수 입력항목입니다. </h4>
+		            <h4>❗아이디는 5자 이상, 영문자/숫자로만 구성할 수 있습니다. </h4>
+		            <h4>❗비밀번호는 8자 이상, 영문자/숫자로만 구성할 수 있습니다. </h4>
+					<hr>
 		            <h3>아이디</h3>
-		            <input type="text" name="userId" id="userId" placeholder=" (필수) 아이디를 입력해주세요." required>
-		            <input type="hidden" name="userId_chk" id="userId" readonly required>		            
-		            <button class="btns">중복확인</button>
-		            <h3>비밀번호</h3>
-		            <input type="password" name="userPw" id="userPw" placeholder=" (필수) 비밀번호를 입력해주세요." required>
+		            <input type="text" class="enroll_input" name="userId" id="userId" placeholder="아이디를 입력해주세요." required>
+		            <input type="hidden" name="userId_chk" id="userId_chk" value="" readonly required>	
+					<input type="button" class="btns" id="duplicateId" value="중복확인">
+		            
+		            <h3>비밀번호</h3>					
+		            <input type="password" class="enroll_input" name="userPw" id="userPw" placeholder="비밀번호를 입력해주세요." required>
 		            <h3>비밀번호 확인</h3>
-					<div id="pwCheck"><div>
-		            <input type="password" name="userPw_chk" id="userPw" placeholder=" (필수) 비밀번호를 한번 더 입력해주세요." required>
+		            <input type="password" class="enroll_input" name="userPw_chk" id="userPw_chk" placeholder="비밀번호를 한번 더 입력해주세요." required>
+					<input type="button" class="btns" id="pwCheck" value="(❁´▽`❁)*✲ﾟ*">
+							            
 		            <h3>이름</h3>
-		            <input type="text" name="userName" id="userName" placeholder=" (필수) 이름을 입력해주세요." required>
+		            <input type="text" class="enroll_input" name="userName" id="userName" placeholder="이름을 입력해주세요." required>
+		            
 		            <h3>이메일</h3>
-		            <input type="text" name="userEmail" id="userEmail" placeholder=" (필수) 이메일 주소를 입력해주세요." required>
+		            <input type="text" class="enroll_input" name="userEmail" id="userEmail" placeholder="이메일 주소를 입력해주세요." required>
 		            <input type="button" class="btns" onclick="" value="이메일 인증">
+		            
 		            <h3>이메일 인증</h3>
-		            <input type="text" name="userEmail_Cert" id="userEmailCert" placeholder=" (필수) 인증코드를 입력해주세요." required>
-		            <input type="hidden" name="userEmail_chk" id="userId" readonly required>
+		            <input type="text" class="enroll_input" name="userEmail_Cert" id="userEmailCert" placeholder="인증코드를 입력해주세요." required>
+		            <input type="hidden" name="userEmail_chk" id="userEmail_chk" value="" readonly required>
 		            
 					<input type="button" class="btns" onclick="" value="인증번호 확인">
+		            
 		            <h3>휴대폰 번호</h3>
-		            <input type="text" name="userPhone" id="userPhone" placeholder=" (필수) 휴대폰 번호를 입력해주세요. (-포함)" required>
+		            <input type="text" class="enroll_input" name="userPhone" id="userPhone" placeholder="휴대폰 번호를 입력해주세요. (-포함)" required>
+		            
 		            <h3>생년월일</h3>
-		            <input type="text" name="userBirth" id="userBirth" placeholder=" (필수) 생년월일을 입력해주세요. (6자리)" required>
+		            <input type="text" class="enroll_input" name="userBirth" id="userBirth" placeholder="예시) yyyy-mm-dd" required>
+		            
 		            <br>            
+		            
 		            <h3>방방 이용약관</h3>
 		            <div id="signupRule1"><h4>&nbsp;방방 이용약관</h4>이용약관 
 		                본 약관은 2022년 11월 01일부터 적용됩니다. 
@@ -252,9 +320,9 @@
 		이 외 서비스 이용과정에서 별도 동의를 통해 추가정보 수집이 있을 수 있습니다.
 		            </div>
 		            <div id="ruleContainer">
-		                <input type="checkbox" name="agree1" value="Y"> 이용약관에 동의합니다. 
+		                <input type="checkbox" name="agree1" value="Y" required> 이용약관에 동의합니다. 
 		                <br>
-		                <input type="checkbox" name="agree2" value="Y"> 개인정보 수집 및 이용에 동의합니다.
+		                <input type="checkbox" name="agree2" value="Y" required> 개인정보 수집 및 이용에 동의합니다.
 		            </div>
 		            <br>
 		            <button id="signupBtn">회원가입</button>
@@ -264,6 +332,104 @@
 	        </div>      
 	                
     	</div>
+		<script>
+			/* const fn_duplicateIdRequiredChk=()=>{
+				const id=$(userId).val();
+				$("userId_chk").val(id);
 
+			} */
+			
+			// 아이디 중복확인
+			$("#duplicateId").click(e=>{
+				const userId=$("#userId").val();
+				$.ajax({
+					url:"<%=request.getContextPath()%>/user/duplicateId.bb",
+					//type:"post"
+					data:{userId:userId},
+					// dataType:"json"
+					success:function(result){
+						if(result==0){
+							alert("🔴 이미 존재하는 아이디입니다.");
+							setTimeout(function(){ //alert 무한루프 문제 해결
+								$("#userId").focus();
+							}, 10)
+						}else{
+							alert("🟢 사용할 수 있는 아이디입니다.")
+							setTimeout(function(){ //alert 무한루프 문제 해결
+								$("#userId").focus();
+							}, 10)
+						}
+					
+					}
+				})
+			})
+
+			//비번 정규표현식, 일치-불일치 체크
+			$(()=>{
+				$("#userPw_chk").blur(e=>{
+					const pw=$("#userPw").val();
+					const pwck=$("#userPw_chk").val(); //비밀번호 확인
+					const pwChk=/^[a-zA-Z0-9]+$/ //정규표현식
+					
+					//비밀번호 정규표현식
+					if(!pwChk.test(pw)||pw.length<8){
+						alert("⛔ 비밀번호는 8자 이상, 영문자/숫자로만 구성할 수 있습니다.⛔");
+						$("#userPw").val('');
+						$("#userPw_chk").val('');
+						$("#userPw").focus();
+						return false;
+					}
+
+					//비번 일치-불일치
+					if(pw==pwck){
+						$("#pwCheck").val("비밀번호 일치");
+					}else{
+						$("#pwCheck").val("비밀번호 불일치").css("color","yellow");
+						$("#userPw").val('');
+						$("#userPw_chk").val('');
+						$("#userPw").focus();
+					}
+					
+				})
+			})
+
+			//아이디 정규표현식
+			$("#userId").blur(e=>{
+					const id=$("#userId").val();
+					const idChk=/^[A-Za-z0-9]+$/
+					if(!idChk.test(id)||id.length<5){
+						alert("⛔ 아이디는 5자 이상, 영문자/숫자로만 구성할 수 있습니다.⛔");
+						$("#userId").val("");
+						setTimeout(function(){ //alert 무한루프 문제 해결
+							$("#userId").focus();
+						}, 10)
+						
+						return false;
+					}					
+					
+			})
+
+		
+			//생년월일 정규표현식
+			$(()=>{
+				$("#userBirth").focusout(e=>{
+					const birth=$("#userBirth").val();
+					const birthChk=/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/
+					if(!birthChk.test(birth)){
+						alert("⛔ 생년월일을 yyyy-mm-dd 형식으로 입력해주세요 예시) 1995년 01월 02일⛔");
+						$("#userBirth").val("");
+						setTimeout(function(){
+							$("#userBirth").focus();
+						}, 10)
+						return false
+					}
+				})
+			})	
+
+
+
+		</script>
 </section>
+
+
 <%-- <%@ include file="/views/common/footer.jsp"%> --%>

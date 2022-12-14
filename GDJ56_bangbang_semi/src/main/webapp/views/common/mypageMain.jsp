@@ -11,8 +11,8 @@
 	    </div>
 	    <div class="profile">
 	        <div class="profile2">
-	            <h5 id="userName"><%=loginUser.getName() %> 님</h5> 
-	            <h5 id="userLevel">중개사회원</h5>
+	            <h3 id="userName"><%=loginUser.getName() %> 님</h3> 
+	            <h3 id="userLevel">중개사회원</h3>
 	        </div>
 	    </div>
 	    <div class="mypageMenu" style="margin:auto;">
@@ -32,8 +32,8 @@
 	    </div>
 	    <div class="profile">
 	        <div class="profile2">
-	            <h5 id="userName"><%=loginUser.getName() %> 님</h5> 
-	            <h5 id="userLevel">일반회원</h5>
+	            <h3 id="userName"><%=loginUser.getName() %> 님</h3> 
+	            <h3 id="userLevel">일반회원</h3>
 	        </div>
 	    </div>
 	    <div class="mypageMenu" style="margin:auto;">
@@ -45,5 +45,7 @@
 	    </div>
 	</section>
 <%} %>
-
+<% if(loginUser!=null&&loginUser.getUserLevel()=='A'){ %>
+	<h2>안녕하세요 관리자님!</h2>
+<%} %>
 <%-- <%@ include file="/views/common/footer.jsp"%> --%>
