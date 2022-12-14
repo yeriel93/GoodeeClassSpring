@@ -22,10 +22,10 @@ public class PropertyInfoServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int propertyNo = Integer.parseInt(request.getParameter("propertyNo"));
-		System.out.println(propertyNo);
+//		System.out.println(propertyNo);
 		
 		List propertyInfo = PropertyService.getPropertyService().searchPropertyInfo(propertyNo);
-//		propertyInfo.forEach(p->System.out.println(p));
+		propertyInfo.forEach(p->System.out.println(p));
 		
 		
 		
