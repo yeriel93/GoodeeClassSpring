@@ -15,13 +15,50 @@
 <!-- css -->
 <link href="<%=request.getContextPath() %>/css/property/propertyInfo.css" type="text/css" rel="stylesheet">
 
+<!-- swiper -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>	
+
 <div id="roomWrap">
-    <img src="<%=request.getContextPath() %>/upload/property/<%=files.get(0).getRenameFilename() %>">
-    <img src="<%=request.getContextPath() %>/upload/property/<%=files.get(1).getRenameFilename() %>">
-    <img src="<%=request.getContextPath() %>/upload/property/<%=files.get(2).getRenameFilename() %>">
-    <img src="<%=request.getContextPath() %>/upload/property/<%=files.get(3).getRenameFilename() %>">
-    <img src="<%=request.getContextPath() %>/upload/property/<%=files.get(4).getRenameFilename() %>">
+	<div class="swiper-container">
+		<div class="swiper-wrapper">
+		<%for(int i=0;i<files.size();i++) {%>
+			<div class="swiper-slide">
+				<img id="imgFiles" src="<%=request.getContextPath() %>/upload/property/<%=files.get(i).getRenameFilename() %>">
+			</div>
+		<%} %>
+		</div>
+		<!-- 네비게이션 -->
+		<div class="swiper-button-next"></div>
+		<div class="swiper-button-prev"></div>
+		<!-- 페이징 -->
+		<div class="swiper-pagination"></div>
+	</div>
 </div>
+<script>
+	new Swiper('.swiper-container', {
+	
+		slidesPerView : 3, // 동시에 보여줄 슬라이드 갯수
+		spaceBetween : 0, // 슬라이드간 간격
+	
+	    freeMode : true, // 슬라이드 넘길 때 위치 고정 여부
+	
+		loop : true, // 무한 반복
+	    autoHeight : true,  // 현재 활성 슬라이드높이 맞게 높이조정
+	    watchOverflow : true, // 슬라이드가 1개 일 때 pager, button 숨김 여부 설정
+	
+	 	// 페이징
+		pagination : { 
+			el : '.swiper-pagination',
+			clickable : true, // 페이징을 클릭하면 해당 영역으로 이동, 필요시 지정해 줘야 기능 작동
+		},
+		navigation : { // 네비게이션
+			nextEl : '.swiper-button-next', // 다음 버튼 클래스명
+			prevEl : '.swiper-button-prev', // 이번 버튼 클래스명
+		},
+	});
+</script>
+
 <section class ="flex">
     <div id="roomInfoWrap">
         <div class="infoTitle">
@@ -32,7 +69,7 @@
         <div id="dealInfo" class ="flex">
             <div id="dealDiv" style=" width: 300px;">
                 <div id="price">
-                    <span>월세</span>
+                    <span><%=property.getRenttype() %></span>
                 </div>
                 <br>
                 <div id="cost">
@@ -49,19 +86,37 @@
             </div>
             <div id="dealDataDiv" class="data">
                 <div id="price">
-                    <span>500/40</span>
+                    <span><%=property.getDeposit()%></span>  
+                    <%if(property.getRenttype().equals("월세")) {%>
+                    <span>/</span>	
+                    <span><%=property.getMonthlyCharge()%></span>
+                    <%} %>
                 </div>
                 <br>
                 <div id="cost">
-                    <span>10만원</span>
+                   	<span><%=property.getManagementCharge() %></span> 
+                	<%if(property.getManagementCharge()!=0) {%>
+                    	<span>만원</span>
+                	<%} %>
                 </div>
                 <br>
                 <div id="costInclude">
-                    <span>가스,수도</span>
+                	<%if(property.getElectric()=='Y') {%>
+                    	<span>전기</span>
+                    <%} %>
+                	<%if(property.getGas()=='Y') {%>
+                    	<span>가스</span>
+                    <%} %>
+                	<%if(property.getWater()=='Y') {%>
+                    	<span>수도</span>
+                    <%} %>
+                    <%if(property.getElectric()=='N'&&property.getGas()=='N'&&property.getWater()=='N') {%>
+                    	<span>없음</span>
+                   	<%} %>
                 </div>
                 <br>
                 <div id="checkDate">
-                    <span>2022-11-26</span>
+                    <span><%=property.getEnrollDate() %></span>
                 </div>
             </div>
         </div>
@@ -107,27 +162,45 @@
             </div>
             <div id="roomDataDiv" class="data">
                 <div id="floor">
-                    <span>2층</span>
+                    <span><%=property.getFloor() %></span>
                 </div>
                 
                 <div id="room">
-                    <span>원룸(분리형)</span>
+                    <span><%=property.getPropertyStructure() %></span>
                 </div>
                 
                 <div id="area">
-                    <span>19㎡</span>
+                    <span><%=property.getArea() %></span>
+                    <span>㎡</span>
+                    &nbsp;
+                    <span>/</span>
+                    &nbsp;
+                    <span><%=Math.round(property.getArea()* 0.3025*10)/10.0 %></span>
+ 					<span>평</span>
                 </div>
                 
                 <div id="expiryDate">
-                    <span>협의입주</span>
+                	<%if(property.getVacancy()!=null && (property.getVacancy().equals("공실") || property.getVacancy().equals("협의입주"))) {%>
+                    	<span><%=property.getVacancy() %></span>
+                    <%}else {%>
+                    	<span><%=property.getVacancyDate() %></span>
+                    <%} %>
                 </div>
                 
                 <div id="parking">
-                    <span>가능</span>
+                	<%if(property.getPet()=='Y') {%>
+                    	<span>가능</span>
+                    <%}else { %>
+                    	<span>불가능</span>
+                    <%} %>
                 </div>
                 
                 <div id="animal">
-                    <span>불가능</span>
+                    <%if(property.getParking()=='Y') {%>
+                    	<span>가능</span>
+                    <%}else { %>
+                    	<span>불가능</span>
+                    <%} %>
                 </div>
                 
             </div>
@@ -140,18 +213,14 @@
             <div id="optionTbl">
                 <table>
                     <tr>
-                        <td><img src="<%=request.getContextPath()%>/images/YJ/에어컨.png" class="optionIcon"></td>
-                        <td><img src="<%=request.getContextPath()%>/images/YJ/세탁기.png" class="optionIcon" style="width: 60px; height:60px"></td>
-                        <td><img src="<%=request.getContextPath()%>/images/YJ/냉장고.png" class="optionIcon"></td>
-                        <td><img src="<%=request.getContextPath()%>/images/YJ/인덕션.png" class="optionIcon"></td>
-                        <td><img src="<%=request.getContextPath()%>/images/YJ/전자렌지.png" class="optionIcon"></td>
+                    	<% for(String o : option) { %>
+                    		<td><img src="<%=request.getContextPath()%>/images/YJ/<%=o %>.png" class="optionIcon"></td>
+                    	<% } %>
                     </tr>
                     <tr>
-                        <td>에어컨</td>
-                        <td>세탁기</td>
-                        <td>냉장고</td>
-                        <td>인덕션</td>
-                        <td>전자렌지</td>
+                    	<% for(String o : option) { %>
+                    		<td><%=o %></td>
+                    	<% } %>
                     </tr>
                 </table>
             </div>
@@ -174,18 +243,8 @@
             <span>🔳 상세 정보</span>
         </div>
         <div id="description">
-            <pre name="description" style="margin-left: 10px;">
-            <!-- <textarea name="description" id="description"> -->
-신대방역 역세권, 주방분리형 풀옵션 원룸입니다.
-
-★ 특징 ★
-✔ 2호선 신대방역 역세권!
-✔ 주방분리형으로 공간활용에 좋습니다.
-✔ 보라매공원, 도림천과 가까워 살기 좋습니다.
-✔ 냉장고가 커서 반찬 및     배달음식 보관에 용이합니다.
-✔ 편의점, 카페, 식당, 재래시장, 병원 등 편의시설 다수
-
-                <!-- </textarea> -->
+            <pre name="description" style="margin-left: 10px;"> 
+				<%=property.getDetail() %>
             </pre>
         </div>
     </div>
@@ -194,25 +253,32 @@
         <div id="propertiInfo">
             <div id="propertiNo">
                 <span>매물번호</span>
-                <span>31856399</span>
+                <span><%=property.getPropertyNo() %></span>
                 <!-- <button id="button">찜하기</button> -->
             </div>
             <br>
             <div id="priceFix">
-                <span>월세</span>
-                <span>500/40</span>
+                <span><%=property.getRenttype() %></span>
+                <span><%=property.getDeposit()%></span>  
+                    <%if(property.getRenttype().equals("월세")) {%>
+                <span>/</span>	
+                <span><%=property.getMonthlyCharge()%></span>
+                <%} %>
             </div>
             <div>
                 <span>관리비</span>
-                <span>10만원</span>
+                <span><%=property.getManagementCharge() %></span> 
+              	<%if(property.getManagementCharge()!=0) {%>
+                  	<span>만원</span>
+              	<%} %>
             </div>
             <br>
             <div>
-                <span>원룸(분리형)</span>
+                <span><%=property.getPropertyStructure() %></span>
             </div>
             <div>
                 <span>위치: </span>
-                <span>서울특별시 관악구 조원로 13길 35</span>
+                <span><%=property.getAddress() %></span>
             </div>
         </div>
         <hr style="width: 90%;">
