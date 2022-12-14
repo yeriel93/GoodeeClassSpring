@@ -13,7 +13,6 @@
 <!-- 주소 좌표값 변환 api -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=622c2a9d3d39799df3c6db829e75db1d&libraries=services"></script>
 
-<!-- BD로 교감신호 발송 -->
 <body>
 <!-- 매물등록메뉴 -->
 <form action="<%=request.getContextPath()%>/property/insertPropertyEnd.bb" method="post" 
@@ -21,9 +20,9 @@
    
 	<section id="all" style="display:flex;">
         <div id="wrap">
-            <h2>방 내놓기</h2>
+            <h1 style="font-size:40px"><방 내놓기></h1>
 
-             <h4>🔳 기본정보</h4>
+             <h2>🔳 기본정보</h2>
             <div id="address">
                 <span class="redtext">주소*</span>
                 &nbsp;
@@ -59,8 +58,8 @@
                                     $("input[name=addrX]").val(result[0].x);
                                     $("input[name=addrY]").val(result[0].y);
                     
-					                console.log($("input[name=addrX]").val());
-					                console.log($("input[name=addrY]").val());
+					                //console.log($("input[name=addrX]").val());
+					                //console.log($("input[name=addrY]").val());
 			                    }
 			                };
 			                geocoder.addressSearch(data.jibunAddress, callback); 
@@ -92,12 +91,12 @@
                 }
             </script>
 
-            <h4>🔳 거래정보</h4>
+            <h2>🔳 거래정보</h2>
             <div id="price" style="display: flex; align-items: center;">
                 <span class="redtext" style="margin-right: 5px;">거래종류*</span>
-                &nbsp; 
+                &nbsp; &nbsp;
                 <input type="button" class="greenbutton" onclick="fn_priceY()" value="+ 전세">
-                &nbsp;
+                &nbsp;&nbsp;
                 <input type="button" class="greenbutton" onclick="fn_priceM()" value="+ 월세">
                 &nbsp;
             </div>
@@ -130,10 +129,10 @@
             <div id="cost" style="display: flex; text-align: center;">
                 <span class="redtext" style="margin-right: 16px;">관리비*</span>
                 &nbsp;
-                <input type="radio" class="radio" name="costSelect" value="있음" checked>있음
+                <label><input type="radio" class="radio" name="costSelect" value="있음" checked>있음</label>
                 <input type="number" name="costIn" min="1" placeholder="금액을 입력해주세요" style="margin-left: 5px;">
                 <span class="greytext" style="margin-right: 16px;">만원</span>
-                <input type="radio" class="radio" name="costSelect" value="없음">없음
+                <label><input type="radio" class="radio" name="costSelect" value="없음">없음</label>
             </div>
             <br>
             <script>
@@ -149,20 +148,21 @@
             <div id="costInclude">
                 <span>관리비 포함항목</span>
                 &nbsp;
-                <input type="checkbox" class="checkbox" name="costInclude" value="전기">전기
-                <input type="checkbox" class="checkbox" name="costInclude" value="가스">가스
-                <input type="checkbox" class="checkbox" name="costInclude" value="수도">수도
+                <label><input type="checkbox" class="checkbox" name="costInclude" value="전기">전기</label>  &nbsp;
+                <label><input type="checkbox" class="checkbox" name="costInclude" value="가스">가스</label>  &nbsp;
+                <label><input type="checkbox" class="checkbox" name="costInclude" value="수도">수도</label>  &nbsp;
             </div>
+            <br>
             <hr style="width: 95%;">
 
-            <h4>🔳 방 정보</h4>
+            <h2>🔳 방 정보</h2>
             <div id="room">
                 <span class="redtext">방 구조*</span>
                 &nbsp;
-                <input type="radio" name="roomSelect" class="radio" value="오픈형(원룸)" checked>오픈형(원룸)
-                <input type="radio" name="roomSelect" class="radio" value="분리형(원룸)">분리형(원룸)
-                <input type="radio" name="roomSelect" class="radio" value="복층">복층
-                <input type="radio" name="roomSelect" class="radio" value="투룸">투룸
+                <label><input type="radio" name="roomSelect" class="radio" value="오픈형(원룸)" checked>오픈형(원룸) </label> &nbsp;
+                <label><input type="radio" name="roomSelect" class="radio" value="분리형(원룸)">분리형(원룸) </label>  &nbsp;
+                <label><input type="radio" name="roomSelect" class="radio" value="복층">복층 </label> &nbsp;
+                <label><input type="radio" name="roomSelect" class="radio" value="투룸">투룸 </label> &nbsp;
             </div>
             <br>
             <div id="area" style="display: flex; align-text: center;">
@@ -176,62 +176,64 @@
             <div id="expiryDate">
                 <span class="redtext">공실예정일*</span>
                 &nbsp;
-                <input type="radio" name="edSelect" class="radio" value="choice">날짜선택
+                <label><input type="radio" name="edSelect" class="radio" value="choice">날짜선택 </label>
                 <input type="date" name="exdayIn" disabled>
                 &nbsp;
-                <input type="radio" value="공실" name="edSelect" class="radio" checked>공실
+                <label><input type="radio" value="공실" name="edSelect" class="radio" checked>공실 </label>
                 &nbsp;
-                <input type="radio" value="협의입주" name="edSelect" class="radio">협의입주
+                <label><input type="radio" value="협의입주" name="edSelect" class="radio">협의입주 </label>
             </div>
             <br>
             <script>
                 $("input[name=edSelect]")[0].onclick=()=>{
                 	$("input[name=exdayIn]").attr("disabled",false);
-                    console.log($("input[name=exdayIn]"));
+                    //console.log($("input[name=exdayIn]"));
                 }
                 $("input[name=edSelect]")[1].onclick=()=>{
                 	$("input[type=date]").attr("disabled",true);
-                	console.log($("input[name=exdayIn]"));
+                	//console.log($("input[name=exdayIn]"));
                 }
                 $("input[name=edSelect]")[2].onclick=()=>{
                 	$("input[name=costIn]").attr("disabled",true);
-                	console.log($("input[name=exdayIn]"));
+                	//console.log($("input[name=exdayIn]"));
                 }
             </script>
             <div id="option">
                 <span style="margin-right: 30px;">옵션</span>
                 &nbsp;
-                <input type="checkbox" class="checkbox" name="option" value="에어컨">에어컨
-                <input type="checkbox" class="checkbox" name="option" value="세탁기">세탁기
-                <input type="checkbox" class="checkbox" name="option" value="냉장고">냉장고
-                <input type="checkbox" class="checkbox" name="option" value="인덕션">인덕션
-                <input type="checkbox" class="checkbox" name="option" value="전자렌지">전자렌지
+                <label><input type="checkbox" class="checkbox" name="option" value="1">에어컨 </label>&nbsp;
+                <label><input type="checkbox" class="checkbox" name="option" value="2">세탁기 </label>&nbsp;
+                <label><input type="checkbox" class="checkbox" name="option" value="3">냉장고 </label>&nbsp;
+                <label><input type="checkbox" class="checkbox" name="option" value="4">인덕션 </label>&nbsp;
+                <label><input type="checkbox" class="checkbox" name="option" value="5">전자렌지 </label>&nbsp;
             </div>
+            <br>
             <hr style="width: 95%;">
 	
-            <h4>🔳 추가 정보</h4>
+            <h2>🔳 추가 정보</h2>
             <div id="animal">
                 <span>반려동물가능여부</span>
                 &nbsp;
-                <input type="radio" value="Y" name="petSelect" class="radio">가능
-                <input type="radio" value="N" name="petSelect" class="radio" checked>불가능
+                <label><input type="radio" value="Y" name="petSelect" class="radio">가능</label> &nbsp;
+                <label><input type="radio" value="N" name="petSelect" class="radio" checked>불가능</label> &nbsp;
             </div>
             <br>
             <div id="parking">
                 <span style="margin-right: 30px;">주차가능여부</span>
-                &nbsp;
-                <input type="radio" value="Y" name="parkSelect" class="radio">가능
-                <input type="radio" value="N" name="parkSelect" class="radio" checked>불가능
+                &nbsp;&nbsp;
+                <label><input type="radio" value="Y" name="parkSelect" class="radio">가능</label> &nbsp;
+                <label><input type="radio" value="N" name="parkSelect" class="radio" checked>불가능</label> &nbsp;
             </div>
             <br>
             <div id="comment" style="display: flex; align-items: center;">
                 <span>상세 설명</span>
-                &nbsp;
+                &nbsp; &nbsp;
                 <textarea cols="50" rows="5" name="detail" style="resize: none;" placeholder="3000자 이내로 작성해주세요"></textarea>
             </div>
+			<br>
             <hr style="width: 95%;">
-
-            <h4>🔳 사진</h4>
+			
+            <h2>🔳 사진</h2>
             <div id="mainPhoto">
                 <fieldset style="width: 200px;">
                     <legend>메인 사진</legend>
@@ -273,13 +275,13 @@
                     <input type="file" name="upFile4" style="display: none;">
                 </fieldset>
             </div>
-            <br>
+            <br><br>
             <script>
 	            const fn_upfile1=()=>{
 	                $("input[name=upFile1]").click();
 	            }
                 $("input[name=upFile1]").change(e=>{
-                    console.dir(e.target);
+                    //console.dir(e.target);
                     const reader = new FileReader();
                     reader.onload = e=>{
                         //console.log(e.target.result); 
@@ -291,7 +293,7 @@
 	                $("input[name=upFile2]").click();
 	            }
                 $("input[name=upFile2]").change(e=>{
-                    console.dir(e.target);
+                    //console.dir(e.target);
                     const reader = new FileReader();
                     reader.onload = e=>{
                         //console.log(e.target.result); 
@@ -303,7 +305,7 @@
 	                $("input[name=upFile3]").click();
 	            }
                 $("input[name=upFile3]").change(e=>{
-                    console.dir(e.target);
+                    //console.dir(e.target);
                     const reader = new FileReader();
                     reader.onload = e=>{
                         //console.log(e.target.result); 
@@ -315,7 +317,7 @@
 	                $("input[name=upFile4]").click();
 	            }
                 $("input[name=upFile4]").change(e=>{
-                    console.dir(e.target);
+                    //console.dir(e.target);
                     const reader = new FileReader();
                     reader.onload = e=>{
                         //console.log(e.target.result); 
@@ -326,7 +328,7 @@
             </script>
 
             <div id="addroom" style="text-align:center">
-                <input type="submit" class="greenbutton" style="width: 300px; height: 30px;" value="등록하기">
+                <input type="submit" class="greenbutton" id="insertbtn" value="등록하기">
             </div>
             <br>
         </div>
@@ -334,31 +336,31 @@
 
         <!-- 네비게이션 바 -->
         <div id="navi">
-            <h4>기본정보</h4>
+            <h3>기본정보</h3>
             <a href="#address" class="aTag">주소</a> <br>
             <a href="#floor" class="aTag">층수</a> <br>
             <hr>
 
-            <h4>거래정보</h4>
+            <h3>거래정보</h3>
             <a href="#price" class="aTag">거래종류(금액)</a> <br>
             <a href="#cost" class="aTag">관리비</a> <br>
             <a href="#costInclude" class="aTag">관리비 포함항목</a> <br>
             <hr>
 
-            <h4>방 정보</h4>
+            <h3>방 정보</h3>
             <a href="#room" class="aTag">방 구조</a> <br>
             <a href="#area" class="aTag">면적</a> <br>
             <a href="#option" class="aTag">옵션</a> <br>
             <a href="#expiryDate" class="aTag">공실예정일</a> <br>
             <hr>
 
-            <h4>추가 정보</h4>
+            <h3>추가 정보</h3>
             <a href="#animal" class="aTag">반려동물가능여부</a> <br>
             <a href="#parking" class="aTag">주차가능여부</a> <br>
             <a href="#comment" class="aTag">상세 설명</a> <br>
             <hr> 
 
-            <h4>사진</h4>
+            <h3>사진</h3>
             <a href="#photo" class="aTag">방사진 등록</a> <br>
         </div>
 	</section>

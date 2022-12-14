@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +18,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.property.model.vo.Files;
 import com.property.model.vo.Property;
 import com.property.service.PropertyService;
 
@@ -38,9 +41,13 @@ public class InsertPropertyEndServlet extends HttpServlet {
 			DefaultFileRenamePolicy dfr = new DefaultFileRenamePolicy();
 			MultipartRequest mr = new MultipartRequest(request,path,maxSize,encoding,dfr);
 			
+			List<Files> fileList = new ArrayList<Files>();
+
 			String fileName ="";
 			if(mr.getFilesystemName("mainFile")!=null) {
 				fileName = mr.getFilesystemName("mainFile");
+				Files mainFile = Files.builder().renameFilename(fileName).thumbnail('Y').build();
+				fileList.add(mainFile);
 			}
 			
 			String addFileName1="";
@@ -49,14 +56,25 @@ public class InsertPropertyEndServlet extends HttpServlet {
 			String addFileName4="";
 			if(mr.getFilesystemName("upFile1")!=null) {
 				addFileName1 = mr.getFilesystemName("upFile1");
-			} else if(mr.getFilesystemName("upFile2")!=null) {
+				Files addFile1 = Files.builder().renameFilename(addFileName1).thumbnail('N').build();
+				fileList.add(addFile1);
+			} 
+			if(mr.getFilesystemName("upFile2")!=null) {
 				addFileName2 = mr.getFilesystemName("upFile2");
-			} else if(mr.getFilesystemName("upFile3")!=null) {
+				Files addFile2 = Files.builder().renameFilename(addFileName2).thumbnail('N').build();
+				fileList.add(addFile2);
+			} 
+			if(mr.getFilesystemName("upFile3")!=null) {
 				addFileName3 = mr.getFilesystemName("upFile3");
-			} else if(mr.getFilesystemName("upFile4")!=null) {
-				addFileName4 = mr.getFilesystemName("upFile4");
+				Files addFile3 = Files.builder().renameFilename(addFileName3).thumbnail('N').build();
+				fileList.add(addFile3);
 			}
-			System.out.println(fileName+"/"+addFileName1+"/"+addFileName2+"/"+addFileName3+"/"+addFileName4);
+			if(mr.getFilesystemName("upFile4")!=null) {
+				addFileName4 = mr.getFilesystemName("upFile4");
+				Files addFile4 = Files.builder().renameFilename(addFileName4).thumbnail('N').build();
+				fileList.add(addFile4);
+			}
+//			System.out.println(fileName+"/"+addFileName1+"/"+addFileName2+"/"+addFileName3+"/"+addFileName4);
 			
 			//주소
 			String address = mr.getParameter("address");
@@ -64,7 +82,7 @@ public class InsertPropertyEndServlet extends HttpServlet {
 			//좌표
 			double x = Double.parseDouble(mr.getParameter("addrX"));
 			double y = Double.parseDouble(mr.getParameter("addrY"));
-			System.out.println("지번:"+address + " x값:"+ x +" y값:"+y);
+//			System.out.println("지번:"+address + " x값:"+ x +" y값:"+y);
 			
 			//층
 			String floor = mr.getParameter("floorSelect");
@@ -87,7 +105,7 @@ public class InsertPropertyEndServlet extends HttpServlet {
 			if(mr.getParameter("costSelect").equals("있음")) {
 				 managementC = Integer.parseInt(mr.getParameter("costIn"));
 			}
-			System.out.println("층:"+floor+" 보증금:"+deposit+" 월세:"+monCharge+" 관리비:"+managementC);
+//			System.out.println("층:"+floor+" 보증금:"+deposit+" 월세:"+monCharge+" 관리비:"+managementC);
 			
 			//관리비 포함항목
 			char electric = 'N'; 
@@ -109,7 +127,7 @@ public class InsertPropertyEndServlet extends HttpServlet {
 			
 			//면적
 			double area = Double.parseDouble(mr.getParameter("areaIn"));
-			System.out.println("전기:"+electric+" 가스:"+gas+" 수도:"+water+" 구조:"+roomType+" 면적:"+area);
+//			System.out.println("전기:"+electric+" 가스:"+gas+" 수도:"+water+" 구조:"+roomType+" 면적:"+area);
 			
 			//공실예정일
 			String vacancy="";
@@ -125,11 +143,11 @@ public class InsertPropertyEndServlet extends HttpServlet {
 			//반려동물,주차
 			char pet = mr.getParameter("petSelect").charAt(0);
 			char parking = mr.getParameter("parkSelect").charAt(0);
-			System.out.println("공실여부:"+vacancy+" 옵션:"+Arrays.toString(option)+" 동물:"+pet+" 주차:"+parking);
+//			System.out.println("공실여부:"+vacancy+" 옵션:"+Arrays.toString(option)+" 동물:"+pet+" 주차:"+parking);
 			
 			//상세설명
 			String detail = mr.getParameter("detail");
-			System.out.println("내용: "+detail);
+//			System.out.println("내용: "+detail);
 			
 			
 			Property p = Property.builder()
@@ -171,7 +189,7 @@ public class InsertPropertyEndServlet extends HttpServlet {
 				}
 			}
 			System.out.println(p);
-			int result = PropertyService.getPropertyService().insertProperty(p);
+			int result = PropertyService.getPropertyService().insertProperty(p, fileList, option);
 			
 			//등록 후 
 			String msg ="",loc="";

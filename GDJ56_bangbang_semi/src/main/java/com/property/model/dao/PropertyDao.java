@@ -60,7 +60,7 @@ public class PropertyDao {
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("insertProperty"));
-//			INSERT INTO PROPERTY VALUES(SEQ_PROPERTY_NO.NEXTVAL, 200000, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DEFAULT, NULL, 'N');
+//			INSERT INTO PROPERTY VALUES(SEQ_PROPERTY_NO.NEXTVAL, 200000, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DEFAULT, NULL, 'N')
 			pstmt.setString(1, p.getAddress());
 			pstmt.setDouble(2, p.getLongitude());
 			pstmt.setDouble(3, p.getLatitude());
@@ -88,6 +88,25 @@ public class PropertyDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	public int searchPropertyNo(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int proNo = 0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("searchPropertyNo"));
+//			SELECT SEQ_PROPERTY_NO.CURRVAL FROM DUAL
+			rs = pstmt.executeQuery();
+			if(rs.next()) proNo = rs.getInt(1);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return proNo;
 	}
 
 	public List<Property> searchMapPropertyList(Connection conn, String propertyQuery){
@@ -149,9 +168,5 @@ public class PropertyDao {
 	
 		return p;
 	}
-	
-	
-	
-	
 	
 }
