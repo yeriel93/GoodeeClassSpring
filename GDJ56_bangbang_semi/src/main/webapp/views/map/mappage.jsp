@@ -361,8 +361,12 @@
     //마커 이미지 설정
     var imageSrc = "<%=request.getContextPath()%>/images/basicmarker.png";
     var imageSize = new kakao.maps.Size(45,45);
-    var imageOption = {offset: new kakao.maps.Point(27, 69)};
-    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
+    //var imageOption = {offset: new kakao.maps.Point(27, 69)};
+    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+    
+    var selectedImageSrc = "<%=request.getContextPath()%>/images/selectedmarker.png";
+    var selectImageSize = new kakao.maps.Size(50, 50);
+    var selectedMarkerImage = new kakao.maps.MarkerImage(selectedImageSrc, selectImageSize);
     
     //마커배열
     let markerArray = [];
@@ -402,6 +406,8 @@
     		//ajax 를 비동기식 -> 동기식으로 변경
     		//async:false, // -> 성능이 너무 떨어져서 매물리스트는 비동식으로 페이징처리 하자.
     		success:data=>{
+    			//마커는 계속 초기화 되어야 하므로 마커배열을 초기화해준다.
+    			markerArray = [];
     			//추가된 모든 마커를 삭제한다.
     			clusterer.clear();
     			data.forEach(v=>{
@@ -415,7 +421,7 @@
     			})
     			clusterer.addMarkers(markerArray);
     			//마커는 계속 초기화 되어야 하므로 마커배열을 초기화해준다.
-    			markerArray = [];
+    			//markerArray = [];
       		}
     	});
     }
@@ -466,9 +472,11 @@
     				let tempAddress = data[i].address.substring(0, data[i].address.lastIndexOf('동 ')+1);
     				div2.append($("<div>").text(tempAddress));
     				
-    				const input1 = $("<input>").attr("type","hidden").attr("id","propertyNo").val(data[i].propertyNo);
-    				//$("div#listContainer").append($("<div>").attr("class","propertyContainer").attr("display","flex").append(input1).append(div1).append(div2));
-    				$("div#propertyWrap").append($("<div>").attr("class","propertyContainer").attr("display","flex").append(input1).append(div1).append(div2));									
+    				const inputPropertyNo = $("<input>").attr("type","hidden").attr("id","propertyNo").val(data[i].propertyNo);
+    				const inputLatitude = $("<input>").attr("type","hidden").attr("id","latitude").val(data[i].latitude);
+    				const inputLongitude = $("<input>").attr("type","hidden").attr("id","longitude").val(data[i].longitude);
+    				console.log(data[i].propertyNo, data[i].latitude, data[i].longitude);
+    				$("div#propertyWrap").append($("<div>").attr("class","propertyContainer").attr("display","flex").append(inputPropertyNo).append(inputLatitude).append(inputLongitude).append(div1).append(div2));								
     			}
     		}
     	});
@@ -527,16 +535,60 @@
     	    				//스크롤 기능 테스트 추가
     	    				//페이지 스크롤 기능 테스트로 추가
     	    				
-    	    				const input1 = $("<input>").attr("type","hidden").attr("id","propertyNo").val(data[i].propertyNo);
-    	    				//$("div#listContainer").append($("<div>").attr("class","propertyContainer").attr("display","flex").append(input1).append(div1).append(div2));
-    	    				$("div#propertyWrap").append($("<div>").attr("class","propertyContainer").attr("display","flex").append(input1).append(div1).append(div2));
-    	    			}
+    	    				const inputPropertyNo = $("<input>").attr("type","hidden").attr("id","propertyNo").val(data[i].propertyNo);
+    	    				const inputLatitude = $("<input>").attr("type","hidden").attr("id","latitude").val(data[i].latitude);
+    	    				const inputLongitude = $("<input>").attr("type","hidden").attr("id","longitude").val(data[i].longitude);
+    	    				console.log(data[i].propertyNo, data[i].latitude, data[i].longitude);
+    	    				$("div#propertyWrap").append($("<div>").attr("class","propertyContainer").attr("display","flex").append(inputPropertyNo).append(inputLatitude).append(inputLongitude).append(div1).append(div2));	    	    			}
     	    		}
     	    		
     	    	})
     	   }		
 	});
    	
+    //매물을 클릭했을 때 -> propertyNo를 넘기면서 propertyInfo servlet을 호출한다.
+    $(document).on("click","div.propertyContainer", (e)=>{
+    	const propertyNo = $(e.target).parents("div.propertyContainer").children().first().val();
+    	let url = "<%=request.getContextPath()%>/property/propertyInfo.bb?propertyNo=" + propertyNo;
+    	window.open(url);
+    });
+    
+    //매물에 마우스를 올렸을 때 -> 마커이미지를 변경한다.
+    $(document).on("mouseenter","div.propertyContainer",e=>{
+    	let latitude = "";
+    	let longitude = "";
+    	if($(e.target).attr("class") == "propertyContainer"){
+    		latitude = $(e.target).children().eq(1).val();
+    		longitude = $(e.target).children().eq(2).val();
+    	} else {
+	    	latitude = $(e.target).parents("div.propertyContainer").children().eq(1).val();
+	    	longitude = $(e.target).parents("div.propertyContainer").children().eq(2).val();
+   		}
+    	//console.log(latitude, longitude);
+    	var newMarker = new kakao.maps.Marker({
+    	    position: new kakao.maps.LatLng(latitude,longitude),
+    		image:selectedMarkerImage
+    	});
+    	clusterer.addMarker(newMarker);
+    	
+    	 markerArray.find((v)=>{
+    		if(v.getPosition().getLng().toString().indexOf(longitude) == 0 && v.getPosition().getLat().toString() == latitude){
+    			console.log("진입");
+    			return true;
+    		}
+    	}); 
+    	
+    	//console.log(oldMarker);
+    	//clusterer.removeMarker(oldMaker);
+    	//console.log(latitude,longitude);
+    	//console.log(markerArray[0].getPosition().getLng().toString().indexOf(longitude));
+    	//console.log(markerArray[0].getPosition().getLat());
+    	//console.log(oldMarker);
+    });
+    
+    $(document).on("mouseleave","div.propertyContainer",e=>{
+    	
+    })
     
     
     
