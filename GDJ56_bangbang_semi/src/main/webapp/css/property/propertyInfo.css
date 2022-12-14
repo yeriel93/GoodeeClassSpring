@@ -155,10 +155,10 @@ hr{
     text-align: center; 
     height: 30px;
 }
-#price{
+#priceFix{
     font-size: 40px;
-    font-weight: bolder;
     margin-bottom: 2px;
+    font-weight: bolder;
 }
 /* 찜하기버튼 */
 /* #propertiInfo button{
