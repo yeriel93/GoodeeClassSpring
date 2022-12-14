@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import com.property.model.vo.Property;
@@ -49,17 +51,17 @@ public class OptionDao {
 	}
 	
 	//옵션 불러오기
-	public String searchOption(Connection conn,int propertyNo) {
+	public List searchOption(Connection conn,int propertyNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String option = "";
+		List option = new ArrayList();
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("searchOption"));
-//			SELECT T.PROPERTY_NO, F.APPLIANCE_NO FROM PROPERTY T JOIN (SELECT P.PROPERTY_NO , LISTAGG(A.APPLIANCE_NO,',') WITHIN GROUP(ORDER BY A.APPLIANCE_NO) AS APPLIANCE_NO FROM PROPERTY P JOIN APPLIANCE_OPTION A ON P.PROPERTY_NO = A.PROPERTY_NO GROUP BY P.PROPERTY_NO) F ON T.PROPERTY_NO = F.PROPERTY_NO WHERE T.PROPERTY_NO = ?
+//			SELECT appliance_name FROM property JOIN APPLIANCE_OPTION USING(property_no) JOIN home_appliance USING(appliance_no) WHERE property_no=?
 			pstmt.setInt(1, propertyNo);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				option = rs.getString("APPLIANCE_NO");
+			while(rs.next()) {
+				option.add(rs.getString("appliance_name"));
 			}
 			
 		} catch (SQLException e) {

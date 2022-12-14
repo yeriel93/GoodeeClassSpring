@@ -37,10 +37,11 @@
     display: flex;
     overflow: hidden;
     width: 100%;
+    margin-top : 30px;
 }
 #roomWrap>img{
-    width: 500px;
-    height: 500px;
+    width: 640px;
+    height: 600px;
     border: 1px solid black;
 }
 
@@ -114,7 +115,7 @@ hr{
 /* ------------------------------------------------------------------------------------------------------------ */
 /* 부동산정보 */
 #fixDiv{
-    position: fixed;
+   	/* position: fixed; */
     right: 20px;
     bottom: 30px;
     /* top: 630px; */

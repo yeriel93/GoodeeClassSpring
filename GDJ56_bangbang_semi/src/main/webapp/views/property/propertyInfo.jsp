@@ -1,16 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
+<%@
+	page import ="com.property.model.vo.Property,
+				java.util.List,
+				com.property.model.vo.Files" 
+ %>
+<%
+	Property property = (Property)request.getAttribute("property");
+	List<Files> files = (List<Files>)request.getAttribute("files");
+	List<String> option = (List<String>)request.getAttribute("option"); 
+%>
 
 <!-- css -->
 <link href="<%=request.getContextPath() %>/css/property/propertyInfo.css" type="text/css" rel="stylesheet">
 
 <div id="roomWrap">
-    <img src="image/화면 캡처 2022-11-25 171552.png">
-    <img src="image/화면 캡처 2022-11-25 171626.png">
-    <img src="image/화면 캡처 2022-11-25 171636.png">
-    <img src="image/화면 캡처 2022-11-25 171649.png">
-    <img src="image/화면 캡처 2022-11-25 171719.png">
+    <img src="<%=request.getContextPath() %>/upload/property/<%=files.get(0).getRenameFilename() %>">
+    <img src="<%=request.getContextPath() %>/upload/property/<%=files.get(1).getRenameFilename() %>">
+    <img src="<%=request.getContextPath() %>/upload/property/<%=files.get(2).getRenameFilename() %>">
+    <img src="<%=request.getContextPath() %>/upload/property/<%=files.get(3).getRenameFilename() %>">
+    <img src="<%=request.getContextPath() %>/upload/property/<%=files.get(4).getRenameFilename() %>">
 </div>
 <section class ="flex">
     <div id="roomInfoWrap">

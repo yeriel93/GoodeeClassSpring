@@ -83,7 +83,7 @@ public class PropertyService {
 		List<Files> files = FilesDao.getFilesDao().searchFileNames(conn, propertyNo);
 		property.setFiles(files);
 //		System.out.println(files);
-		String option = OptionDao.getOptionDao().searchOption(conn,propertyNo);
+		List option = OptionDao.getOptionDao().searchOption(conn,propertyNo);
 //		System.out.println(option);
 		list.add(property);
 		list.add(option);

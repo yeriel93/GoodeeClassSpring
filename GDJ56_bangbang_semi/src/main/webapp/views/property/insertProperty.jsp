@@ -15,7 +15,9 @@
 
 <body>
 <!-- 매물등록메뉴 -->
-<form action="<%=request.getContextPath()%>/property/insertPropertyEnd.bb" method="post" 
+<%-- <form action="<%=request.getContextPath()%>/property/insertPropertyEnd.bb" method="post" 
+	enctype="multipart/form-data" onsubmit="return fn_invalidate();"> --%>
+<form action="" method="post" 
 	enctype="multipart/form-data" onsubmit="return fn_invalidate();">
    
 	<section id="all" style="display:flex;">
@@ -239,9 +241,13 @@
             <hr style="width: 95%;">
 			
             <h2>🔳 사진</h2>
+            <div>
+                <p>🔊 메인사진 등록은 <b style="color: red;">필수</b>입니다.</p>
+                <p>🔊 사진은 최소 <b style="color: red;">3장</b>이상 등록해주세요.</p>
+            </div> <br>
             <div id="mainPhoto">
                 <fieldset style="width: 200px;">
-                    <legend>메인 사진</legend>
+                    <legend style="font-size: 20px; color: red;"><b>메인 사진</b></legend>
                     <img src="<%=request.getContextPath()%>/images/YJ/사진추가하기.png" id="mainPhoto"
                         name="mainPhoto" onclick="fn_upfile();" width="200px" height="200px">
                     <input type="file" name="mainFile" style="display: none;">
@@ -265,16 +271,19 @@
             </script>
             <div id="photo">
                 <fieldset style="width: 80%; display: flex; justify-content:space-between ;">
-                    <legend>사진 추가</legend>
+                    <legend style="font-size: 20px;"><b>사진</b></legend>
                     <img src="<%=request.getContextPath()%>/images/YJ/사진추가하기.png" 
                         name="photo1" onclick="fn_upfile1();" width="150px" height="150px">
                     <input type="file" name="upFile1" style="display: none;">
+                    
                     <img src="<%=request.getContextPath()%>/images/YJ/사진추가하기.png" 
                         name="photo2" onclick="fn_upfile2();" width="150px" height="150px">
                     <input type="file" name="upFile2" style="display: none;">
+                    
                     <img src="<%=request.getContextPath()%>/images/YJ/사진추가하기.png" 
                         name="photo3" onclick="fn_upfile3();" width="150px" height="150px">
                     <input type="file" name="upFile3" style="display: none;">
+                    
                     <img src="<%=request.getContextPath()%>/images/YJ/사진추가하기.png" 
                         name="photo4" onclick="fn_upfile4();" width="150px" height="150px">
                     <input type="file" name="upFile4" style="display: none;">
@@ -399,13 +408,30 @@
 	            }
             }
             
-            //사진 넣기
+          //메인사진 넣기
+            let count=0;
             const mainFile = $("input[name=mainFile]").val().trim();
             if(mainFile.length==0){
-                alert("메인 사진을 추가해주세요!");
+                alert("메인사진을 등록해주세요!");
+                console.log(count);
+                return false;
+            } else{
+            	count++;
+            }
+            //최소3장이상 사진등록
+            const photo1 = $("input[name=upFile1]").val().trim();
+            const photo2 = $("input[name=upFile2]").val().trim();
+            const photo3 = $("input[name=upFile3]").val().trim();
+            const photo4 = $("input[name=upFile4]").val().trim();
+            if(photo1.length>0) count++;
+            if(photo2.length>0) count++;
+            if(photo3.length>0) count++;
+            if(photo4.length>0) count++;
+            
+            if(count<3){
+                alert("메인사진 포함 사진을 최소 3장이상 등록해주세요!");
                 return false;
             }
-               	
         }
     </script>
     
