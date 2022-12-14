@@ -475,7 +475,7 @@
     				const inputPropertyNo = $("<input>").attr("type","hidden").attr("id","propertyNo").val(data[i].propertyNo);
     				const inputLatitude = $("<input>").attr("type","hidden").attr("id","latitude").val(data[i].latitude);
     				const inputLongitude = $("<input>").attr("type","hidden").attr("id","longitude").val(data[i].longitude);
-    				console.log(data[i].propertyNo, data[i].latitude, data[i].longitude);
+    				//console.log(data[i].propertyNo, data[i].latitude, data[i].longitude);
     				$("div#propertyWrap").append($("<div>").attr("class","propertyContainer").attr("display","flex").append(inputPropertyNo).append(inputLatitude).append(inputLongitude).append(div1).append(div2));								
     			}
     		}
@@ -564,29 +564,30 @@
 	    	longitude = $(e.target).parents("div.propertyContainer").children().eq(2).val();
    		}
     	//데이터를 끝부분을 잘라먹고 넣어서 알맞게 파싱함..
-    	
-    	//기존 마커 삭제
-    	markerArray.forEach((v,i)=>{
-    		//console.log(v.getPosition());
+    	//기존 마커 삭제 -> filter 이용
+    	markerArray = markerArray.filter((v,i)=>{
     		let stringLng = v.getPosition().getLng().toString();
     		let stringLat = v.getPosition().getLat().toString();
-    		if(stringLng.indexOf(longitude.substring(0,longitude.length-2)) == 0 && stringLat.indexOf(latitude.substring(0,latitude.length-2)) == 0){
-    			clusterer.removeMarker(v);
-    			return true;
-    		}
+    		return !(stringLng.indexOf(longitude.substring(0,longitude.length-2)) == 0 && stringLat.indexOf(latitude.substring(0,latitude.length-2)) == 0);
     	})
-
-    	//selected 마커 추가
+    	
+    	//markerArray에 selected 마커 추가
     	var newMarker = new kakao.maps.Marker({
     	    position: new kakao.maps.LatLng(latitude,longitude),
     		image:selectedMarkerImage
     	});
     	markerArray.push(newMarker);
-    	clusterer.addMarker(newMarker);
+    	
+    	//clusterer 초기화 후 markerArray 입력 
+    	clusterer.clear();
+    	clusterer.addMarkers(markerArray);
+    	
+		
     	
     	
     });
     
+    //매물에서 마우스가 벗어났을 때
     $(document).on("mouseleave","div.propertyContainer",e=>{
     	let latitude = "";
     	let longitude = "";
@@ -598,27 +599,23 @@
 	    	longitude = $(e.target).parents("div.propertyContainer").children().eq(2).val();
    		}
     	
-    	//기존 마커 삭제
-    	markerArray.forEach((v,i)=>{
-    		//console.log(v.getPosition());
+    	//기존 마커 삭제 -> filter 이용
+    	markerArray = markerArray.filter((v,i)=>{
     		let stringLng = v.getPosition().getLng().toString();
     		let stringLat = v.getPosition().getLat().toString();
-    		if(stringLng.indexOf(longitude.substring(0,longitude.length-2)) == 0 && stringLat.indexOf(latitude.substring(0,latitude.length-2)) == 0){
-    			clusterer.removeMarker(v);
-    			return true;
-    		}
-    	});
-    	
-    	//selected 마커 추가
+    		return !(stringLng.indexOf(longitude.substring(0,longitude.length-2)) == 0 && stringLat.indexOf(latitude.substring(0,latitude.length-2)) == 0);
+    	})
+    	//selected 마커 markerArray에 추가
     	var newMarker = new kakao.maps.Marker({
     	    position: new kakao.maps.LatLng(latitude,longitude),
     		image:markerImage
     	});
-    	clusterer.addMarker(newMarker);
+    	markerArray.push(newMarker);
+    	//클러스터 지운 후 markerArray 다시 추가
+    	clusterer.clear();
+    	clusterer.addMarkers(markerArray);
     })
-    
-    
-    
+       
     //카카오맵이 load 되었을 때
     kakao.maps.load(function(){
     	$("input#depositRange").val("50000"); 
@@ -651,10 +648,6 @@
     
     
     </script>
-    
-    
-    
-    
-    
+
     </body>
 </html>
