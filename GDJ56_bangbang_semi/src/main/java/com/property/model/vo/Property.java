@@ -37,4 +37,5 @@ public class Property {
 	private Date editDate;
 	private char hiding;
 	private String thumbnail;
+	private Files[]	files;
 }

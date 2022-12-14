@@ -89,7 +89,7 @@ public class PropertyDao {
 		}
 		return result;
 	}
-	
+	//현재 매물번호 조회
 	public int searchPropertyNo(Connection conn) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
