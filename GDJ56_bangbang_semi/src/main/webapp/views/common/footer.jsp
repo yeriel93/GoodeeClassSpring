@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/common/footerStyle.css">
-   
+   	<div id="interFooter">
+   	
+   	</div>
   	<footer>
   		<p style="font-size:16px"><strong>(주) 방방</strong></p>
   		<br>

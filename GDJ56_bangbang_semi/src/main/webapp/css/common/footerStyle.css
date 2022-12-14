@@ -12,3 +12,7 @@ footer{
 footer:first-child{
 	font-size:20px;
 }
+div#interFooter{
+	background-color:#d9dfd4;
+	height:150px;
+}
