@@ -11,7 +11,7 @@
 <body>
     <div id="divOuter">
         <div id="loginContainer">
-        	<form id="loginForm" action="<%=request.getContextPath() %>/user/loginEnd.bb">
+        	<form id="loginForm" action="<%=request.getContextPath() %>/user/loginEnd.bb" method="post">
 	            <h1>로그인</h1>
 	            <hr>
 	            <h3>아이디</h3>
