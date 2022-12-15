@@ -10,16 +10,16 @@
     height: fit-content;
     margin-left: 40%;
 }
-#searchContainer>#searchId>hr{
+#searchContainer>#searchPw>hr{
     width:260px;
     margin-left: 0px;
 }
-#searchContainer>#searchId>h1{
+#searchContainer>#searchPw>h1{
     margin-bottom: 10px;
     padding-top: 30px;
 }
-#searchContainer>#searchId>input{
-    width: 245px;
+#searchContainer>#searchPw>input{
+    width: 290px;
     height: 32px;
     font-size: 15px;
     border: 0;
@@ -28,7 +28,7 @@
     padding-left: 10px;
     background-color: rgb(255, 255, 255);
 }
-#searchContainer>#searchId>img{
+#searchContainer>#searchPw>img{
     width:260px;
     margin-top: 0px;
 }
@@ -92,6 +92,18 @@
 .content{
 	margin-top: 75px;
 }
-input::placeholder {  
-  font-size: 13px;
+
+/*  */
+#loginBtn2{
+    width:260px;
+    height:40px;
+    /* margin-left: 40px; */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #075A2A;
+    color: white;
+    border-color: #075a2a8c;
+    border-radius: 5px;
+    border:none;
+    
 }

@@ -10,20 +10,25 @@
     height: fit-content;
     margin-left: 40%;
 }
-#searchContainer>hr{
+#searchContainer>#searchPw>hr{
     width:260px;
     margin-left: 0px;
 }
-#searchContainer>h1{
+#searchContainer>#searchPw>h1{
     margin-bottom: 10px;
     padding-top: 30px;
 }
-#searchContainer>input{
-    width:250px;
-    height:30px;
-
+#searchContainer>#searchPw>input{
+    width: 290px;
+    height: 32px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-left: 10px;
+    background-color: rgb(255, 255, 255);
 }
-#searchContainer>img{
+#searchContainer>#searchPw>img{
     width:260px;
     margin-top: 0px;
 }
@@ -58,7 +63,9 @@
     color: white;
     border-color: #075a2a8c;
     border-radius: 5px;
+    border:none;
 }
+
 #loginBtn2{
     width:260px;
     height:40px;
@@ -70,14 +77,12 @@
     border-color: #075a2a8c;
     border-radius: 5px;
 }
-#searchIdBtn{
-    width:260px;
-    height:40px;
-    /* margin-left: 40px; */
-    margin-top: 25px;
-    margin-bottom: 10px;
-    background-color: #075A2A;
-    color: white;
-    border-color: #075a2a8c;
-    border-radius: 5px;
+
+.content{
+	margin-top: 75px;
 }
+
+input::placeholder {  
+    font-size: 13px;
+  }
+

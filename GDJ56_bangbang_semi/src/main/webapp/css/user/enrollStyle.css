@@ -95,3 +95,6 @@
 .enroll-container{
 	margin-top: 75px;
 }
+input::placeholder {  
+  font-size: 13px;
+}
