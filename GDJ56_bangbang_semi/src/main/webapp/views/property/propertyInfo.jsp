@@ -19,6 +19,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/css/swiper.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.1/js/swiper.min.js"></script>	
 
+<!-- kakao Map api -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=622c2a9d3d39799df3c6db829e75db1d"></script>
+
 <div id="roomWrap">
 	<div class="swiper-container">
 		<div class="swiper-wrapper">
@@ -202,15 +205,15 @@
                     	<span>불가능</span>
                     <%} %>
                 </div>
-                
             </div>
         </div>
+        <br>
         
-        <div class ="flex">
+        <div class="flex">
             <div id="option" style="width: 360px;">
                 <span style="font-size: 25px;">옵션</span>
             </div>
-            <div id="optionTbl">
+            <div id="optionTbl" style="margin-top: 20px">
                 <table>
                     <tr>
                     	<% for(String o : option) { %>
@@ -219,7 +222,7 @@
                     </tr>
                     <tr>
                     	<% for(String o : option) { %>
-                    		<td><%=o %></td>
+                    		<td style="font-size : 16px"><b><%=o %></b></td>
                     	<% } %>
                     </tr>
                 </table>
@@ -232,11 +235,39 @@
         <div class="infoTitle">
             <span>🔳 위치 정보</span>
         </div>
-        <div id="map">
-            <img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMjAxMjdfMTEx%2FMDAxNjQzMjgyODE3MTUz.nH1kv0etoHik1cdjWmcIaHnn_m2-_ipJZ3t5grblnosg.InjGik8d1Uxr9kG1-jJXWM4IIya-rvo_44s-TuOHTpgg.JPEG.fwfw_%2FIMG_0856.jpg&type=sc960_832" alt="">
-        </div>
+        <div id="map" style="width:100%; height:500px;"></div>
         <br>
         <hr>
+        
+        <script>
+			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+			    mapOption = { 
+			        center: new kakao.maps.LatLng(<%=property.getLatitude() %>, <%=property.getLongitude() %>), // 지도의 중심좌표
+			        level: 3 // 지도의 확대 레벨
+			    };
+			
+			// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+			var map = new kakao.maps.Map(mapContainer, mapOption); 
+			
+			// 마커가 표시될 위치입니다 
+			var markerPosition  = new kakao.maps.LatLng(<%=property.getLatitude() %>, <%=property.getLongitude() %>); 
+
+			//마커 이미지 설정
+		    var imageSrc = "<%=request.getContextPath()%>/images/basicmarker.png";
+		    var imageSize = new kakao.maps.Size(70,70);
+		    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+		    
+			// 마커를 생성합니다
+			var marker = new kakao.maps.Marker({
+			    position: markerPosition,
+			    image: markerImage
+			});
+
+			// 마커가 지도 위에 표시되도록 설정합니다
+			marker.setMap(map);
+			
+		    
+		</script>
         
         <br>
         <div class="infoTitle">

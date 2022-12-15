@@ -175,10 +175,21 @@
             <div id="area" style="display: flex; align-text: center;">
                 <span class="redtext" style="margin-right: 38px;">면적*</span>
                 &nbsp;
-                <input type="number" name="areaIn" step="0.01" required>
+                <input type="number" name="areaIn" step="0.01" onkeyup="changeNum(event)" required>
                 <span class="greytext">㎡</span>
+                <span style="margin-left: 12px; margin-right: 2px; color:rgb(7, 90, 42)">✔</span>                
+                <span id="sqft" style="color:rgb(7, 90, 42)">0</span>
+                <span style="color:rgb(7, 90, 42)">평</span>
             </div>
             <br>
+           	<script>
+           		const changeNum=(e)=>{
+           			let sqft = Math.round($(e.target).val()* 0.3025*10)/10.0;
+           			//console.log(sqft);
+           			$("#sqft").text(sqft);
+           		}
+           	</script>
+            
             
             <div id="expiryDate">
                 <span class="redtext">공실예정일*</span>

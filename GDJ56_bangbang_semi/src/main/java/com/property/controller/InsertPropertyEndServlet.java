@@ -36,7 +36,7 @@ public class InsertPropertyEndServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath());
 		}else {
 			String path = request.getServletContext().getRealPath("/upload/property");
-			int maxSize = 1024*1024*10;  //최대사이즈는 몇까지 해야할까요?!
+			int maxSize = 1024*1024*5;  //5MB
 			String encoding = "UTF-8";
 			DefaultFileRenamePolicy dfr = new DefaultFileRenamePolicy();
 			MultipartRequest mr = new MultipartRequest(request,path,maxSize,encoding,dfr);
@@ -209,7 +209,7 @@ public class InsertPropertyEndServlet extends HttpServlet {
 			request.setAttribute("msg", msg);
 			request.setAttribute("loc", loc);
 			
-//			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
