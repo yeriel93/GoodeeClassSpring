@@ -15,11 +15,9 @@
 
 <body>
 <!-- 매물등록메뉴 -->
-<%-- <form action="<%=request.getContextPath()%>/property/insertPropertyEnd.bb" method="post" 
-	enctype="multipart/form-data" onsubmit="return fn_invalidate();"> --%>
-<form action="" method="post" 
+<form action="<%=request.getContextPath()%>/property/insertPropertyEnd.bb" method="post" 
 	enctype="multipart/form-data" onsubmit="return fn_invalidate();">
-   
+
 	<section id="all" style="display:flex;">
         <div id="wrap">
             <h1 style="font-size:40px"><방 내놓기></h1>
@@ -216,17 +214,40 @@
                 	//console.log($("input[name=exdayIn]"));
                 }
             </script>
-            <div id="option">
+            <div id="option" style="display: flex;">
                 <span style="margin-right: 30px;">옵션</span>
                 &nbsp;
-                <label><input type="checkbox" class="checkbox" name="option" value="1">에어컨 </label>&nbsp;
-                <label><input type="checkbox" class="checkbox" name="option" value="2">세탁기 </label>&nbsp;
-                <label><input type="checkbox" class="checkbox" name="option" value="3">냉장고 </label>&nbsp;
-                <label><input type="checkbox" class="checkbox" name="option" value="4">인덕션 </label>&nbsp;
-                <label><input type="checkbox" class="checkbox" name="option" value="5">전자렌지 </label>&nbsp;
+                <label><input type="radio" onclick="fn_no()" class="radio" name="optionR" value="6" checked>없음 </label>&nbsp;&nbsp;
+                <label><input type="radio" onclick="fn_yes()" class="radio" name="optionR" >있음 </label>&nbsp;&nbsp;
+                
+                <div id="optionAll" hidden>
+                    <label><input type="checkbox" class="checkbox selectOpt" id="opt1" name="option" value="1" >에어컨 </label>&nbsp;
+                    <label><input type="checkbox" class="checkbox selectOpt" id="opt2" name="option" value="2" >세탁기 </label>&nbsp;
+                    <label><input type="checkbox" class="checkbox selectOpt" id="opt3" name="option" value="3" >냉장고 </label>&nbsp;
+                    <label><input type="checkbox" class="checkbox selectOpt" id="opt4" name="option" value="4" >인덕션 </label>&nbsp;
+                    <label><input type="checkbox" class="checkbox selectOpt" id="opt5" name="option" value="5" >전자렌지 </label>&nbsp;
+                    <label><input type="checkbox" class="checkbox" name="option" value="6" id="optionNo" checked hidden></label>
+                </div>
             </div>
             <br>
             <hr style="width: 95%;">
+            <script>
+                const fn_no=()=>{
+                    $("#optionNo").prop("checked",true);
+                    $("#optionAll").hide();
+                    // console.dir($(".selectOpt")[0]);
+                    // const select = $(".selectOpt");
+                    $("#opt1").prop("checked",false);
+                    $("#opt2").prop("checked",false);
+                    $("#opt3").prop("checked",false);
+                    $("#opt4").prop("checked",false);
+                    $("#opt5").prop("checked",false);
+                }
+                const fn_yes=()=>{
+                    $("#optionNo").prop("checked",false);
+                    $("#optionAll").show();
+                }
+            </script>
 	
             <h2>🔳 추가 정보</h2>
             <div id="animal">

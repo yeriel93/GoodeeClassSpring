@@ -106,8 +106,13 @@ hr{
 }
 /* 옵션 테이블 */
 #optionTbl td{    
+    /* border: 1px solid blueviolet; */
     text-align: center;
     width: 130px;
+    margin-right: 20px;
+}
+#optionTbl tr{
+    border: 1px solid gray;
 }
 .optionIcon{
     width: 50px;

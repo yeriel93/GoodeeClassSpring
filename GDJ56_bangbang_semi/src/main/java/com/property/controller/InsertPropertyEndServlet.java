@@ -145,6 +145,7 @@ public class InsertPropertyEndServlet extends HttpServlet {
 			
 			//옵션
 			String[] option = mr.getParameterValues("option");
+			System.out.println(" 옵션:"+Arrays.toString(option));
 			
 			//반려동물,주차
 			char pet = mr.getParameter("petSelect").charAt(0);
@@ -204,7 +205,7 @@ public class InsertPropertyEndServlet extends HttpServlet {
 				loc = "/";
 			}else {
 				msg = "방내놓기 실패! 다시 시도해주세요~~ o(TヘTo)";
-				loc="/property/insertProperty.bb";
+				loc = "/property/insertProperty.bb";
 			}
 			request.setAttribute("msg", msg);
 			request.setAttribute("loc", loc);

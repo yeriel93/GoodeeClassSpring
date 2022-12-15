@@ -97,9 +97,11 @@
                 </div>
                 <br>
                 <div id="cost">
-                   	<span><%=property.getManagementCharge() %></span> 
                 	<%if(property.getManagementCharge()!=0) {%>
+                   	<span><%=property.getManagementCharge() %></span> 
                     	<span>만원</span>
+                	<%} else {%>
+                		<span>없음</span>
                 	<%} %>
                 </div>
                 <br>
@@ -162,6 +164,11 @@
                     <div><img src="<%=request.getContextPath()%>/images/YJ/반려동물.png" class="icon"></div>
                     <div><span>반려동물가능여부</span></div>
                 </div>
+                <br><br>
+                <div id="option" class ="flex">
+                	<div><img src="<%=request.getContextPath()%>/images/YJ/옵션.png" class="icon"></div>
+                	<div><span style="font-size: 25px;">옵션</span></div>
+            	</div>
             </div>
             <div id="roomDataDiv" class="data">
                 <div id="floor">
@@ -205,29 +212,31 @@
                     	<span>불가능</span>
                     <%} %>
                 </div>
+                
             </div>
         </div>
+        <div id="optionTbl" style="margin-top: 10px">
+	         <table>
+	             <tr>
+	             	<% for(String o : option) { 
+	             		if(!o.equals("옵션없음")){%>
+	             			<td><img src="<%=request.getContextPath()%>/images/YJ/<%=o %>.png" class="optionIcon"></td>
+	             		<%}else{%>
+	             			<td><h2>◼ 없음</h2></td>
+	             		<%}
+	             	}%>
+	             </tr>
+	             <tr>
+	             	<% for(String o : option) {
+	             		if(!o.equals("옵션없음")){%>
+	             			<td style="font-size : 16px"><b><%=o %></b></td>
+	             		<%} 
+	             	}%>
+	             </tr>
+	         </table>
+    	</div>
         <br>
         
-        <div class="flex">
-            <div id="option" style="width: 360px;">
-                <span style="font-size: 25px;">옵션</span>
-            </div>
-            <div id="optionTbl" style="margin-top: 20px">
-                <table>
-                    <tr>
-                    	<% for(String o : option) { %>
-                    		<td><img src="<%=request.getContextPath()%>/images/YJ/<%=o %>.png" class="optionIcon"></td>
-                    	<% } %>
-                    </tr>
-                    <tr>
-                    	<% for(String o : option) { %>
-                    		<td style="font-size : 16px"><b><%=o %></b></td>
-                    	<% } %>
-                    </tr>
-                </table>
-            </div>
-        </div>
         <br>
         <hr>
         
@@ -235,7 +244,7 @@
         <div class="infoTitle">
             <span>🔳 위치 정보</span>
         </div>
-        <div id="map" style="width:100%; height:500px;"></div>
+        <div id="map" style="width:75%; height:600px;"></div>
         <br>
         <hr>
         
@@ -274,8 +283,10 @@
             <span>🔳 상세 정보</span>
         </div>
         <div id="description">
-            <pre name="description" style="margin-left: 10px;"> 
-				<%=property.getDetail() %>
+            <pre name="description" style="margin-left: 10px;">
+            	<%if(property.getDetail()!=null){ %>
+					<%=property.getDetail() %>
+				<%} %>
             </pre>
         </div>
     </div>
@@ -298,10 +309,12 @@
             </div>
             <div>
                 <span>관리비</span>
-                <span><%=property.getManagementCharge() %></span> 
-              	<%if(property.getManagementCharge()!=0) {%>
-                  	<span>만원</span>
-              	<%} %>
+                <%if(property.getManagementCharge()!=0) {%>
+                  	<span><%=property.getManagementCharge() %></span> 
+                   	<span>만원</span>
+               	<%} else {%>
+               		<span>없음</span>
+               	<%} %>
             </div>
             <br>
             <div>
