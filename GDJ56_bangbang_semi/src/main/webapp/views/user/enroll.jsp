@@ -79,13 +79,15 @@
 		            <h3>비밀번호 확인</h3>
 		            <input type="password" class="enroll_input" name="userPw_chk" id="userPw_chk" placeholder="비밀번호를 한번 더 입력해주세요." required>
 					<input type="button" class="btns" id="pwCheck" value="(❁´▽`❁)*✲ﾟ*">
+							     
+							     
 							            
 		            <h3>이름</h3>
 		            <input type="text" class="enroll_input" name="userName" id="userName" placeholder="이름을 입력해주세요." required>
 		            
 		            <h3>이메일</h3>
 		            <input type="text" class="enroll_input" name="userEmail" id="userEmail" placeholder="이메일 주소를 입력해주세요." required>
-		            <input type="button" class="btns" onclick="" value="이메일 인증">
+		            <input type="button" class="btns" id="certifyEmail" value="이메일 인증">
 		            
 		            <h3>이메일 인증</h3>
 		            <input type="text" class="enroll_input" name="userEmail_Cert" id="userEmailCert" placeholder="인증코드를 입력해주세요." required>
@@ -332,21 +334,40 @@
 	        </div>      
 	                
     	</div>
-		<script>
-			/* const fn_duplicateIdRequiredChk=()=>{
-				const id=$(userId).val();
-				$("userId_chk").val(id);
-
-			} */
+		<script>		
+			//이메일 인증코드
+			//서블릿 주소 /user/certifyEmail.bb
+			$("#certifyEmail").click(e=>{
+				const userEmail=$("#userEmail").val();
+				
+				$.ajax({
+					type:"post",
+					url:"<%=request.getContextPath()%>/user/certifyEmail.bb",
+					data:{userEmail:userEmail},
+					success:function(data){
+						alert("인증코드 전송완료! 입력하신 이메일을 확인해주세요.");
+							$("#certifyEmail").attr("disabled","false");
+							$("#certifyEmail").css("background-color","lightgray");
+												
+						setTimeout(function(){ 
+						$("#certifyEmail").attr("disabled","true");
+						}, 30000);
+						
+					}
+					
+				})
 			
+			})
+				
+			
+		
+		
 			// 아이디 중복확인
 			$("#duplicateId").click(e=>{
 				const userId=$("#userId").val();
 				$.ajax({
 					url:"<%=request.getContextPath()%>/user/duplicateId.bb",
-					//type:"post"
 					data:{userId:userId},
-					// dataType:"json"
 					success:function(result){
 						if(result==0){
 							alert("🔴 이미 존재하는 아이디입니다.");
@@ -355,9 +376,16 @@
 							}, 10)
 						}else{
 							alert("🟢 사용할 수 있는 아이디입니다.")
-							setTimeout(function(){ //alert 무한루프 문제 해결
+							setTimeout(function(){ 
 								$("#userId").focus();
 							}, 10)
+							
+							const id=$("#userId").val();
+							$("#userId_chk").val(id);
+							
+							const idchkk=$("#userId_chk").val();
+							
+							
 						}
 					
 					}
@@ -397,8 +425,9 @@
 			$("#userId").blur(e=>{
 					const id=$("#userId").val();
 					const idChk=/^[A-Za-z0-9]+$/
+					
 					if(!idChk.test(id)||id.length<5){
-						alert("⛔ 아이디는 5자 이상, 영문자/숫자로만 구성할 수 있습니다.⛔");
+						alert("⛔ 아이디는 5자 이상, 영문자/숫자로만 구성할 수 있습니다. ⛔");
 						$("#userId").val("");
 						setTimeout(function(){ //alert 무한루프 문제 해결
 							$("#userId").focus();
@@ -408,15 +437,31 @@
 					}					
 					
 			})
-
-		
+			
+			//이메일 정규표현식
+			$("#userEmail").blur(e=>{
+					const userEmail=$("#userEmail").val();
+					const emailChk=/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])+@[a-z]+\.[a-z]{2,3}/
+					
+					if(!emailChk.test(userEmail)){
+						alert("⛔ 이메일을 정확히 입력해주세요 ⛔");
+						$("#userEmail").val("");
+						setTimeout(function(){ 
+							$("#userEmail").focus();
+						}, 10)
+						
+						return false;
+					}					
+					
+			})
+			
 			//생년월일 정규표현식
 			$(()=>{
 				$("#userBirth").focusout(e=>{
 					const birth=$("#userBirth").val();
 					const birthChk=/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/
 					if(!birthChk.test(birth)){
-						alert("⛔ 생년월일을 yyyy-mm-dd 형식으로 입력해주세요 예시) 1995년 01월 02일⛔");
+						alert("⛔ 생년월일을 yyyy-mm-dd 형식으로 입력해주세요 예시) 1995년 01월 02일 ⛔");
 						$("#userBirth").val("");
 						setTimeout(function(){
 							$("#userBirth").focus();
@@ -425,6 +470,8 @@
 					}
 				})
 			})	
+
+			
 
 
 

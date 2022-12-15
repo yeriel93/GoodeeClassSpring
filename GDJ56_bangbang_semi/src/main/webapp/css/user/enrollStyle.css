@@ -18,7 +18,7 @@
     margin-bottom: 10px;
     padding-top: 30px;
 }
-#signupContainer>#enrollForm input{
+/* #signupContainer>#enrollForm input{
   width: 250px;
   height: 32px;
   font-size: 15px;
@@ -28,7 +28,7 @@
   padding-left: 10px;
   background-color: rgb(255, 255, 255);
 
-}
+} */
 #signupContainer>img{
     width:260px;
     margin-top: 0px;
