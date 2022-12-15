@@ -19,7 +19,7 @@ public class OptionDao {
 	private Properties sql = new Properties();
 	private OptionDao() {
 		try {
-			String path = Property.class.getResource("/sql/property/option_sql.properties").getPath();
+			String path = Property.class.getResource("/sql/option/option_sql.properties").getPath();
 			sql.load(new FileReader(path));
 		} catch (IOException e) {
 			e.printStackTrace();

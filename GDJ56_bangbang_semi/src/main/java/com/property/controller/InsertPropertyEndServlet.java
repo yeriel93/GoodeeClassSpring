@@ -202,7 +202,7 @@ public class InsertPropertyEndServlet extends HttpServlet {
 			String msg ="",loc="";
 			if(result>0) {
 				msg = "방내놓기 성공! 축하드립니다~ ヽ(✿ﾟ▽ﾟ)ノ 짝짝짝!!";
-				loc = "/";
+				loc = "/account/broker/propertyList.bb";
 			}else {
 				msg = "방내놓기 실패! 다시 시도해주세요~~ o(TヘTo)";
 				loc = "/property/insertProperty.bb";

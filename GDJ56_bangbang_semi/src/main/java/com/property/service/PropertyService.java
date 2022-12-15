@@ -7,9 +7,10 @@ import static com.bangbang.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+import com.broker.model.dao.BrokerDao;
+import com.broker.model.vo.Broker;
 import com.property.model.dao.FilesDao;
 import com.property.model.dao.OptionDao;
 import com.property.model.dao.PropertyDao;
@@ -82,14 +83,21 @@ public class PropertyService {
 		List list = new ArrayList();
 		
 		Property property = PropertyDao.getPropertyDao().searchPropertyInfo(conn,propertyNo);
-		System.out.println("서비스: "+property);		
+//		System.out.println("서비스: "+property);		
+
 		List<Files> files = FilesDao.getFilesDao().searchFileNames(conn, propertyNo);
 		property.setFiles(files);
-		System.out.println("서비스: "+files);
+//		System.out.println("서비스: "+files);
+		
 		List option = OptionDao.getOptionDao().searchOption(conn,propertyNo);
-		System.out.println("서비스: "+option);
+//		System.out.println("서비스: "+option);
+		
+		Broker broker = BrokerDao.getBrokerDao().searchBroker(conn,property.getBrokerNo());
+//		System.out.println("서비스: "+broker);
+		
 		list.add(property);
 		list.add(option);
+		list.add(broker);
 //		System.out.println(list);
 		close(conn);
 		return list;

@@ -22,7 +22,7 @@ public class FilesDao {
 	private Properties sql = new Properties();
 	private FilesDao() {
 		try {
-			String path = Property.class.getResource("/sql/property/files_sql.properties").getPath();
+			String path = Property.class.getResource("/sql/files/files_sql.properties").getPath();
 			sql.load(new FileReader(path));
 		} catch (IOException e) {
 			e.printStackTrace();
