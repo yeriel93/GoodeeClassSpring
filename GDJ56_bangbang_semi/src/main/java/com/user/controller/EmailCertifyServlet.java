@@ -38,6 +38,8 @@ public class EmailCertifyServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //      ResourceBundle rb;
 //      rb=ResourceBundle.getBundle("mail_server");
@@ -46,7 +48,7 @@ public class EmailCertifyServlet extends HttpServlet {
 		
 		//사용자가 입력한 이메일 주소
 		String userEmail=request.getParameter("userEmail");		
-		System.out.println(userEmail);
+//		System.out.println(userEmail);
 		
 		//SMTP 서버정보 설정 - TLS
 		Properties props = System.getProperties();
@@ -55,7 +57,7 @@ public class EmailCertifyServlet extends HttpServlet {
 		props.put("mail.smtp.port", "587");
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
-//		
+		
 		props.put("mail.smtp.ssl.protocols", "TLSv1.2");
 		props.put("mail.smtp.ssl.enable", "false");
 		props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
@@ -66,7 +68,7 @@ public class EmailCertifyServlet extends HttpServlet {
 
 		//인증번호
 		int certNum=(int)(Math.random()*9999999+1111111);
-		System.out.println(certNum);
+//		System.out.println(certNum);
 		
 		//인증번호 세션에 저장
 		HttpSession ss=request.getSession();
