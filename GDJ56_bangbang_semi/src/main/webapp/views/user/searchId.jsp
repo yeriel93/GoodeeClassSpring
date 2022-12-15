@@ -15,7 +15,7 @@
 }
 
 .content{
-	margin-top: 75px;
+	margin-top: 35px;
 }
 </style>
 

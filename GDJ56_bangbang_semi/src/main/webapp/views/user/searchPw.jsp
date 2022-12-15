@@ -14,7 +14,7 @@
     background-color: rgb(255, 255, 255);
 }
 .content{
-	margin-top: 75px;
+	margin-top: 35px;
 }
 #searchPwBtn{
     width:260px;
@@ -37,22 +37,23 @@ input::placeholder {
 <section class="content">
     <div id="divOuter">
         <div id="searchContainer">
-            <form id="searchPw" action="" method="">
+            <form id="searchPw" action="<%=request.getContextPath() %>/user/tempPw.bb" method="post">
+                
                 <h1>비밀번호 찾기</h1>
                 <hr>
                 <h3>아이디</h3>
-                <input type="text" id="userId" placeholder=" (필수) 아이디를 입력해주세요">
+                <input type="text" name="userId" id="userId" placeholder=" (필수) 아이디를 입력해주세요">
                 <h3>이메일</h3>
-                <input type="text" id="userEmail" placeholder=" (필수) 이메일 주소를 입력해주세요">
+                <input type="text" name="userEmail" id="userEmail" placeholder=" (필수) 이메일 주소를 입력해주세요">
                 <h3>휴대폰 번호</h3>
-                <input type="text" id="userPhone" placeholder=" (필수) 휴대폰 번호를 입력해주세요">
+                <input type="text" name="userPhone" id="userPhone" placeholder=" (필수) 휴대폰 번호를 입력해주세요">
                 <br>            
                 <div id="searchTip">
-                    <p>회원정보에 등록된 정보와 일치해야 <strong>비밀번호</strong>를 찾을 수 있습니다.</p>
+                    <p>회원정보에 등록된 정보와 <br>일치해야 <strong>비밀번호</strong>를 찾을 수 있습니다.</p>
                 </div>   
                 <button id="searchPwBtn">비밀번호 찾기</button>
                 <br>
-                
+                                
             </form>
         </div>            
         
