@@ -475,7 +475,7 @@
 						$("#userEmail").val("");
 						setTimeout(function(){ 
 							$("#userEmail").focus();
-						}, 10)
+						}, 10);
 						
 						return false;
 					}					
@@ -492,12 +492,28 @@
 						$("#userBirth").val("");
 						setTimeout(function(){
 							$("#userBirth").focus();
-						}, 10)
-						return false
+						}, 10);
+						return false;
 					}
 				})
 			})	
 
+		    //휴대폰 번호 정규표현식
+			$("#userPhone").blur(e=>{
+            const userPhone=$("#userPhone").val();
+            const phoneChk=/^\d{3}-\d{3,4}-\d{4}$/
+            
+            if(!phoneChk.test(userPhone)){
+                alert("⛔ 휴대폰번호를 정확히 입력해주세요 ⛔");
+                // $("#userPhone").val("");
+                setTimeout(function(){ 
+                    $("#userPhone").focus();
+                }, 10);
+                
+                return false;
+            }					
+            
+    })   	
 			
 
 
