@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+body{
+	background-color: #d9dfd4;
+}
+header{
+	display:flex;
+	justify-content:space-around;
+}
+header>div{
+	padding:20px 40px 15px 30px;
+}
+header>div:first-child{
+	text-align:center;
+	font-size:17px;
+	font-weight:bolder;
+}
+header>div>p{
+	font-size: 30px;
+	font-weight:bolder;
+	margin-top:40px;
+	margin-bottom:0px;
+}

@@ -1,0 +1,19 @@
+@charset "UTF-8";
+div.tableContainer{
+	display:flex;
+	justify-content: center;
+}
+div.tableContainer>table>caption{
+	font-size:25px;
+	font-weight:bolder;
+	padding:15px;
+}
+div.tableContainer>table{
+	text-align: center;
+	border : 1px solid black;
+	border-collapse : collapse;
+}
+div.tableContainer>table th,td{
+	border : 1px solid black;
+	padding:5px 10px 5px 10px;
+}
