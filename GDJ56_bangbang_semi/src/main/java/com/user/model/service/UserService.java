@@ -49,4 +49,22 @@ public class UserService {
 		return result;
 	}
 	
+	//비밀번호 찾기
+	public int searchPw(String userId,String userEmail,String userPhone) {
+		Connection conn=getConnection();
+		int result=UserDao.getUserDao().searchPw(conn,userId,userEmail,userPhone);
+		close(conn);
+		return result;
+	}
+	
+	//임시비밀번호로 변경 (result는 USER_NO)
+	public int tempPassword(int result,String tempPw) {
+		Connection conn=getConnection();
+		int chResult=UserDao.getUserDao().tempPassword(conn,result,tempPw);
+		if(chResult>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return chResult;
+		
+	}
 }

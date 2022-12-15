@@ -30,7 +30,7 @@
         	<form id="searchId" action="<%=request.getContextPath()%>/user/searchIdEnd.bb" method="post">
                 <h1>비밀번호 찾기</h1>
                 <hr>
-         		<%-- <%if(request.getAttribute("searchIdResult")==null){ %> --%>
+         		 <%if(request.getAttribute("tempPw")==null){ %>
 					
 	                <div id="searchTip">
 	                    <p>
@@ -42,7 +42,7 @@
 	                <br>
 	                <button id="loginBtn2" onclick="location.replace('<%=request.getContextPath()%>/user/searchPw.bb')">비밀번호 찾기</button>  -->
 
-        		 <%-- <%}else{%> --%>  
+        		<%}else{%>  
 
 	                <div id="searchTip">
 	                    <p>
@@ -55,7 +55,7 @@
 	        		<br>
 	        		<button id="loginBtn2" onclick="location.replace('<%=request.getContextPath()%>/user/searchPw.bb')">비밀번호 찾기</button> -->
                 
- 				 <%-- <%} %> --%> 
+ 				 <%} %>  
 
                 
                 <br>
