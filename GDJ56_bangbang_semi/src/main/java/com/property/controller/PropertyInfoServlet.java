@@ -34,7 +34,7 @@ public class PropertyInfoServlet extends HttpServlet {
 		List option = (List)propertyInfo.get(1);
 //		files.forEach(f->System.out.println(f));
 //		System.out.println(property);
-//		System.out.println(option);
+		System.out.println(option);
 		
 		
 		request.setAttribute("property", property);

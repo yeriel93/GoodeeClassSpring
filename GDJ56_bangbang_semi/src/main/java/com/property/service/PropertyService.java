@@ -57,16 +57,19 @@ public class PropertyService {
 				filesResult = FilesDao.getFilesDao().insertFiles(conn,propertyNo,fileList.get(i));
 			}
 			
-			if(option!=null) {
-				for(String o : option) {
-					optionResult = OptionDao.getOptionDao().insertOption(conn,propertyNo, o);
-				}
+			for(String o : option) {
+				optionResult += OptionDao.getOptionDao().insertOption(conn,propertyNo, o);
 			}
 		}
+		
+		System.out.println("매물등록: "+propertyResult);
+		System.out.println("파일등록: "+filesResult);
+		System.out.println("옵션등록: "+optionResult);
 		int allResult = 0;
-		if(propertyResult>0 && filesResult>0 && optionResult>0) {
+		if(propertyResult>0 && filesResult>0 && optionResult==option.length) {
 			allResult = 1;
 		}
+		
 		if(allResult>0) commit(conn);
 		else rollback(conn);
 		close(conn);
@@ -79,12 +82,12 @@ public class PropertyService {
 		List list = new ArrayList();
 		
 		Property property = PropertyDao.getPropertyDao().searchPropertyInfo(conn,propertyNo);
-//		System.out.println(property);		
+		System.out.println("서비스: "+property);		
 		List<Files> files = FilesDao.getFilesDao().searchFileNames(conn, propertyNo);
 		property.setFiles(files);
-//		System.out.println(files);
+		System.out.println("서비스: "+files);
 		List option = OptionDao.getOptionDao().searchOption(conn,propertyNo);
-//		System.out.println(option);
+		System.out.println("서비스: "+option);
 		list.add(property);
 		list.add(option);
 //		System.out.println(list);

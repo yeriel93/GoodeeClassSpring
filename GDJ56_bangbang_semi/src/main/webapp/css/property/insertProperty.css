@@ -95,6 +95,10 @@ span{
     border-radius: 7px;
     cursor:pointer;
 }
+div#optionAll{
+    margin-left: 10px;
+    width: 500px;
+}
 
 /* 네비게이션 바 */
 #navi{
@@ -103,8 +107,8 @@ span{
     position: fixed;
     /* left: 1060px; */
     left: 85%;
-    /* bottom: 300px; */
-    bottom: 20%;
+    bottom: 300px;
+    /* bottom: 50%; */
     /* top : 130px; */
     top: 21%;
     width: 180px;
