@@ -105,12 +105,9 @@ div#optionAll{
     background-color: rgb(113, 112, 112);
     color: white;
     position: fixed;
-    /* left: 1060px; */
     left: 85%;
-    bottom: 300px;
-    /* bottom: 50%; */
-    /* top : 130px; */
-    top: 21%;
+    bottom: 500px;
+    top : 150px;
     width: 180px;
     height: 650px;
 }

@@ -218,7 +218,7 @@
                 <span style="margin-right: 30px;">옵션</span>
                 &nbsp;
                 <label><input type="radio" onclick="fn_no()" class="radio" name="optionR" value="6" checked>없음 </label>&nbsp;&nbsp;
-                <label><input type="radio" onclick="fn_yes()" class="radio" name="optionR" >있음 </label>&nbsp;&nbsp;
+                <label><input type="radio" onclick="fn_yes()" id="optionY" class="radio" name="optionR" >있음 </label>&nbsp;&nbsp;
                 
                 <div id="optionAll" hidden>
                     <label><input type="checkbox" class="checkbox selectOpt" id="opt1" name="option" value="1" >에어컨 </label>&nbsp;
@@ -413,6 +413,7 @@
 </form>
     <script>
         const fn_invalidate=()=>{
+    
             //주소입력
             const addr = $("#sample5_address").val().trim();
             if(addr.length==0){
@@ -463,6 +464,15 @@
             if(count<3){
                 alert("메인사진 포함 사진을 최소 3장이상 등록해주세요!");
                 return false;
+            }
+            
+            //옵션 선택
+            if($("#optionY").prop("checked")==true && (
+                $("#opt1").prop("checked")==false && $("#opt2").prop("checked")==false && $("#opt3").prop("checked")==false
+                && $("#opt4").prop("checked")==false && $("#opt5").prop("checked")==false)){
+                    alert("옵션을 체크해주세요!");
+                    $("#optionY").focus();
+                    return false;
             }
         }
     </script>
