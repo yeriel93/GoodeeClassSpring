@@ -4,12 +4,14 @@
 <%@
 	page import ="com.property.model.vo.Property,
 				java.util.List,
-				com.property.model.vo.Files" 
+				com.property.model.vo.Files,
+				com.broker.model.vo.Broker" 
  %>
 <%
 	Property property = (Property)request.getAttribute("property");
 	List<Files> files = (List<Files>)request.getAttribute("files");
 	List<String> option = (List<String>)request.getAttribute("option"); 
+	Broker broker = (Broker)request.getAttribute("broker");
 %>
 
 <!-- css -->
@@ -294,8 +296,8 @@
     <div id="fixDiv">
         <div id="propertiInfo">
             <div id="propertiNo">
-                <span>매물번호</span>
-                <span><%=property.getPropertyNo() %></span>
+                <b><span>매물번호</span>
+                <span><%=property.getPropertyNo() %></span></b>
                 <!-- <button id="button">찜하기</button> -->
             </div>
             <br>
@@ -328,28 +330,36 @@
         <hr style="width: 90%;">
         <div id="brokerInfo">
             <div>
-                <span>구디 공인중개사사무소</span>
+                <span><b><%=broker.getOfficeName() %></b></span>
+                <span><b>공인중개사사무소</b></span>
             </div>
             <br>
             <div>
-                <span>부동산 위치: </span>
-                <span>관악구 신사로 14길 14 1층</span>
+                <span><b>위치: </b></span>
+                <span><%=broker.getOfficeAddress() %></span>
             </div>
             <div>
-                <span>중개등록번호</span>
-                <span>11620-1010-12345</span>
+                <span><b>중개등록번호: </b></span>
+                <span><%=broker.getRegistrationNo() %></span>
             </div>
             <div>
-                <span>대표번호</span>
-                <span>010-1234-1234</span>
+                <span><b>대표번호: </b></span>
+                <span><%=broker.getTelephone() %></span>
             </div>
             <div id="buttonDiv">
-                <button>문의하기</button>
-                <button>허위매물신고</button>
+                <button onclick="fn_inquiry()">문의하기</button>
+                <button onclick="fn_report()">허위매물신고</button>
             </div>
         </div>
     </div>
-    
+    <script>
+    	const fn_inquiry=()=>{
+    		
+    	}
+    	const fn_report=()=>{
+    		
+    	}
+    </script>
 </section>
 
 <%@ include file="/views/common/footer.jsp" %>

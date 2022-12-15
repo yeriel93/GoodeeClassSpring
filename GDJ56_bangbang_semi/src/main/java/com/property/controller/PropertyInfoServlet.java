@@ -1,7 +1,6 @@
 package com.property.controller;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.broker.model.vo.Broker;
 import com.property.model.vo.Files;
 import com.property.model.vo.Property;
 import com.property.service.PropertyService;
@@ -34,12 +34,13 @@ public class PropertyInfoServlet extends HttpServlet {
 		List option = (List)propertyInfo.get(1);
 //		files.forEach(f->System.out.println(f));
 //		System.out.println(property);
-		System.out.println(option);
-		
+//		System.out.println(option);
+		Broker broker = (Broker)propertyInfo.get(2);
 		
 		request.setAttribute("property", property);
 		request.setAttribute("files", files);
 		request.setAttribute("option", option);
+		request.setAttribute("broker", broker);
 		request.getRequestDispatcher("/views/property/propertyInfo.jsp").forward(request, response);
 	}
 
