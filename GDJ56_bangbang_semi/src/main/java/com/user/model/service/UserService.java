@@ -41,4 +41,12 @@ public class UserService {
 		return result;
 	}
 	
+	//아이디 찾기
+	public String searchId(String userName,String userEmail,String userPhone) {
+		Connection conn=getConnection();
+		String result=UserDao.getUserDao().searchId(conn,userName,userEmail,userPhone);
+		close(conn);
+		return result;
+	}
+	
 }

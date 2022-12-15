@@ -113,4 +113,28 @@ public class UserDao {
 		return result;
 	}
 	
+	//아이디 찾기
+	public String searchId(Connection conn,String userName,String userEmail,String userPhone) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String userId=null;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("searchId"));
+			pstmt.setString(1, userName);
+			pstmt.setString(2, userEmail);
+			pstmt.setString(3, userPhone);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				userId=rs.getString("ID");
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return userId;
+	}
+	
 }

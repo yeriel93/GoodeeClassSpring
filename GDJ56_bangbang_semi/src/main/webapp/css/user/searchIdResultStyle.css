@@ -92,3 +92,18 @@
 .content{
 	margin-top: 75px;
 }
+
+/*  */
+#loginBtn2{
+    width:260px;
+    height:40px;
+    /* margin-left: 40px; */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #075A2A;
+    color: white;
+    border-color: #075a2a8c;
+    border-radius: 5px;
+    border:none;
+    
+}
