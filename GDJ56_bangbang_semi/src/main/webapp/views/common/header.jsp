@@ -52,5 +52,10 @@
             	<button><p><a href="<%=request.getContextPath()%>/user/logout.bb" style="color:white">로그아웃</a></p></button>
         	</div>
         <%} %>
-        
     </header>
+    <script>
+    	$("div#logoContainer>img").click(e=>{
+    		location.assign("<%=request.getContextPath()%>/");
+    	})
+    </script>
+    
