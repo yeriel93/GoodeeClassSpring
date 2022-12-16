@@ -27,5 +27,12 @@ div#search-admissionState{display:none;}
 div#search-container {margin:0 0 10px 0; padding:3px; }
 div#numPerpage-container{text-align:right; padding:0px 40px 20px 0px;}
 
-
+button#admissionBtnToY{
+	background-color: blue;
+	color:white;
+}
+button#admissionBtnToN{
+	background-color: red;
+	color:white;
+}
 

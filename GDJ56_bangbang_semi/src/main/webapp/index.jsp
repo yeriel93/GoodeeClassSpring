@@ -35,6 +35,9 @@
 		        </div>
 	        <%} else { %>
 	        	<div id="buttonContainer">
+		        	<%if(loginUser.getId().equals("admin")) {%>
+	            		<button><p><a href="<%=request.getContextPath()%>/admin/adminDashBoard.bb" style="color:white;text-decoration:none;">관리자페이지</a></p></button>
+	            	<%} %>
 	            	<button onclick='location.replace("<%=request.getContextPath()%>/user/logout.bb")'><p>로그아웃</p></button>
 	        	</div>
 	        <%} %>

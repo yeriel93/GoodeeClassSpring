@@ -121,14 +121,16 @@
 	
 	//승인하기 버튼을 클릭했을 때
 	$(document).on("click","button.admissionBtn",e=>{
-		if(confirm("승인하시겠습니까?")){
+		let setAdmission = $(e.target).attr("id")=="admissionBtnToY"?'Y':'N';
+		let confirmMsg = setAdmission=='Y'?"승인하시겠습니까?":"승인해제하시겠습니까?";
+		if(confirm(confirmMsg)){
 			let brokerNo = $(e.target).parent().parent().children().first().text();
-			console.log(brokerNo);
 			$.ajax({
 				url:"<%=request.getContextPath()%>/admin/brokerAdmission.bb",
 				type:"get",
 				data:{
-					brokerNo:brokerNo
+					brokerNo:brokerNo,
+					setAdmission:setAdmission
 				},
 				success:data=>{
 					alert(data);
@@ -174,7 +176,8 @@
 				trHead.append($("<th>").text('이용제한기한'));
 				trHead.append($("<th>").text('등록일자'));
 				trHead.append($("<th>").text('수정일자'));
-				trHead.append($("<th>").text('승인여부'));
+				trHead.append($("<th>").text('승인상태'));
+				trHead.append($("<th>").text('승인변경'));
 				$("table#brokerTable").append(trHead);
 				
 				for(let i = 0; i<brokerArray.length; i++){
@@ -191,12 +194,13 @@
 					tr.append($("<td>").text(brokerArray[i].restrictionDate!=null?brokerArray[i].restrictionDate:"-"));
 					tr.append($("<td>").text(brokerArray[i].enrollDate));
 					tr.append($("<td>").text(brokerArray[i].editDate!=null?brokerArray[i].editDate:"-"));
-					
+					tr.append($("<td>").text(brokerArray[i].admissionState=='Y'?"승인완료":"승인대기"));
 					if(brokerArray[i].admissionState=='N'){
-						let admissionBtn = $("<button>").attr("class","admissionBtn").text("승인하기");
-						tr.append($("<td>").append(admissionBtn));
+						let admissionBtnToY = $("<button>").attr("class","admissionBtn").attr("id","admissionBtnToY").text("승인하기");
+						tr.append($("<td>").append(admissionBtnToY));
 					} else if(brokerArray[i].admissionState=='Y'){
-						tr.append($("<td>").text(brokerArray[i].admissionState));
+						let admissionBtnToN = $("<button>").attr("class","admissionBtn").attr("id","admissionBtnToN").text("승인해제");
+						tr.append($("<td>").append(admissionBtnToN));
 					}
 					$("table#brokerTable").append(tr);
 				}

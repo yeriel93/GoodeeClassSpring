@@ -1,14 +1,11 @@
 package com.admin.model.service;
 
-import static com.bangbang.common.JDBCTemplate.close;
-import static com.bangbang.common.JDBCTemplate.getConnection;
+import static com.bangbang.common.JDBCTemplate.*;
 
 import java.sql.Connection;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.admin.model.dao.AdminDao;
-import com.user.model.vo.User;
 
 public class AdminService {
 	//[BD] singleton 방식으로 만들었음. getUserService() 사용해서 호출할 것.
@@ -56,10 +53,13 @@ public class AdminService {
 	}
 	
 	//중개사 승인 기능
-	public int updateBrokerAdmissionToY(int brokerNo) {
+	public int updateBrokerAdmissionToY(int brokerNo, String setAdmission) {
 		Connection conn = getConnection();
-		int result = AdminDao.getAdminDao().updateBrokerAdmissionToY(conn, brokerNo);
+		int result = AdminDao.getAdminDao().updateBrokerAdmissionToY(conn, brokerNo, setAdmission);
 		close(conn);
+		
+		if(result>0)commit(conn);
+		else rollback(conn);
 		
 		return result;
 	}

@@ -136,13 +136,14 @@ public class AdminDao {
 		return count;
 	}
 	
-	public int updateBrokerAdmissionToY(Connection conn, int brokerNo) {
+	public int updateBrokerAdmissionToY(Connection conn, int brokerNo, String setAdmission) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		String query = sql.getProperty("updateBrokerAdmissionToY");
+		String query = sql.getProperty("updateBrokerAdmission");
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, brokerNo);
+			pstmt.setString(1, setAdmission);
+			pstmt.setInt(2, brokerNo);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

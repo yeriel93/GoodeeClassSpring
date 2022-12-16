@@ -26,6 +26,7 @@ header>div>p>a{
 div.tableContainer>table th{
 	background-color :rgb(7, 90, 42);
 	color:white;
+	font-size:13px;
 }
 div.tableContainer>table td{
 	background-color:beige;
