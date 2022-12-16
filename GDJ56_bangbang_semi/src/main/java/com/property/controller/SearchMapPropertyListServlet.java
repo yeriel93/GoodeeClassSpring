@@ -16,7 +16,7 @@ import com.property.service.PropertyService;
 /**
  * Servlet implementation class SearchMapPropertyList
  */
-@WebServlet("/map/searchMapPropertyList.do")
+@WebServlet("/map/searchMapPropertyList.bb")
 public class SearchMapPropertyListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

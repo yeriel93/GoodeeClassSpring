@@ -15,7 +15,7 @@ import com.google.gson.Gson;
 /**
  * Servlet implementation class ChangeDongAjax
  */
-@WebServlet("/searchAddressAjax.do")
+@WebServlet("/searchAddressAjax.bb")
 public class SearchAddressAjaxServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

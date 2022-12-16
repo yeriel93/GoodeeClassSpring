@@ -171,7 +171,7 @@
     		
     		/* ajax 추가 */
     		$.ajax({
-    			url:"<%=request.getContextPath()%>/changedong.do",
+    			url:"<%=request.getContextPath()%>/changedong.bb",
     			type:"get",
     			data:{gu:gu},
     			success:data=>{
@@ -191,7 +191,7 @@
     		
     		/* ajax 추가 */
     		$.ajax({
-    			url:"<%=request.getContextPath()%>/changedong.do",
+    			url:"<%=request.getContextPath()%>/changedong.bb",
     			type:"get",
     			data:{gu:gu},
     			success:data=>{
@@ -209,7 +209,7 @@
         	let gu = $("select[name=gu]").first().val();
         	let dong = $("select[name=dong]").first().val();
         	$.ajax({
-    			url:"<%=request.getContextPath()%>/searchAddressAjax.do",
+    			url:"<%=request.getContextPath()%>/searchAddressAjax.bb",
     			type:"get",
     			data:{gu:gu,dong:dong},
     			success:data=>{
@@ -282,6 +282,7 @@
         	}
         	parsePrice += "원";
         	
+        	//console.log(parsePrice.replace(/ /g, ''));
         	return parsePrice;   	
         }
         $("input#depositRange").change(e=>{
@@ -383,7 +384,7 @@
     //ajax 방식으로 좌표 내에 있는 매물 받아오는 함수
     const searchProperty = () => {
     	$.ajax({
-    		url:"<%=request.getContextPath()%>/map/searchMapProperty.do",
+    		url:"<%=request.getContextPath()%>/map/searchMapProperty.bb",
     		type:"get",
     		traditional:true, // 배열 넘기기
     		data:{
@@ -429,7 +430,7 @@
     let cPage = 1;
     const searchPropertyListLoad = () => {
     	$.ajax({
-    		url:"<%=request.getContextPath()%>/map/searchMapPropertyList.do",
+    		url:"<%=request.getContextPath()%>/map/searchMapPropertyList.bb",
     		type:"get",
     		traditional:true, // 배열 넘기기
     		data:{
@@ -459,7 +460,10 @@
     				const div1 = $("<div>").attr("class","propertyImgContainer").append($("<img>").attr("src",'<%=request.getContextPath()%>/upload/property/'+data[i].thumbnail));
     				const div2 = $("<div>").attr("class","propertyDetailContainer");
     				const innerDiv1 = $("<div>").append($("<h3>").text(data[i].propertyStructure));
-    				let tempTxt = data[i].renttype + " " + changePrice(data[i].deposit).replace(/ /g, '').substring(0,changePrice(data[i].deposit).length-2);
+    				
+    				//let tempTxt = data[i].renttype + " " + changePrice(data[i].deposit).replace(/ /g, '').substring(0,changePrice(data[i].deposit).length-2);
+    				//2022-12-16 수정중.. 수정완료..
+    				let tempTxt = data[i].renttype + " " + changePrice(data[i].deposit).replace(/ /g, '').substring(0,changePrice(data[i].deposit).replace(/ /g, '').length-1);
     				if(data[i].monthlyCharge > 0) tempTxt += "/"+data[i].monthlyCharge+"만";
     				div2.append(innerDiv1).append($("<div>").text(tempTxt));
     				let tempManage = "관리비 ";
@@ -491,7 +495,7 @@
     	   //스크롤이 끝에 닿았을 때
     	   if (dh == (wt+wh)) {
     	    	$.ajax({
-    	    		url:"<%=request.getContextPath()%>/map/searchMapPropertyList.do",
+    	    		url:"<%=request.getContextPath()%>/map/searchMapPropertyList.bb",
     	    		type:"get",
     	    		traditional:true, // 배열 넘기기
     	    		data:{
@@ -519,7 +523,9 @@
     	    				const div1 = $("<div>").attr("class","propertyImgContainer").append($("<img>").attr("src",'<%=request.getContextPath()%>/upload/property/'+data[i].thumbnail));
     	    				const div2 = $("<div>").attr("class","propertyDetailContainer");
     	    				const innerDiv1 = $("<div>").append($("<h3>").text(data[i].propertyStructure));
-    	    				let tempTxt = data[i].renttype + " " + changePrice(data[i].deposit).replace(/ /g, '').substring(0,changePrice(data[i].deposit).length-2);
+    	    				//let tempTxt = data[i].renttype + " " + changePrice(data[i].deposit).replace(/ /g, '').substring(0,changePrice(data[i].deposit).length-2);
+    	    				//2022-12-16 수정중.. 수정완료..
+    	    				let tempTxt = data[i].renttype + " " + changePrice(data[i].deposit).replace(/ /g, '').substring(0,changePrice(data[i].deposit).replace(/ /g, '').length-1);
     	    				if(data[i].monthlyCharge > 0) tempTxt += "/"+data[i].monthlyCharge+"만";
     	    				div2.append(innerDiv1).append($("<div>").text(tempTxt));
     	    				let tempManage = "관리비 ";
