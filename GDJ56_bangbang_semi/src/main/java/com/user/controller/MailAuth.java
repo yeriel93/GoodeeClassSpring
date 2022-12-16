@@ -1,6 +1,7 @@
 package com.user.controller;
 
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -16,8 +17,7 @@ public class MailAuth extends Authenticator{
 	      try{	    	  
 	          String mail = "C:\\Users\\yurim\\git\\GDJ56_bangbang_semi\\GDJ56_bangbang_semi\\src\\main\\resources\\sql\\user\\mail_server.properties";      
 	          Properties props = new Properties();   
-	          FileInputStream fis = new FileInputStream(mail);
-	          props.load(new java.io.BufferedInputStream(fis));                      
+	          props.load(new FileReader(mail));                      
 	                     
 	          mail_id=props.getProperty("id") ;
 	          mail_pw=props.getProperty("pw") ;
