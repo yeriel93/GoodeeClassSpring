@@ -10,20 +10,25 @@
     height: fit-content;
     margin-left: 40%;
 }
-#searchContainer>hr{
+#searchContainer>#searchId>hr{
     width:260px;
     margin-left: 0px;
 }
-#searchContainer>h1{
+#searchContainer>#searchId>h1{
     margin-bottom: 10px;
     padding-top: 30px;
 }
-#searchContainer>input{
-    width:250px;
-    height:30px;
-
+#searchContainer>#searchId>input{
+    width: 245px;
+    height: 32px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-left: 10px;
+    background-color: rgb(255, 255, 255);
 }
-#searchContainer>img{
+#searchContainer>#searchId>img{
     width:260px;
     margin-top: 0px;
 }
@@ -82,4 +87,11 @@
     color: white;
     border-color: #075a2a8c;
     border-radius: 5px;
+}
+
+.content{
+	margin-top: 35px;
+}
+input::placeholder {  
+  font-size: 13px;
 }

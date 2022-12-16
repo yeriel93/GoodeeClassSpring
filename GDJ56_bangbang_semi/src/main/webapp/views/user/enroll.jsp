@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp"%>
 <link href="<%=request.getContextPath() %>/css/user/enrollStyle.css" type="text/css" rel="stylesheet">
+<%
+	Integer emailCode=(Integer)session.getAttribute("certNum");
+%>
+
 <style>
 .enroll_input{
   width: 290px;
@@ -71,16 +75,15 @@
 					<hr>
 		            <h3>아이디</h3>
 		            <input type="text" class="enroll_input" name="userId" id="userId" placeholder="아이디를 입력해주세요." required>
-		            <input type="hidden" name="userId_chk" id="userId_chk" value="" readonly required>	
+		            <input type="hidden" name="userId_chk" id="userId_chk" value="" required>
+					
 					<input type="button" class="btns" id="duplicateId" value="중복확인">
 		            
 		            <h3>비밀번호</h3>					
 		            <input type="password" class="enroll_input" name="userPw" id="userPw" placeholder="비밀번호를 입력해주세요." required>
 		            <h3>비밀번호 확인</h3>
 		            <input type="password" class="enroll_input" name="userPw_chk" id="userPw_chk" placeholder="비밀번호를 한번 더 입력해주세요." required>
-					<input type="button" class="btns" id="pwCheck" value="(❁´▽`❁)*✲ﾟ*">
-							     
-							     
+					<input type="button" class="btns" id="pwCheck" value="(❁´▽`❁)*✲ﾟ*">						     						     
 							            
 		            <h3>이름</h3>
 		            <input type="text" class="enroll_input" name="userName" id="userName" placeholder="이름을 입력해주세요." required>
@@ -91,9 +94,9 @@
 		            
 		            <h3>이메일 인증</h3>
 		            <input type="text" class="enroll_input" name="userEmail_Cert" id="userEmailCert" placeholder="인증코드를 입력해주세요." required>
-		            <input type="hidden" name="userEmail_chk" id="userEmail_chk" value="" readonly required>
+		            <input type="hidden" name="userEmail_chk" id="userEmail_chk" value="<%=emailCode%>" required>
 		            
-					<input type="button" class="btns" onclick="" value="인증번호 확인">
+					<input type="button" class="btns" id="Emailcode_Chk" value="인증번호 확인">
 		            
 		            <h3>휴대폰 번호</h3>
 		            <input type="text" class="enroll_input" name="userPhone" id="userPhone" placeholder="휴대폰 번호를 입력해주세요. (-포함)" required>
@@ -334,7 +337,29 @@
 	        </div>      
 	                
     	</div>
-		<script>		
+		<script>					
+
+			$("#Emailcode_Chk").click(e=>{
+				const oriCode=$("#userEmail_chk").val();
+				const userCode=$("#userEmailCert").val();
+				if(oriCode==userCode){
+					alert("🟢 인증에 성공했습니다.")
+
+					//인증확인버튼 비활성화
+					$("#Emailcode_Chk").attr("disabled","false");
+					$("#Emailcode_Chk").css("background-color","lightgray");
+
+					//이메일 인증 버튼도 비활성화
+					$("#certifyEmail").attr("disabled","false");
+					$("#certifyEmail").css("background-color","lightgray");
+				}else{
+					alert("🔴 인증에 실패했습니다. 인증번호를 다시 확인해주세요.")
+					$("#userEmail_chk").focus();
+				}
+
+			})
+
+
 			//이메일 인증코드
 			//서블릿 주소 /user/certifyEmail.bb
 			$("#certifyEmail").click(e=>{
@@ -351,7 +376,8 @@
 												
 						setTimeout(function(){ 
 						$("#certifyEmail").attr("disabled","true");
-						}, 30000);
+						$("#certifyEmail").css("background-color","#075A2A");
+						}, 180000);
 						
 					}
 					
@@ -362,7 +388,7 @@
 			
 		
 		
-			// 아이디 중복확인
+			// 아이디 중복확인 수정필요... 버튼 안누럴도 되게 ?
 			$("#duplicateId").click(e=>{
 				const userId=$("#userId").val();
 				$.ajax({
@@ -373,6 +399,7 @@
 							alert("🔴 이미 존재하는 아이디입니다.");
 							setTimeout(function(){ //alert 무한루프 문제 해결
 								$("#userId").focus();
+								$("#userId_chk").val("");
 							}, 10)
 						}else{
 							alert("🟢 사용할 수 있는 아이디입니다.")
@@ -448,7 +475,7 @@
 						$("#userEmail").val("");
 						setTimeout(function(){ 
 							$("#userEmail").focus();
-						}, 10)
+						}, 10);
 						
 						return false;
 					}					
@@ -465,12 +492,28 @@
 						$("#userBirth").val("");
 						setTimeout(function(){
 							$("#userBirth").focus();
-						}, 10)
-						return false
+						}, 10);
+						return false;
 					}
 				})
 			})	
 
+		    //휴대폰 번호 정규표현식
+			$("#userPhone").blur(e=>{
+            const userPhone=$("#userPhone").val();
+            const phoneChk=/^\d{3}-\d{3,4}-\d{4}$/
+            
+            if(!phoneChk.test(userPhone)){
+                alert("⛔ 휴대폰번호를 정확히 입력해주세요 ⛔");
+                // $("#userPhone").val("");
+                setTimeout(function(){ 
+                    $("#userPhone").focus();
+                }, 10);
+                
+                return false;
+            }					
+            
+    })   	
 			
 
 

@@ -10,15 +10,15 @@
     height: fit-content;
     margin-left: 40%;
 }
-#searchContainer>#searchPw>hr{
+#searchContainer>#searchId>hr{
     width:260px;
     margin-left: 0px;
 }
-#searchContainer>#searchPw>h1{
+#searchContainer>#searchId>h1{
     margin-bottom: 10px;
     padding-top: 30px;
 }
-#searchContainer>#searchPw>input{
+#searchContainer>#searchId>input{
     width: 290px;
     height: 32px;
     font-size: 15px;
@@ -28,11 +28,12 @@
     padding-left: 10px;
     background-color: rgb(255, 255, 255);
 }
-#searchContainer>#searchPw>img{
+#searchContainer>#searchId>img{
     width:260px;
     margin-top: 0px;
 }
-#userPwInfo{
+
+#userIdInfo{
     /* border: 1px solid #075A2A; */
     margin-top: 25px;
     padding: 60px 10px 10px 10px;
@@ -42,6 +43,7 @@
     height: 100px;
     color: rgb(68, 68, 68);
 }
+
 #searchTip{
     /* border: 1px solid #075A2A; */
     margin-top: 25px;
@@ -53,7 +55,7 @@
     text-align: center;
 }
 
-#searchPwBtn{
+#searchIdBtn{
     width:260px;
     height:40px;
     /* margin-left: 40px; */
@@ -63,9 +65,7 @@
     color: white;
     border-color: #075a2a8c;
     border-radius: 5px;
-    border:none;
 }
-
 #loginBtn2{
     width:260px;
     height:40px;
@@ -77,12 +77,33 @@
     border-color: #075a2a8c;
     border-radius: 5px;
 }
+#searchPwBtn{
+    width:260px;
+    height:40px;
+    /* margin-left: 40px; */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #075A2A;
+    color: white;
+    border-color: #075a2a8c;
+    border-radius: 5px;
+}
 
 .content{
 	margin-top: 75px;
 }
 
-input::placeholder {  
-    font-size: 13px;
-  }
-
+/*  */
+#loginBtn2{
+    width:260px;
+    height:40px;
+    /* margin-left: 40px; */
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #075A2A;
+    color: white;
+    border-color: #075a2a8c;
+    border-radius: 5px;
+    border:none;
+    
+}

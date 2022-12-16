@@ -1,11 +1,4 @@
 @charset "UTF-8";
-div.tableContainer{
-	display:flex;
-	justify-content: center;
-}
-div.listContainer {
-	text-align:center;
-}
 div#listContainer>h2{
 	text-align:center;
 	font-size:25px;
@@ -20,6 +13,10 @@ div.tableContainer>table{
 div.tableContainer>table th,td{
 	border : 1px solid black;
 	padding:5px 10px 5px 10px;
+}
+div#pageBarContainer{
+	display:flex;
+	justify-content: center;
 }
 
 div#search-container{text-align:center;}

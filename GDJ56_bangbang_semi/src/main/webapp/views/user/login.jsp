@@ -6,6 +6,9 @@
 <section class="content">
 <style>
 #loginBtn2{border:none;}
+input::placeholder {  
+  font-size: 13px;
+}
 </style>
 
 <body>

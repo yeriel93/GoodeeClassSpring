@@ -1,5 +1,7 @@
 package com.user.model.dao;
 
+import static com.bangbang.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -10,7 +12,6 @@ import java.util.Properties;
 
 import com.property.model.vo.Property;
 import com.user.model.vo.User;
-import static com.bangbang.common.JDBCTemplate.*;
 
 public class UserDao {
 	// [BD] singleton 방식으로 만들었음. getUser() 사용해서 호출할 것.
@@ -112,5 +113,76 @@ public class UserDao {
 		}
 		return result;
 	}
+	
+	//아이디 찾기
+	public String searchId(Connection conn,String userName,String userEmail,String userPhone) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String userId=null;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("searchId"));
+			pstmt.setString(1, userName);
+			pstmt.setString(2, userEmail);
+			pstmt.setString(3, userPhone);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				userId=rs.getString("ID");
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return userId;
+	}
+	
+	//비밀번호 찾기
+	public int searchPw(Connection conn,String userId,String userEmail,String userPhone) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("searchPw"));
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userEmail);
+			pstmt.setString(3, userPhone);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				result=rs.getInt("USER_NO");
+			}else {
+				result=0;
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	//임시비밀번호로 변경
+	public int tempPassword(Connection conn, int result,String tempPw) {
+		PreparedStatement pstmt=null;
+		int chResult=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("tempPw"));
+			pstmt.setString(1, tempPw);
+			pstmt.setInt(2, result);
+			chResult=pstmt.executeUpdate();
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return chResult;
+	}
+	
+	
 	
 }
