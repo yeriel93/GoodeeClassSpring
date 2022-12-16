@@ -72,4 +72,26 @@ public class BrokerDao {
 		}
 		return b;
 	}
+	
+	public Broker loginBroker(Connection conn,int userNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		Broker broker=null;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("loginBroker"));
+			pstmt.setInt(1, userNo);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) broker=getRsData(rs);			
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return broker;
+	}
+	
+	
 }

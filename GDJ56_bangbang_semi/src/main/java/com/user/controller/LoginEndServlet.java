@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.broker.model.service.BrokerService;
+import com.broker.model.vo.Broker;
 import com.user.model.service.UserService;
 import com.user.model.vo.User;
 
@@ -39,10 +41,22 @@ public class LoginEndServlet extends HttpServlet {
 		User user=UserService.getUserService().loginUser(userId,userPw);
 //		System.out.println(user);
 		
+		
+		
 		if(user!=null) {
+			if(user.getUserLevel()=='B') {
+				Broker broker=BrokerService.getBrokerService().loginBroker(user.getUserNo());
+				System.out.println(user.getUserNo());
+
+				HttpSession session=request.getSession();
+				session.setAttribute("loginBroker", broker);			
+							
+			}
+			
 			//로그인세션
 			HttpSession session=request.getSession();
 			session.setAttribute("loginUser", user);			
+			
 			response.sendRedirect(request.getContextPath()); //흠..? 로그인한 페이지로 돌아가게 짬있을 때 ㄱㄱ
 //			response.sendRedirect(request.getHeader("referer")); // 이전페이지로 돌아가게 하는 건데 이전페이지가 로그인페이지라 못씀
 
