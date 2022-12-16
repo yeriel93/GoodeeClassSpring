@@ -103,19 +103,4 @@ public class PropertyService {
 		return list;
 	}
 	
-	//매물번호로 1개의 매물데이터 가져오기
-	public Property searchPropertyOne(int propertyNo) {
-		Connection conn = getConnection();
-		
-		Property propertyOne = PropertyDao.getPropertyDao().searchPropertyInfo(conn,propertyNo);
-//		System.out.println("propertyServiceClass: "+property);		
-
-		List<Files> files = FilesDao.getFilesDao().searchFileNames(conn, propertyNo);
-		propertyOne.setFiles(files);
-//		System.out.println("propertyServiceClass: "+files);
-		
-		close(conn);
-		return propertyOne;
-	}
-	
 }

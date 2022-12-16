@@ -36,7 +36,7 @@ public class InsertPropertyEndServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath());
 		}else {
 			String path = request.getServletContext().getRealPath("/upload/property");
-			int maxSize = 1024*1024*5;  //5MB
+			int maxSize = 1024*1024*50;  //20MB
 			String encoding = "UTF-8";
 			DefaultFileRenamePolicy dfr = new DefaultFileRenamePolicy();
 			MultipartRequest mr = new MultipartRequest(request,path,maxSize,encoding,dfr);

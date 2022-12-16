@@ -54,7 +54,7 @@
 			                
 							var callback = function(result, status) {
 			                    if (status === kakao.maps.services.Status.OK) {
-			                        //console.log(result);
+			                       	console.log(result);
 			                        //console.log(result[0].x);
 			                        //console.log(result[0].y);
                                     $("input[name=addrX]").val(result[0].x);
@@ -144,6 +144,7 @@
                 $("input[name=costSelect]")[0].onclick=()=>{
                 	$("input[name=costIn]").hide();
                 	$("input[name=costIn]").next().hide();
+                	$("input[name=costIn]").val("");
                     //console.log($("input[name=costIn]"));
                 }
                 $("input[name=costSelect]")[1].onclick=()=>{
@@ -202,23 +203,25 @@
             </div>
             <br>
             <script>
-                $("input[name=edSelect]")[0].onclick=()=>{
-                	$("input[name=exdayIn]").attr("disabled",false);
-                    //console.log($("input[name=exdayIn]"));
-                }
-                $("input[name=edSelect]")[1].onclick=()=>{
-                	$("input[type=date]").attr("disabled",true);
-                	//console.log($("input[name=exdayIn]"));
-                }
-                $("input[name=edSelect]")[2].onclick=()=>{
-                	$("input[name=costIn]").attr("disabled",true);
-                	//console.log($("input[name=exdayIn]"));
-                }
+	            $("input[name=edSelect]")[0].onclick=()=>{
+	            	$("input[name=exdayIn]").attr("disabled",false);
+	                //console.log($("input[name=exdayIn]"));
+	            }
+	            $("input[name=edSelect]")[1].onclick=()=>{
+	            	$("input[name=exdayIn]").attr("disabled",true);
+	            	$("input[name=exdayIn]").val("");
+	            	//console.log($("input[name=exdayIn]"));
+	            }
+	            $("input[name=edSelect]")[2].onclick=()=>{
+	            	$("input[name=exdayIn]").attr("disabled",true);
+	            	$("input[name=exdayIn]").val("");
+	            	//console.log($("input[name=exdayIn]"));
+	            }
             </script>
             <div id="option" style="display: flex;">
                 <span style="margin-right: 30px;">옵션</span>
                 &nbsp;
-                <label><input type="radio" onclick="fn_no()" class="radio" name="optionR" value="6" checked>없음 </label>&nbsp;&nbsp;
+                <label><input type="radio" onclick="fn_no()" id="optionNo" class="radio" name="optionR" value="6" checked>없음 </label>&nbsp;&nbsp;
                 <label><input type="radio" onclick="fn_yes()" id="optionY" class="radio" name="optionR" >있음 </label>&nbsp;&nbsp;
                 
                 <div id="optionAll" hidden>
@@ -236,13 +239,9 @@
                 const fn_no=()=>{
                     $("#optionNo").prop("checked",true);
                     $("#optionAll").hide();
-                    // console.dir($(".selectOpt")[0]);
                     // const select = $(".selectOpt");
-                    $("#opt1").prop("checked",false);
-                    $("#opt2").prop("checked",false);
-                    $("#opt3").prop("checked",false);
-                    $("#opt4").prop("checked",false);
-                    $("#opt5").prop("checked",false);
+                    //5개 체크박스 전부 다 체크해제
+                    $(".selectOpt").prop("checked",false);
                 }
                 const fn_yes=()=>{
                     $("#optionNo").prop("checked",false);
@@ -266,8 +265,7 @@
             </div>
             <br>
             <div id="comment" style="display: flex; align-items: center;"> 
-                <span>상세 설명</span>
-                &nbsp; &nbsp; &nbsp; &nbsp;
+                <span style="margin-right: 40px">상세 설명</span>
                 <textarea cols="100" rows="20" name="detail" style="resize: none;" placeholder="3000자 이내로 작성해주세요"></textarea>
             </div>
 			<br>
