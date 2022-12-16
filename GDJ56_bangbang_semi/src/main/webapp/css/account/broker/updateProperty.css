@@ -100,6 +100,26 @@ div#optionAll{
     width: 500px;
 }
 
+/* 사진정렬  */
+#mainPhoto{
+	width: 400px; 
+	height: 400px; 
+	/* border: 1px solid black; */
+}
+#photo{
+	 display: flex; 
+	 flex-wrap: wrap; 
+	 width: 410px; 
+	 height: 400px; 
+	/*  border: 1px solid black; */
+}
+#photo>img{
+	width: 200px;
+	height: 200px;
+	margin: 2px;
+}
+
+
 /* 네비게이션 바 */
 #navi{
     background-color: rgb(113, 112, 112);
