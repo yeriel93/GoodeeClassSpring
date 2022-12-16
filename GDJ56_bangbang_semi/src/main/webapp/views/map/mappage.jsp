@@ -3,6 +3,9 @@
 <%@ page import="com.centercoordinate.model.vo.CenterCoordinate" %>
 <%
 	CenterCoordinate cc = (CenterCoordinate)request.getAttribute("cc");
+	if(cc == null){
+		cc = CenterCoordinate.builder().centerNo("1162010300").gu("관악구").dong("남현동").latitude("37.474116").longitude("126.976721").build();
+	}
 %>
 <%@ include file ="/views/common/header.jsp" %>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/map/mappage.css">

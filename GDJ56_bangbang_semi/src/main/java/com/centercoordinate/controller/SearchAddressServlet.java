@@ -34,8 +34,19 @@ public class SearchAddressServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
-		String gu = request.getParameter("gu");
-		String dong = request.getParameter("dong");
+		String gu;
+		try {
+			gu = request.getParameter("gu");
+		} catch (NullPointerException e) {
+			gu = "관악구";
+		}
+		String dong;
+		try {
+			dong = request.getParameter("dong");
+		} catch (NullPointerException e) {
+			dong = "남현동";
+		}
+		
 		CenterCoordinate cc = CenterCoordinateService.getCenterCoordinateService().searchCenterCoordinate(gu, dong);
 		request.setAttribute("cc", cc);
 		request.getRequestDispatcher("/views/map/mappage.jsp").forward(request, response);

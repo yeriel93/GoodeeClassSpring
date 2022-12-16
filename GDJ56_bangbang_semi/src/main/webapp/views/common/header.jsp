@@ -31,7 +31,7 @@
             <img src="<%=request.getContextPath() %>/images/logo.png" alt="" width="140px" height="100px">
         </div>
         <div class="menu">
-            <p>지도</p>
+            <p><a href="<%=request.getContextPath()%>/searchAddress.bb">지도</a></p>
         </div>
         <div class="menu">
             <p><a href="<%=request.getContextPath()%>/account.bb">마이페이지</a></p>
