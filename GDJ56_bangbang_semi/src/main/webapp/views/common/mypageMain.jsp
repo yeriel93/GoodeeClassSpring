@@ -17,7 +17,7 @@
 	    </div>
 	    <div class="mypageMenu" style="margin:auto;">
 	
-	            <a href="<%=request.getContextPath()%>/account/updateBrokerMain.bb">내 정보 수정</a>
+	            <a href="<%=request.getContextPath()%>/account/pwCheck.bb">내 정보 수정</a>
 	            <a href="<%=request.getContextPath()%>/account/inquiryBroker.bb">문의 목록</a>
 	            <a href="<%=request.getContextPath()%>/account/broker/propertyList.bb">내놓은 방 목록</a>
 	            <a href="<%=request.getContextPath()%>/account/withdrawal.bb">회원탈퇴</a>
@@ -38,7 +38,7 @@
 	    </div>
 	    <div class="mypageMenu" style="margin:auto;">
 	
-	            <a href="<%=request.getContextPath()%>/account/updateUser.bb">내 정보 수정</a>
+	            <a href="<%=request.getContextPath()%>/account/pwCheck.bb">내 정보 수정</a>
 	            <a href="<%=request.getContextPath()%>/account/inquiry.bb">문의 목록</a>
 	            <a href="<%=request.getContextPath()%>/account/withdrawal.bb">회원탈퇴</a>
 	

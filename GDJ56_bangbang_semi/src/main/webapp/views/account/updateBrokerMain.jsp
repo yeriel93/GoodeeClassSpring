@@ -3,6 +3,23 @@
 <%@ include file="/views/common/mypageMain.jsp"%>
 <link href="<%=request.getContextPath() %>/css/account/updateBrokerMainStyle.css" type="text/css" rel="stylesheet">
 
+<style>
+#button-Container .btns{
+
+background-color: #075A2A;
+justify-content: space-between;
+vertical-align: middle;
+width: 300px;
+height: 150px;
+margin: 30px;
+color:white;
+font-size: 30px;
+align-items: center;
+border:none;
+
+}
+
+</style>
 <!DOCTYPE html>
 <section class="content">
     <div id="divOuter">
