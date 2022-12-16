@@ -30,14 +30,18 @@ public class AdminBrokerAdmissionServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int brokerNo = Integer.parseInt(request.getParameter("brokerNo"));
-		//System.out.println(brokerNo);
+		String setAdmission = request.getParameter("setAdmission");
+		//System.out.println(brokerNo + " / " + setAdmission);
 		
-		int result = AdminService.getAdminService().updateBrokerAdmissionToY(brokerNo);
+		int result = AdminService.getAdminService().updateBrokerAdmissionToY(brokerNo, setAdmission);
 		String msg = "";
-		if(result>0) {
+		if(result>0 && setAdmission.equals("Y")) {
 			msg = "승인이 완료되었습니다.";
-		} else {
-			msg = "승인이 실패했습니다.";
+		} else if(result>0 && setAdmission.equals("N")) {
+			msg = "승인취소가 완료되었습니다.";
+		}
+		else {
+			msg = "실패했습니다.";
 		}
 		response.setContentType("application/json;charset=utf-8");
 		Gson g = new Gson();
