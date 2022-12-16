@@ -46,8 +46,7 @@ public class LoginEndServlet extends HttpServlet {
 		if(user!=null) {
 			if(user.getUserLevel()=='B') {
 				Broker broker=BrokerService.getBrokerService().loginBroker(user.getUserNo());
-				System.out.println(user.getUserNo());
-
+				
 				HttpSession session=request.getSession();
 				session.setAttribute("loginBroker", broker);			
 							
@@ -57,7 +56,7 @@ public class LoginEndServlet extends HttpServlet {
 			HttpSession session=request.getSession();
 			session.setAttribute("loginUser", user);			
 			
-			response.sendRedirect(request.getContextPath()); //흠..? 로그인한 페이지로 돌아가게 짬있을 때 ㄱㄱ
+			response.sendRedirect(request.getContextPath()+"/searchAddress.bb"); //흠..? 로그인한 페이지로 돌아가게 짬있을 때 ㄱㄱ
 //			response.sendRedirect(request.getHeader("referer")); // 이전페이지로 돌아가게 하는 건데 이전페이지가 로그인페이지라 못씀
 
 		}else {	

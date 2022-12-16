@@ -1,6 +1,7 @@
 package com.broker.model.service;
 
 import static com.bangbang.common.JDBCTemplate.*;
+import static com.bangbang.common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
 
@@ -21,6 +22,15 @@ public class BrokerService {
 		Broker broker=BrokerDao.getBrokerDao().loginBroker(conn,userNo);
 		close(conn);
 		return broker;
+	}
+	
+	public int enrollBroker(Broker b) {
+		Connection conn=getConnection();
+		int result=BrokerDao.getBrokerDao().enrollBroker(conn,b);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
 	}
 
 }
