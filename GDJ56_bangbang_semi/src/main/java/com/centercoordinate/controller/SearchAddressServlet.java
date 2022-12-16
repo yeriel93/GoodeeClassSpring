@@ -14,7 +14,7 @@ import com.centercoordinate.service.CenterCoordinateService;
 /**
  * Servlet implementation class SubmitAddressServlet
  */
-@WebServlet("/searchAddress.do")
+@WebServlet("/searchAddress.bb")
 public class SearchAddressServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
