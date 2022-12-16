@@ -74,7 +74,7 @@
                      <td>협의입주</td>
                      <td>2022-10-16</td>
                      <td>
-                         <input type="button" class="button" value=" 수정 " onclick="">
+                         <input type="button" class="button" value=" 수정 " onclick="fn_update()" style="cursor:pointe">
                      </td>
                      <td>
                          <input type="checkbox" name="">
@@ -82,9 +82,14 @@
                  </tr>
              </tbody>
          </table>
-     </form> 
+     </form>
+     <script>
+     	const fn_update=()=>{
+     		window.open("<%=request.getContextPath()%>/account/broker/updateProperty.bb","_blank");
+     	}
+     </script> 
  </section>
 </body>
 </html>
 
-<%-- <%@ include file="/views/common/footer.jsp" %> --%>
+<%@ include file="/views/common/footer.jsp" %>

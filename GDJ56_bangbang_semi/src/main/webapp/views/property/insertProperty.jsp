@@ -14,14 +14,13 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=622c2a9d3d39799df3c6db829e75db1d&libraries=services"></script>
 
 <body>
-<!-- 매물등록메뉴 -->
 <form action="<%=request.getContextPath()%>/property/insertPropertyEnd.bb" method="post" 
 	enctype="multipart/form-data" onsubmit="return fn_invalidate();">
 
 	<section id="all" style="display:flex;">
         <div id="wrap">
             <h1 style="font-size:40px"><방 내놓기></h1>
-
+<!--------------------------------------------------------------------------------------------------------------------------------------------------->
              <h2>🔳 기본정보</h2>
             <div id="address">
                 <span class="redtext">주소*</span>
@@ -93,7 +92,7 @@
                 	}
                 }
             </script>
-
+<!--------------------------------------------------------------------------------------------------------------------------------------------------->
             <h2>🔳 거래정보</h2>
             <div id="price" style="display: flex; align-items: center;">
                 <span class="redtext" style="margin-right: 5px;">거래종류*</span>
@@ -117,16 +116,19 @@
                 </div>
             </div>
             <script>
-                const fn_priceY=()=>{
-                    //console.log($("#yearPrice"));
-                    $("#yearPrice").css("display","flex");
-                    $("#monthlyPrice").css("display","none");
-                }
-                const fn_priceM=()=>{
-                    //console.log($("#monthlyPrice"));
-                    $("#yearPrice").css("display","none");
-                    $("#monthlyPrice").css("display","flex");
-                }
+	            const fn_priceY=()=>{
+	                //console.log($("#yearPrice"));
+	                $("#yearPrice").css("display","flex");
+	                $("#monthlyPrice").css("display","none");
+	                $("input[name=mPrice]").val("");
+	                $("input[name=mPrice2]").val("");
+	            }
+	            const fn_priceM=()=>{
+	                //console.log($("#monthlyPrice"));
+	                $("#yearPrice").css("display","none");
+	                $("#monthlyPrice").css("display","flex");
+	                $("input[name=yPrice]").val("");
+	            }
             </script>
             <br>
             <div id="cost" style="display: flex; text-align: center;">
@@ -159,7 +161,7 @@
             </div>
             <br>
             <hr style="width: 95%;">
-
+<!--------------------------------------------------------------------------------------------------------------------------------------------------->
             <h2>🔳 방 정보</h2>
             <div id="room">
                 <span class="redtext">방 구조*</span>
@@ -187,7 +189,6 @@
            			$("#sqft").text(sqft);
            		}
            	</script>
-            
             
             <div id="expiryDate">
                 <span class="redtext">공실예정일*</span>
@@ -248,7 +249,7 @@
                     $("#optionAll").show();
                 }
             </script>
-	
+<!--------------------------------------------------------------------------------------------------------------------------------------------------->	
             <h2>🔳 추가 정보</h2>
             <div id="animal">
                 <span>반려동물가능여부</span>
@@ -266,12 +267,12 @@
             <br>
             <div id="comment" style="display: flex; align-items: center;"> 
                 <span>상세 설명</span>
-                &nbsp; &nbsp;
-                <textarea cols="60" rows="7" name="detail" style="resize: none;" placeholder="3000자 이내로 작성해주세요"></textarea>
+                &nbsp; &nbsp; &nbsp; &nbsp;
+                <textarea cols="100" rows="20" name="detail" style="resize: none;" placeholder="3000자 이내로 작성해주세요"></textarea>
             </div>
 			<br>
             <hr style="width: 95%;">
-			
+<!--------------------------------------------------------------------------------------------------------------------------------------------------->			
             <h2>🔳 사진</h2>
             <div>
                 <p>🔊 메인사진 등록은 <b style="color: red;">필수</b>입니다.</p>
@@ -379,7 +380,7 @@
             <br>
         </div>
 
-
+<!--------------------------------------------------------------------------------------------------------------------------------------------------->
         <!-- 네비게이션 바 -->
         <div id="navi">
             <h3>기본정보</h3>
@@ -411,6 +412,7 @@
         </div>
 	</section>
 </form>
+ <!--------------------------------------------------------------------------------------------------------------------------------------------------->
     <script>
         const fn_invalidate=()=>{
     

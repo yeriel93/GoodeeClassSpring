@@ -83,17 +83,17 @@ public class PropertyService {
 		List list = new ArrayList();
 		
 		Property property = PropertyDao.getPropertyDao().searchPropertyInfo(conn,propertyNo);
-//		System.out.println("서비스: "+property);		
+//		System.out.println("propertyServiceClass: "+property);		
 
 		List<Files> files = FilesDao.getFilesDao().searchFileNames(conn, propertyNo);
 		property.setFiles(files);
-//		System.out.println("서비스: "+files);
+//		System.out.println("propertyServiceClass: "+files);
 		
 		List option = OptionDao.getOptionDao().searchOption(conn,propertyNo);
-//		System.out.println("서비스: "+option);
+//		System.out.println("propertyServiceClass: "+option);
 		
 		Broker broker = BrokerDao.getBrokerDao().searchBroker(conn,property.getBrokerNo());
-//		System.out.println("서비스: "+broker);
+//		System.out.println("propertyServiceClass: "+broker);
 		
 		list.add(property);
 		list.add(option);
@@ -101,6 +101,21 @@ public class PropertyService {
 //		System.out.println(list);
 		close(conn);
 		return list;
+	}
+	
+	//매물번호로 1개의 매물데이터 가져오기
+	public Property searchPropertyOne(int propertyNo) {
+		Connection conn = getConnection();
+		
+		Property propertyOne = PropertyDao.getPropertyDao().searchPropertyInfo(conn,propertyNo);
+//		System.out.println("propertyServiceClass: "+property);		
+
+		List<Files> files = FilesDao.getFilesDao().searchFileNames(conn, propertyNo);
+		propertyOne.setFiles(files);
+//		System.out.println("propertyServiceClass: "+files);
+		
+		close(conn);
+		return propertyOne;
 	}
 	
 }
