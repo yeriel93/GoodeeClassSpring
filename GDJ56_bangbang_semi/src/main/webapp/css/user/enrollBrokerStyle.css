@@ -15,17 +15,23 @@
     justify-content: center;
     
 }
-#enrollbroker-Container>div>hr{
+#enrollbroker-Container>#enrollbrokerFrm>div>hr{
     width:310px;
     margin-left: 0px;
 }
-#enrollbroker-Container>div>h1{
+#enrollbroker-Container>#enrollbrokerFrm>div>h1{
     margin-bottom: 10px;
     padding-top: 30px;
 }
-#enrollbroker-Container>div>input{
-    width:300px;
-    height:30px;
+#enrollbroker-Container>#enrollbrokerFrm>div>input{
+    width: 250px;
+    height: 32px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-left: 10px;
+    background-color: rgb(255, 255, 255);
 
 }
 
@@ -38,11 +44,12 @@
     color: white;
     border-color: #075a2a8c;
     border-radius: 5px;
+    border:none;
 }
 
 p#info{
     width:310px;
-    height:40px;
+    height:130px;
 }
 
 #brokerInfo-Container{
@@ -53,4 +60,11 @@ p#info{
     margin-top: 70px;
     display: flex;
     width: 100%;
+}
+
+.enroll-container{
+	margin-top: 35px;
+}
+input::placeholder {  
+  font-size: 13px;
 }
