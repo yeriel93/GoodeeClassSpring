@@ -83,6 +83,7 @@
 	//페이지당 회원수를 변경했을 때
 	$("select#numPerpage").change(e=>{
 		numPerpage = $(e.target).val();
+		cPage = 1;
 		drawUserList(true, searchState, searchKeyword, cPage, numPerpage);
 	});
 	

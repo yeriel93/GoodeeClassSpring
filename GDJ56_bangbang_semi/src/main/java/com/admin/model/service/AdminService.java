@@ -37,9 +37,23 @@ public class AdminService {
 	
 	
 	
+	//중개사 관리 페이지
+	public List searchBrokerList(String adminQuery) {
+		Connection conn = getConnection();
+		List list = AdminDao.getAdminDao().searchBrokerList(conn, adminQuery);
+		close(conn);
+		
+		return list;
+	}
 	
 	
-	
+	public int searchBrokerListCount(String totalQuery) {
+		Connection conn = getConnection();
+		int count = AdminDao.getAdminDao().searchBrokerListCount(conn, totalQuery);
+		close(conn);
+		
+		return count;
+	}
 	
 	
 	

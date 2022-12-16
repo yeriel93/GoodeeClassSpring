@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.broker.model.vo.Broker;
 import com.property.model.vo.Property;
 import com.user.model.vo.User;
 
@@ -83,7 +84,57 @@ public class AdminDao {
 		return count;
 	}
 	
+	public List searchBrokerList(Connection conn, String adminQuery) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List list = null;
+		List<Broker> brokerList = null;
+		List<String> userIdList = null;
+		String query = sql.getProperty("searchBrokerListAdmin");
+		//System.out.println(query + adminQuery);
+		try {
+			pstmt = conn.prepareStatement(query + adminQuery);
+			rs = pstmt.executeQuery();
+			list = new ArrayList();
+			brokerList = new ArrayList();
+			userIdList = new ArrayList();
+			while(rs.next()) {
+				Broker b = getRsBrokerData(rs);
+				brokerList.add(b);
+				String id = rs.getString("ID");
+				userIdList.add(id);
+				//System.out.println(id + " / " + b);
+			}
+			list.add(brokerList);
+			list.add(userIdList);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}	
+		return list;
+	}
 	
+	public int searchBrokerListCount(Connection conn, String totalQuery) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int count = 0;
+		String query = sql.getProperty("searchBrokerListCount");
+		try {
+			pstmt = conn.prepareStatement(query + totalQuery);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return count;
+	}
 	
 	
 	private User getRsUserData(ResultSet rs) throws SQLException {
@@ -96,6 +147,22 @@ public class AdminDao {
 				.phone(rs.getString("PHONE"))
 				.birthday(rs.getDate("BIRTHDAY"))
 				.userLevel(rs.getString("USER_LEVEL").charAt(0))
+				.enrollDate(rs.getDate("ENROLL_DATE"))
+				.editDate(rs.getDate("EDIT_DATE"))
+				.build();
+	}
+	
+	private Broker getRsBrokerData(ResultSet rs) throws SQLException {
+		return Broker.builder()
+				.brokerNo(rs.getInt("BROKER_NO"))
+				.userNo(rs.getInt("USER_NO"))
+				.registrationNo(rs.getString("REGISTRATION_NO"))
+				.officeName(rs.getString("OFFICE_NAME"))
+				.officeAddress(rs.getString("OFFICE_ADDRESS"))
+				.telephone(rs.getString("TELEPHONE"))
+				.admissionState(rs.getString("ADMISSION_STATE").charAt(0))
+				.propertyCount(rs.getInt("PROPERTY_COUNT"))
+				.RestrictionDate(rs.getDate("RESTRICTION_DATE"))
 				.enrollDate(rs.getDate("ENROLL_DATE"))
 				.editDate(rs.getDate("EDIT_DATE"))
 				.build();

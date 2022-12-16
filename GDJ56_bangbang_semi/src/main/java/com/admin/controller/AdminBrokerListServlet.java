@@ -13,16 +13,16 @@ import com.admin.model.service.AdminService;
 import com.google.gson.Gson;
 
 /**
- * Servlet implementation class AdminUserListServlet
+ * Servlet implementation class AdminBrokerListServlet
  */
-@WebServlet("/admin/userList.bb")
-public class AdminUserListServlet extends HttpServlet {
+@WebServlet("/admin/brokerList.bb")
+public class AdminBrokerListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminUserListServlet() {
+    public AdminBrokerListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -46,24 +46,22 @@ public class AdminUserListServlet extends HttpServlet {
 			numPerpage = 15;
 		}
 		
-		//System.out.println(searchType + " " + searchKeyword + " " + cPage + " " + numPerpage);
-		
 		String query = "";
-		if(searchType.equals("ID")||searchType.equals("NAME")||searchType.equals("USER_LEVEL")) {
-			query += " WHERE U." + searchType + " LIKE '%" + searchKeyword + "%' ";
+		if(searchType.equals("OFFICE_NAME")||searchType.equals("BROKER_NO")||searchType.equals("REGISTRATION_NO")||searchType.equals("ADMISSION_STATE")) {
+			query += " WHERE B." + searchType + " LIKE '%" + searchKeyword + "%' ";
 		}
-		query += " ORDER BY U.ENROLL_DATE DESC) RR) WHERE RNUM BETWEEN ";
+		query += " ORDER BY B.ENROLL_DATE DESC) RR) WHERE RNUM BETWEEN ";
 		query += ((cPage-1)*numPerpage + 1) + " AND " + (cPage*numPerpage);
 		
-		List list = AdminService.getAdminService().searchUserList(query);
-		
+		List list = AdminService.getAdminService().searchBrokerList(query);
+
 		//pageBar 만들어서 반환하기
 		//1. totalData : 전체 페이지 수를 알기 위해
 		String totalQuery = "";
 		if(searchType.equals("ID")||searchType.equals("NAME")||searchType.equals("USER_LEVEL")) {
-			totalQuery += " WHERE U." + searchType + " LIKE '%" + searchKeyword + "%' ";
+			totalQuery += " WHERE B." + searchType + " LIKE '%" + searchKeyword + "%' ";
 		}
-		int totalData = AdminService.getAdminService().searchUserListCount(totalQuery);
+		int totalData = AdminService.getAdminService().searchBrokerListCount(totalQuery);
 		
 		//pageBar html코드를 저장할 수 있는 변수 선언
 		String pageBar = "";

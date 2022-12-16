@@ -12,11 +12,14 @@
 </head>
 <body>
 	<header>
-		<div><img src="<%=request.getContextPath()%>/images/logo.png" style="width:130px;height:80px;"><br>관리자 페이지</div>
-		<div><p>회원관리</p></div>
-		<div><p>중개사관리</p></div>
-		<div><p>매물관리</p></div>
+		<div id="logoContainer"><img src="<%=request.getContextPath()%>/images/logo.png" style="width:130px;height:80px;"><br>관리자 페이지</div>
+		<div><p><a href="<%=request.getContextPath()%>/admin/user.bb">회원관리</a></p></div>
+		<div><p><a href="<%=request.getContextPath()%>/admin/broker.bb">중개사관리</a></p></div>
+		<div><p><a href="<%=request.getContextPath()%>/admin/property.bb">매물관리</a></p></div>
 	</header>
-	
-	
+	 <script>
+    	$("div#logoContainer>img").click(e=>{
+    		location.assign("<%=request.getContextPath()%>/");
+    	})
+    </script>
 	<hr>
