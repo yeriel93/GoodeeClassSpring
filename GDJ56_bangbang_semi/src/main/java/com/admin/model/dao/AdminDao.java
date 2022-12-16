@@ -136,6 +136,21 @@ public class AdminDao {
 		return count;
 	}
 	
+	public int updateBrokerAdmissionToY(Connection conn, int brokerNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = sql.getProperty("updateBrokerAdmissionToY");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, brokerNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
 	
 	private User getRsUserData(ResultSet rs) throws SQLException {
 		return User.builder()

@@ -55,7 +55,14 @@ public class AdminService {
 		return count;
 	}
 	
-	
+	//중개사 승인 기능
+	public int updateBrokerAdmissionToY(int brokerNo) {
+		Connection conn = getConnection();
+		int result = AdminDao.getAdminDao().updateBrokerAdmissionToY(conn, brokerNo);
+		close(conn);
+		
+		return result;
+	}
 	
 	
 	

@@ -131,7 +131,8 @@
 					brokerNo:brokerNo
 				},
 				success:data=>{
-					alert("다녀왔씁!");
+					alert(data);
+					drawUserList(true, searchState, searchKeyword, cPage, numPerpage);
 				}
 			})
 			

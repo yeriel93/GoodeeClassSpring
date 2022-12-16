@@ -58,11 +58,12 @@ public class AdminBrokerListServlet extends HttpServlet {
 		//pageBar 만들어서 반환하기
 		//1. totalData : 전체 페이지 수를 알기 위해
 		String totalQuery = "";
-		if(searchType.equals("ID")||searchType.equals("NAME")||searchType.equals("USER_LEVEL")) {
+		if(searchType.equals("OFFICE_NAME")||searchType.equals("BROKER_NO")||searchType.equals("REGISTRATION_NO")||searchType.equals("ADMISSION_STATE")) {
 			totalQuery += " WHERE B." + searchType + " LIKE '%" + searchKeyword + "%' ";
 		}
 		int totalData = AdminService.getAdminService().searchBrokerListCount(totalQuery);
-		
+		//System.out.println(totalQuery);
+		//System.out.println(totalData);
 		//pageBar html코드를 저장할 수 있는 변수 선언
 		String pageBar = "";
 		
