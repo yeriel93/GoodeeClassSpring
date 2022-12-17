@@ -48,4 +48,23 @@ public class AccountDao {
 		return result;
 	}
 	
+	public int updatePw(Connection conn,String userId,String afterPw) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("updatePw"));
+			//updatePw=UPDATE USER_C SET PASSWORD=? WHERE ID=?
+			pstmt.setString(1, afterPw);
+			pstmt.setString(2, userId);
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
+	
 }

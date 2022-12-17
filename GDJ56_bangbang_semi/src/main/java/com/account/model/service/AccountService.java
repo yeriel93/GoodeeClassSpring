@@ -22,4 +22,13 @@ public class AccountService {
 		close(conn);
 		return result;
 	}
+	
+	public int updatePw(String userId,String afterPw) {
+		Connection conn=getConnection();
+		int result=AccountDao.getAccountDao().updatePw(conn,userId,afterPw);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
 }

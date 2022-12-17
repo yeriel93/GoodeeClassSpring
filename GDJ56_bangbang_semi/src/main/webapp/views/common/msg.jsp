@@ -4,6 +4,7 @@
 <%
 	String msg = (String)request.getAttribute("msg");
 	String loc = (String)request.getAttribute("loc");
+	String script=(String)request.getAttribute("script");
 %>
 <!DOCTYPE html>
 <html>
@@ -15,7 +16,7 @@
 	<script>
 		alert('<%=msg %>');
 		location.replace("<%=request.getContextPath()%><%=loc%>");
-		
+		<%=script!=null?script:""%>
 	</script>
 </body>
 </html>

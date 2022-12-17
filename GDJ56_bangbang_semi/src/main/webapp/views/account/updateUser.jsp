@@ -54,7 +54,7 @@
       <h3>아이디</h3>
       <input type="text" class="input" name="userId" id="userId" value="<%=loginUser.getId()%>" readonly>
       <h3>비밀번호</h3>
-      <input type="button" class="btns" value="비밀번호 변경하기" onclick="fn_updatePassword();" style="background-color: #075A2A;border-radius: 5px;width:300px;border:none;">
+      <input type="button" class="btns" value="비밀번호 변경하기" onclick="fn_OpenupdatePassword();" style="background-color: #075A2A;border-radius: 5px;width:300px;border:none;">
 
       <h3>이름</h3>
       <input type="text"class="input" name="userName" id="userName" value="<%=loginUser.getName()%>" placeholder="이름을 입력해주세요." >
@@ -65,7 +65,7 @@
       <input type="text" class="input" name="userPhone" id="userPhone" value="<%=loginUser.getPhone()%>" placeholder="휴대폰 번호를 입력해주세요. (-포함)">
       <h3>생년월일</h3>
       <input type="text" class="input" name="userBirth" id="userBirth" value="<%=loginUser.getBirthday()%>" placeholder="예시) yyyy-mm-dd">
-      <input type="hidden" name="userNo" value="<%=loginUser.getUserNo()%>">
+      <input type="hidden" name="userNo" value="<%=loginUser.getId()%>">
       <br>
       <button id="signupBtn">정보수정</button>
       <br>
@@ -78,11 +78,11 @@
 
 <script>
   
-  // const fn_updatePassword=()=>{
-     <%-- open("<%=request.getContextPath()%>/member/updatePassword.do?userId=<%=loginMember!=null?loginMember.getUserId():""%>", --%>
-  //       "_blank","width=400,height=210");
+   const fn_OpenupdatePassword=()=>{
+      open("<%=request.getContextPath()%>/account/updatePassword.bb?userId=<%=loginUser!=null?loginUser.getId():""%>", 
+         "_blank","width=500,height=575");
     
-  // }
+   }
 
 
   //이메일 정규표현식
