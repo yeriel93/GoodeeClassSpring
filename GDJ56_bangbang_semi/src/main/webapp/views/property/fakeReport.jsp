@@ -8,12 +8,12 @@
 <title>허위 매물 신고</title>
 <link href="<%=request.getContextPath() %>/css/property/fakeReportStyle.css" type="text/css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
-
+<!-- jQuery -->
+	<script src = "<%=request.getContextPath()%>/js/jquery-3.6.1.min.js"></script>
 </head>
 <body>
-
-    <div class="modal">
-        <div class="modal_body">
+    <div>
+        <div class=fakeReportContainer>
             <h1>허위매물신고</h1>
             <p>
                 <hr>
@@ -24,42 +24,37 @@
                 신고내용이 정확하지 않거나, 허위신고일 경우 서비스 이용에 제한이 있으니 유의해주세요.
             </p>
             <hr>
-            <!-- <select name="report">
-                <option value="매물">매물신고</option>
-                <option value="업주">부동산신고</option>
-                <option value="직원">중개인신고</option>
-            </select> -->
-            <br><br>
             <label>
                 <textarea name="content" placeholder="200자 이내로 작성해주세요"></textarea><br>
             </label>
             <hr>
             <input type="checkbox" name="agree">이와 같은 내용으로 신고합니다
-            <input type="submit" value="확인">
+            <button id="submitBtn">확인</button>
         </div>
     </div>
-    <button class="btn-open-popup">허위매물신고</button>
     <script>
-        const body = document.querySelector('body');
-        const modal = document.querySelector('.modal');
-        const btnOpenPopup = document.querySelector('.btn-open-popup');
-    
-        btnOpenPopup.addEventListener('click', () => {
-            modal.classList.toggle('show');
-    
-            if (modal.classList.contains('show')) {
-                body.style.overflow = 'hidden';
-            }
-        });
-        modal.addEventListener('click', (event) => {
-            if (event.target === modal) {
-                modal.classList.toggle('show');
-    
-                if (!modal.classList.contains('show')) {
-                    body.style.overflow = 'auto';
-                }
-             }
-        });
+       $("button#submitBtn").click(e=>{
+    	  if($("textarea[name=content]").val()!="" && $("input[name=agree]").prop("checked") == true){
+    		  $.ajax({
+    			  url:"<%=request.getContextPath()%>/property/propertyInfo/fakeReportEnd.bb",
+    			  type:"get",
+    			  data:{
+    				  propertyNo:"<%=request.getParameter("propertyNo")%>",
+    				  userNo:"<%=request.getParameter("userNo")%>",
+    				  content:$("textarea[name=content]").val()
+    			  },
+    			  success:data=>{
+    				  console.log("다녀와씀");
+    			  }
+    		  });
+    	  } else if($("textarea[name=content]").val()==""){
+    		  alert("신고 사유를 입력해주세요.");
+    	  } else if($("input[name=agree]").prop("checked") == false){
+    		  alert("신고합니다에 체크해주세요.");
+    	  }
+    	   
+    	   
+       });
     </script>
 </body>
 </html>
