@@ -350,29 +350,7 @@
 					return false;
 				}
 				
-			}
-
-			// $("#Emailcode_Chk").click(e=>{			
-			// 	const oriCode=<%=certNum%>;
-			// 	const userCode=$("#userEmailCert").val();
-			// 	console.log(oriCode)
-			// 	if(oriCode==userCode){
-			// 		alert("🟢 인증에 성공했습니다.")
-
-			// 		//인증확인버튼 비활성화
-			// 		$("#Emailcode_Chk").attr("disabled","false");
-			// 		$("#Emailcode_Chk").css("background-color","lightgray");
-
-			// 		//이메일 인증 버튼도 비활성화
-			// 		$("#certifyEmail").attr("readonly","true");
-			// 		$("#certifyEmail").attr("disabled","false");
-			// 		$("#certifyEmail").css("background-color","lightgray");
-			// 	}else{
-			// 		alert("🔴 인증에 실패했습니다. 인증번호를 다시 확인해주세요.")
-			// 		$("#userEmail_chk").focus();
-			// 	}
-
-			// })		
+			}	
 
 			//이메일 인증코드 확인 - 얘자체가 ajax로 움직여야댐 수정할것
 			$("#Emailcode_Chk").click(e=>{			
