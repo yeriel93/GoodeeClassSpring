@@ -60,26 +60,26 @@ public class PropertyDao {
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("insertProperty"));
-			//로그인한 브로커 번호 받아서 수정해야합니당 
-//			INSERT INTO PROPERTY VALUES(SEQ_PROPERTY_NO.NEXTVAL, 200020, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DEFAULT, NULL, 'N')
-			pstmt.setString(1, p.getAddress());
-			pstmt.setDouble(2, p.getLongitude());
-			pstmt.setDouble(3, p.getLatitude());
-			pstmt.setString(4, p.getFloor());
-			pstmt.setString(5, p.getRenttype());
-			pstmt.setInt(6, p.getDeposit());
-			pstmt.setInt(7, p.getMonthlyCharge());
-			pstmt.setInt(8, p.getManagementCharge());
-			pstmt.setString(9, String.valueOf(p.getElectric()));
-			pstmt.setString(10, String.valueOf(p.getWater()));
-			pstmt.setString(11, String.valueOf(p.getGas()));
-			pstmt.setString(12, p.getPropertyStructure());
-			pstmt.setDouble(13,	p.getArea());
-			pstmt.setDate(14, p.getVacancyDate()==null ? null : p.getVacancyDate());
-			pstmt.setString(15, p.getVacancy()==null ? null : p.getVacancy());
-			pstmt.setString(16, String.valueOf(p.getPet()));
-			pstmt.setString(17, String.valueOf(p.getParking()));
-			pstmt.setString(18, p.getDetail());
+//			INSERT INTO PROPERTY VALUES(SEQ_PROPERTY_NO.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, DEFAULT, NULL, 'N')
+			pstmt.setInt(1, p.getBrokerNo());
+			pstmt.setString(2, p.getAddress());
+			pstmt.setDouble(3, p.getLongitude());
+			pstmt.setDouble(4, p.getLatitude());
+			pstmt.setString(5, p.getFloor());
+			pstmt.setString(6, p.getRenttype());
+			pstmt.setInt(7, p.getDeposit());
+			pstmt.setInt(8, p.getMonthlyCharge());
+			pstmt.setInt(9, p.getManagementCharge());
+			pstmt.setString(10, String.valueOf(p.getElectric()));
+			pstmt.setString(11, String.valueOf(p.getWater()));
+			pstmt.setString(12, String.valueOf(p.getGas()));
+			pstmt.setString(13, p.getPropertyStructure());
+			pstmt.setDouble(14,	p.getArea());
+			pstmt.setDate(15, p.getVacancyDate()==null ? null : p.getVacancyDate());
+			pstmt.setString(16, p.getVacancy()==null ? null : p.getVacancy());
+			pstmt.setString(17, String.valueOf(p.getPet()));
+			pstmt.setString(18, String.valueOf(p.getParking()));
+			pstmt.setString(19, p.getDetail());
 			
 			result = pstmt.executeUpdate();
 			

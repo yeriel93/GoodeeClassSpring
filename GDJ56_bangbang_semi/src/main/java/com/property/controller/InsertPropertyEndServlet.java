@@ -76,6 +76,10 @@ public class InsertPropertyEndServlet extends HttpServlet {
 			}
 			System.out.println(fileName+"/"+addFileName1+"/"+addFileName2+"/"+addFileName3+"/"+addFileName4);
 			
+			//중개인번호
+			int brokerNo = Integer.parseInt(mr.getParameter("brokerNo"));
+			System.out.println("insertPropertyEndServlet(중개인번호): "+brokerNo);
+			
 			//주소
 			String address = mr.getParameter("address");
 			
@@ -158,6 +162,7 @@ public class InsertPropertyEndServlet extends HttpServlet {
 			
 			
 			Property p = Property.builder()
+					.brokerNo(brokerNo)
 					.address(address)
 					.longitude(x)
 					.latitude(y)

@@ -63,14 +63,14 @@ public class PropertyService {
 			}
 		}
 		
-		System.out.println("매물등록: "+propertyResult);
-		System.out.println("파일등록: "+filesResult);
-		System.out.println("옵션등록: "+optionResult);
+		System.out.println("propertyService_insert(매물등록): "+propertyResult);
+		System.out.println("propertyService_insert(파일등록): "+filesResult);
+		System.out.println("propertyService_insert(옵션등록): "+optionResult);
 		int allResult = 0;
 		if(propertyResult>0 && filesResult>0 && optionResult==option.length) {
 			allResult = 1;
 		}
-		
+		System.out.println("propertyService_insert(전체등록): "+allResult);
 		if(allResult>0) commit(conn);
 		else rollback(conn);
 		close(conn);
@@ -83,17 +83,17 @@ public class PropertyService {
 		List list = new ArrayList();
 		
 		Property property = PropertyDao.getPropertyDao().searchPropertyInfo(conn,propertyNo);
-//		System.out.println("propertyServiceClass: "+property);		
+//		System.out.println("propertyService_search(매물조회): "+property);		
 
 		List<Files> files = FilesDao.getFilesDao().searchFileNames(conn, propertyNo);
 		property.setFiles(files);
-//		System.out.println("propertyServiceClass: "+files);
+//		System.out.println("propertyService_search(파일조회): "+files);
 		
 		List option = OptionDao.getOptionDao().searchOption(conn,propertyNo);
-//		System.out.println("propertyService(옵션): "+option);
+//		System.out.println("propertyService_search(옵션): "+option);
 		
 		Broker broker = BrokerDao.getBrokerDao().searchBroker(conn,property.getBrokerNo());
-//		System.out.println("propertyServiceClass: "+broker);
+//		System.out.println("propertyService_search(브로커): "+broker);
 		
 		list.add(property);
 		list.add(option);
