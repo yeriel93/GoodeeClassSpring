@@ -65,7 +65,7 @@
       <input type="text" class="input" name="userPhone" id="userPhone" value="<%=loginUser.getPhone()%>" placeholder="휴대폰 번호를 입력해주세요. (-포함)">
       <h3>생년월일</h3>
       <input type="text" class="input" name="userBirth" id="userBirth" value="<%=loginUser.getBirthday()%>" placeholder="예시) yyyy-mm-dd">
-      <input type="hidden" name="userNo" value="<%=loginUser.getId()%>">
+      <input type="hidden" name="userNo" value="<%=loginUser.getUserNo()%>">
       <br>
       <button id="signupBtn">정보수정</button>
       <br>
