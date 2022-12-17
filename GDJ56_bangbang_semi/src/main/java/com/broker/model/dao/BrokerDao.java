@@ -98,7 +98,6 @@ public class BrokerDao {
 		int result=0;
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("insertBroker"));
-			//USER_NO,REGISTRATION_NO,OFFICE_NAME,OFFICE_ADDRESS
 			pstmt.setInt(1, b.getUserNo());
 			pstmt.setString(2, b.getRegistrationNo());
 			pstmt.setString(3, b.getOfficeName());
@@ -116,6 +115,26 @@ public class BrokerDao {
 		
 	}
 	
+	public int updateBroker(Connection conn,Broker b) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			
+			pstmt=conn.prepareStatement(sql.getProperty("updateBroker"));
+			pstmt.setString(1, b.getRegistrationNo());
+			pstmt.setString(2, b.getOfficeName());
+			pstmt.setString(3, b.getOfficeAddress());
+			pstmt.setString(4, b.getTelephone());
+			pstmt.setInt(5, b.getBrokerNo());
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(conn);
+		}
+		return result;
+	}
 	
 	
 }

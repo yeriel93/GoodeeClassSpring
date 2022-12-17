@@ -32,5 +32,14 @@ public class BrokerService {
 		close(conn);
 		return result;
 	}
+	
+	public int updateBroker(Broker b) {
+		Connection conn=getConnection();
+		int result=BrokerDao.getBrokerDao().updateBroker(conn,b);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
 
 }
