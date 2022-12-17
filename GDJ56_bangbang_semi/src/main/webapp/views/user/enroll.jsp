@@ -3,7 +3,7 @@
 <%@ include file="/views/common/header.jsp"%>
 <link href="<%=request.getContextPath() %>/css/user/enrollStyle.css" type="text/css" rel="stylesheet">
 <%
-	Integer emailCode=(Integer)session.getAttribute("certNum");
+	Integer certNum=(Integer)session.getAttribute("certNum");
 %>
 
 <style>
@@ -61,12 +61,16 @@
 .enroll-container{
 	margin-top: 75px;
 }
+
+#pwCheck{
+	background-color: #999999;
+}
 </style>
 
 <section class="enroll-container">
 	    <div id="divOuter">
 	        <div id="signupContainer">
-		        <form id="enrollForm" action="<%=request.getContextPath()%>/user/enrollEnd.bb">		       
+		        <form id="enrollForm" action="<%=request.getContextPath()%>/user/enrollEnd.bb" onsubmit="return fn_finalCheck();">		       
 		            <h1>회원가입</h1>
 		            <hr>
 		            <h4>❗모두 필수 입력항목입니다. </h4>
@@ -94,7 +98,7 @@
 		            
 		            <h3>이메일 인증</h3>
 		            <input type="text" class="enroll_input" name="userEmail_Cert" id="userEmailCert" placeholder="인증코드를 입력해주세요." required>
-		            <input type="hidden" name="userEmail_chk" id="userEmail_chk" value="<%=emailCode%>" required>
+		            <input type="hidden" name="userEmail_chk" id="userEmail_chk" value="" required>
 		            
 					<input type="button" class="btns" id="Emailcode_Chk" value="인증번호 확인">
 		            
@@ -337,30 +341,69 @@
 	        </div>      
 	                
     	</div>
-		<script>					
-
-			$("#Emailcode_Chk").click(e=>{
-				const oriCode=$("#userEmail_chk").val();
-				const userCode=$("#userEmailCert").val();
-				if(oriCode==userCode){
-					alert("🟢 인증에 성공했습니다.")
-
-					//인증확인버튼 비활성화
-					$("#Emailcode_Chk").attr("disabled","false");
-					$("#Emailcode_Chk").css("background-color","lightgray");
-
-					//이메일 인증 버튼도 비활성화
-					$("#certifyEmail").attr("disabled","false");
-					$("#certifyEmail").css("background-color","lightgray");
-				}else{
-					alert("🔴 인증에 실패했습니다. 인증번호를 다시 확인해주세요.")
-					$("#userEmail_chk").focus();
+		<script>				
+			const fn_finalCheck=()=>{
+				const id=$("#userId").val();
+				const idchk=$("#userId_chk").val();
+				if(id!=idchk){
+					alert("아이디 중복여부를 다시 확인해주세요.");
+					return false;
 				}
+				
+			}
 
+			// $("#Emailcode_Chk").click(e=>{			
+			// 	const oriCode=<%=certNum%>;
+			// 	const userCode=$("#userEmailCert").val();
+			// 	console.log(oriCode)
+			// 	if(oriCode==userCode){
+			// 		alert("🟢 인증에 성공했습니다.")
+
+			// 		//인증확인버튼 비활성화
+			// 		$("#Emailcode_Chk").attr("disabled","false");
+			// 		$("#Emailcode_Chk").css("background-color","lightgray");
+
+			// 		//이메일 인증 버튼도 비활성화
+			// 		$("#certifyEmail").attr("readonly","true");
+			// 		$("#certifyEmail").attr("disabled","false");
+			// 		$("#certifyEmail").css("background-color","lightgray");
+			// 	}else{
+			// 		alert("🔴 인증에 실패했습니다. 인증번호를 다시 확인해주세요.")
+			// 		$("#userEmail_chk").focus();
+			// 	}
+
+			// })		
+
+			//이메일 인증코드 확인 - 얘자체가 ajax로 움직여야댐 수정할것
+			$("#Emailcode_Chk").click(e=>{			
+				const userCode=$("#userEmailCert").val();
+				
+				$.ajax({
+					type:"post",
+					url:"<%=request.getContextPath()%>/user/certNumCheck.bb",
+					data:{userCode:userCode},
+					success:function(result){
+						if(result==1){
+							alert("🟢 인증에 성공했습니다.")
+
+							//인증확인버튼 비활성화
+							$("#Emailcode_Chk").attr("disabled","false");
+							$("#Emailcode_Chk").css("background-color","lightgray");
+
+							//이메일 인증 버튼도 비활성화
+							$("#certifyEmail").attr("readonly","true");
+							$("#certifyEmail").attr("disabled","false");
+							$("#certifyEmail").css("background-color","lightgray");
+
+						}else{
+							alert("🔴 인증에 실패했습니다. 인증번호를 다시 확인해주세요.")
+							$("#userEmail_chk").focus();
+						}
+					}
+				})
 			})
-
-
-			//이메일 인증코드
+ 
+			//이메일 인증코드 전송
 			//서블릿 주소 /user/certifyEmail.bb
 			$("#certifyEmail").click(e=>{
 				const userEmail=$("#userEmail").val();
@@ -369,11 +412,13 @@
 					type:"post",
 					url:"<%=request.getContextPath()%>/user/certifyEmail.bb",
 					data:{userEmail:userEmail},
+					async:false,
 					success:function(data){
 						alert("인증코드 전송완료! 입력하신 이메일을 확인해주세요.");
 							$("#certifyEmail").attr("disabled","false");
 							$("#certifyEmail").css("background-color","lightgray");
-												
+							$("#userEmail_chk").val(<%=request.getAttribute("certNum")%>)
+																			
 						setTimeout(function(){ 
 						$("#certifyEmail").attr("disabled","true");
 						$("#certifyEmail").css("background-color","#075A2A");
@@ -388,7 +433,7 @@
 			
 		
 		
-			// 아이디 중복확인 수정필요... 버튼 안누럴도 되게 ?
+			// 아이디 중복확인
 			$("#duplicateId").click(e=>{
 				const userId=$("#userId").val();
 				$.ajax({
@@ -427,19 +472,19 @@
 					const pwChk=/^[a-zA-Z0-9]+$/ //정규표현식
 					
 					//비밀번호 정규표현식
-					if(!pwChk.test(pw)||pw.length<8){
+					if(!pwChk.test(pw)||pw.trim().length<8){
 						alert("⛔ 비밀번호는 8자 이상, 영문자/숫자로만 구성할 수 있습니다.⛔");
 						$("#userPw").val('');
 						$("#userPw_chk").val('');
 						$("#userPw").focus();
-						return false;
+						
 					}
 
 					//비번 일치-불일치
 					if(pw==pwck){
-						$("#pwCheck").val("비밀번호 일치");
+						$("#pwCheck").val("비밀번호 일치").css("color","#075A2A");
 					}else{
-						$("#pwCheck").val("비밀번호 불일치").css("color","yellow");
+						$("#pwCheck").val("비밀번호 불일치").css("color","red");
 						$("#userPw").val('');
 						$("#userPw_chk").val('');
 						$("#userPw").focus();
@@ -460,7 +505,7 @@
 							$("#userId").focus();
 						}, 10)
 						
-						return false;
+						
 					}					
 					
 			})
@@ -477,14 +522,14 @@
 							$("#userEmail").focus();
 						}, 10);
 						
-						return false;
+						
 					}					
 					
 			})
 			
 			//생년월일 정규표현식
 			$(()=>{
-				$("#userBirth").focusout(e=>{
+				$("#userBirth").blur(e=>{
 					const birth=$("#userBirth").val();
 					const birthChk=/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/
 					if(!birthChk.test(birth)){
@@ -493,7 +538,7 @@
 						setTimeout(function(){
 							$("#userBirth").focus();
 						}, 10);
-						return false;
+						
 					}
 				})
 			})	
@@ -505,15 +550,15 @@
             
             if(!phoneChk.test(userPhone)){
                 alert("⛔ 휴대폰번호를 정확히 입력해주세요 ⛔");
-                // $("#userPhone").val("");
+                $("#userPhone").val("");
                 setTimeout(function(){ 
                     $("#userPhone").focus();
                 }, 10);
                 
-                return false;
+                
             }					
             
-    })   	
+    		})   	
 			
 
 
