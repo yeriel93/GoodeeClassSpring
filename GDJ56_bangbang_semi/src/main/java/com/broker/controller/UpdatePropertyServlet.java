@@ -33,12 +33,12 @@ public class UpdatePropertyServlet extends HttpServlet {
 //		propertyInfo.forEach(p->System.out.println(p));
 		
 		Property property = (Property) propertyInfo.get(0);
-//		System.out.println(property);
+//		System.out.println("updateProeprtyServlet(매물): "+property);
 		List<Files> files = property.getFiles();
-//		files.forEach(f->System.out.println(f));
-		List optionlist = (List)propertyInfo.get(1);
-		String option = optionlist.toString();
-//		System.out.println(option);
+//		files.forEach(f->System.out.println("updateProeprtyServlet(파일): "+f));
+		List optionList = (List)propertyInfo.get(1);
+		String option = optionList.toString();
+//		System.out.println("updateProeprtyServlet(옵션): "+option);
 		
 		request.setAttribute("property", property);
 		request.setAttribute("files", files);

@@ -20,6 +20,10 @@
 	<section id="all" style="display:flex;">
         <div id="wrap">
             <h1 style="font-size:40px"><방 내놓기></h1>
+            
+        	<%if(loginBroker!=null) { %>
+            	<input type="number" name="brokerNo" value="<%=loginBroker.getBrokerNo()%>" placeholder="중개인번호" hidden>
+            <%} %>
 <!--------------------------------------------------------------------------------------------------------------------------------------------------->
              <h2>🔳 기본정보</h2>
             <div id="address">

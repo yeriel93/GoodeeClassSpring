@@ -72,4 +72,22 @@ public class OptionDao {
 		}
 		return option;
 	}
+	
+	//매물번호로 옵션 삭제
+	public int deleteOption(Connection conn, int propertyNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("deleteOption"));
+//			DELETE FROM APPLIANCE_OPTION WHERE PROPERTY_NO=?
+			pstmt.setInt(1, propertyNo);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }
