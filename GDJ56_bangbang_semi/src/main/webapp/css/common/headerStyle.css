@@ -16,24 +16,45 @@ div.menu{
     vertical-align:middle;
     margin-top:45px;
 }
-.buttonContainer>button{    
+.buttonContainer{
+	margin-top:10px;
+    margin-right:10px;
+    border-radius: 5px;
+}
+
+.buttonContainer button{    
     width:150px !important;
     height:40px !important;     
     background-color: rgb(7, 90, 42);
     color:white;
     border:5px;
+    
 }
-.buttonContainer>button>p{
+.buttonContainer button>p{
     font-weight: bolder;
     font-size:17px;
 }
-#loginBtn{
-    margin-top:20px;
-    margin-right:20px;
-    border-radius: 5px;
-}
+
 p{
     margin:0px;
+}
+
+/* 12/17 추가 [BD] */
+#adminButtonContainer>button{
+	background-color:beige;
+	border:none;
+	font-weight:bolder;
+	font-size:14px;
+}
+#adminButtonContainer a{
+	color:rgb(7, 90, 42) !important;
+}
+.buttonContainer #loginUser{
+	font-size:22px !important;
+	color:black !important;
+	text-align:center;
+	font:normal !important;
+	font-weight:bolder;
 }
 
 
