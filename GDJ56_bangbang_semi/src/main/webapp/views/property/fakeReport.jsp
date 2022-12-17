@@ -44,7 +44,12 @@
     				  content:$("textarea[name=content]").val()
     			  },
     			  success:data=>{
-    				  console.log("다녀와씀");
+    				  if(data>0){
+    					  alert("신고가 정상적으로 등록되었습니다.");
+    				  } else {
+    					  alert("신고실패. 이미 신고한 매물입니다.");
+    				  }
+    				  close();
     			  }
     		  });
     	  } else if($("textarea[name=content]").val()==""){
