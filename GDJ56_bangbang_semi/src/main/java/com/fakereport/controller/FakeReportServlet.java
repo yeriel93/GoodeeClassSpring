@@ -1,4 +1,4 @@
-package com.account.controller;
+package com.fakereport.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -26,6 +26,8 @@ public class FakeReportServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
 		request.getRequestDispatcher("/views/property/fakeReport.jsp").forward(request, response);
 	}
 
