@@ -1,5 +1,11 @@
 package com.account.model.service;
 
+import java.sql.Connection;
+
+import com.account.model.dao.AccountDao;
+import com.user.model.vo.User;
+import static com.bangbang.common.JDBCTemplate.*;
+
 public class AccountService {
 	private static AccountService accountService;
 	private AccountService() {}
@@ -8,4 +14,12 @@ public class AccountService {
 		return accountService;
 	}
 	
+	public int updateUser(User u) {
+		Connection conn=getConnection();
+		int result=AccountDao.getAccountDao().updateUser(conn,u);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+	}
 }

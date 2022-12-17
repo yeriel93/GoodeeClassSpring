@@ -1,13 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-
 <%@ include file="/views/common/mypageMain.jsp"%>
 
-<script src="<%=request.getContextPath()%>/js/jquery-3.6.1.min.js"></script>
 <link href="<%=request.getContextPath() %>/css/account/updateUserStyle.css" type="text/css" rel="stylesheet">
 <style>
-#updateuser-Container>#updateuserForm>input{
+#updateuser-Container>#updateuserForm>.input{
     width: 290px;
     height: 32px;
     font-size: 15px;
@@ -30,6 +28,7 @@
     border-color: #075a2a8c;
     border-radius: 5px;
     border:none;
+    font-size: 15px;
 }
 .btns{
     background-color: #075A2A;
@@ -40,6 +39,10 @@
     border:none;
 
 }
+#userId,#userEmail{
+  color:gray;
+}
+
 
 </style>
 <div id="divOuter">
@@ -49,21 +52,20 @@
       <h1>내 정보 수정</h1>
       <hr>
       <h3>아이디</h3>
-      <input type="text" name="userId" id="userId" value="<%=loginUser.getId()%>" readonly>
+      <input type="text" class="input" name="userId" id="userId" value="<%=loginUser.getId()%>" readonly>
       <h3>비밀번호</h3>
-      <input type="password" name="userPw" id="userPw" required>
-      <button class="btns">비밀번호 변경</button>
+      <input type="button" class="btns" value="비밀번호 변경하기" onclick="fn_updatePassword();" style="background-color: #075A2A;border-radius: 5px;width:300px;border:none;">
 
       <h3>이름</h3>
-      <input type="text" name="userName" id="userName" >
+      <input type="text"class="input" name="userName" id="userName" value="<%=loginUser.getName()%>" placeholder="이름을 입력해주세요." >
       <h3>이메일</h3>
-      <input type="text" name="userEmail" id="userEmail" value="<%=loginUser.getEmail()%>" readonly>
+      <input type="text" class="input" name="userEmail" id="userEmail" value="<%=loginUser.getEmail()%>" readonly>
       
       <h3>휴대폰 번호</h3>
-      <input type="text" name="userPhone" id="userPhone">
+      <input type="text" class="input" name="userPhone" id="userPhone" value="<%=loginUser.getPhone()%>" placeholder="휴대폰 번호를 입력해주세요. (-포함)">
       <h3>생년월일</h3>
-      <input type="text" name="userBirth" id="userBirth">
-      
+      <input type="text" class="input" name="userBirth" id="userBirth" value="<%=loginUser.getBirthday()%>" placeholder="예시) yyyy-mm-dd">
+      <input type="hidden" name="userNo" value="<%=loginUser.getUserNo()%>">
       <br>
       <button id="signupBtn">정보수정</button>
       <br>
@@ -73,28 +75,64 @@
 
 </div>
 
+
 <script>
-	var tabs = $('.tabs');
-	var selector = $('.tabs').find('a').length;
-	//var selector = $(".tabs").find(".selector");
-	var activeItem = tabs.find('.active');
-	var activeWidth = activeItem.innerWidth();
-	$(".selector").css({
-	  "left": activeItem.position.left + "px", 
-	  "width": activeWidth + "px"
-	});
-	
-	$(".tabs").on("click","a",function(e){
-	  e.preventDefault();
-	  $('.tabs a').removeClass("active");
-	  $(this).addClass('active');
-	  var activeWidth = $(this).innerWidth();
-	  var itemPos = $(this).position();
-	  $(".selector").css({
-	    "left":itemPos.left + "px", 
-	    "width": activeWidth + "px"
-	  });
-	});
+  
+  // const fn_updatePassword=()=>{
+     <%-- open("<%=request.getContextPath()%>/member/updatePassword.do?userId=<%=loginMember!=null?loginMember.getUserId():""%>", --%>
+  //       "_blank","width=400,height=210");
+    
+  // }
+
+
+  //이메일 정규표현식
+  $("#userEmail").blur(e=>{
+      const userEmail=$("#userEmail").val();
+      const emailChk=/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])+@[a-z]+\.[a-z]{2,3}/
+      
+      if(!emailChk.test(userEmail)){
+        alert("⛔ 이메일을 정확히 입력해주세요 ⛔");
+        $("#userEmail").val("");
+        setTimeout(function(){ 
+          $("#userEmail").focus();
+        }, 10);
+        
+        
+      }					
+      
+  })
+
+  //생년월일 정규표현식
+  $(()=>{
+    $("#userBirth").blur(e=>{
+      const birth=$("#userBirth").val();
+      const birthChk=/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/
+      if(!birthChk.test(birth)){
+        alert("⛔ 생년월일을 yyyy-mm-dd 형식으로 입력해주세요 예시) 1995년 01월 02일 ⛔");
+        $("#userBirth").val("");
+        setTimeout(function(){
+          $("#userBirth").focus();
+        }, 10);
+        
+      }
+    })
+  })	
+
+  //휴대폰 번호 정규표현식
+  $("#userPhone").blur(e=>{
+  const userPhone=$("#userPhone").val();
+  const phoneChk=/^\d{3}-\d{3,4}-\d{4}$/
+
+  if(!phoneChk.test(userPhone)){
+      alert("⛔ 휴대폰번호를 정확히 입력해주세요 ⛔");
+      $("#userPhone").val("");
+      setTimeout(function(){ 
+          $("#userPhone").focus();
+      }, 10);
+      
+      
+  }					
+
+  }) 
 </script>
-</body>
 <%-- <%@ include file="/views/common/footer.jsp"%> --%>
