@@ -47,11 +47,18 @@
 	            <button><p><a href="<%=request.getContextPath()%>/user/login.bb" style="color:white">로그인 | 회원가입</a></p></button>
 	        </div>
         <%} else { %>
-        	<div class="buttonContainer" id="logoutBtn">
-            	<%if(loginUser.getId().equals("admin")) {%>
-            		<button><p><a href="<%=request.getContextPath()%>/admin/adminDashBoard.bb" style="color:white">관리자페이지</a></p></button>
-            	<%} %>
-            	<button><p><a href="<%=request.getContextPath()%>/user/logout.bb" style="color:white">로그아웃</a></p></button>
+       		<div class="buttonContainer" id="logoutBtn">
+            	<div>
+            		<div id="loginUser"><%=loginUser.getName()%>님</div>
+            		<br>
+            		<button><p><a href="<%=request.getContextPath()%>/user/logout.bb" style="color:white">로그아웃</a></p></button>
+            		<%if(loginUser.getId().equals("admin")) {%>
+       			     	<br>
+       			     	<div id="adminButtonContainer">
+       			     		<button><p><a href="<%=request.getContextPath()%>/admin/adminDashBoard.bb" style="color:white">관리자페이지</a></p></button>
+           				</div>
+           			<%} %>
+        		</div>
         	</div>
         <%} %>
     </header>

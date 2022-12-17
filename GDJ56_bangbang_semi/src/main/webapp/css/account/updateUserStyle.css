@@ -24,17 +24,23 @@
     
 
 }
-#updateuser-Container>hr{
+#updateuser-Container>#updateuserForm>hr{
     width:310px;
     margin-left: 0px;
 }
-#updateuser-Container>h1{
+#updateuser-Container>#updateuserForm>h1{
     margin-bottom: 10px;
     padding-top: 30px;
 }
-#updateuser-Container>input{
-    width:300px;
-    height:30px;
+#updateuser-Container>#updateuserForm>input{
+    width: 290px;
+    height: 32px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-left: 10px;
+    background-color: rgb(255, 255, 255);
 
 }
 
@@ -44,6 +50,7 @@
     width:100px;
     height:30px;
     border-radius: 3px;
+    border:none;
 
 }
 
@@ -57,6 +64,7 @@
     color: white;
     border-color: #075a2a8c;
     border-radius: 5px;
+    border:none;
 }
 
 /* 회원 이름/레벨 표시 */
