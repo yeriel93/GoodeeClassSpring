@@ -25,6 +25,8 @@
 	<section id="all" style="display:flex;">
         <div id="wrap">
             <h1 style="font-size:40px"><매물 수정></h1>
+            
+            <input type="number" name="propertyNo" value="<%=property.getPropertyNo() %>" hidden placeholder="매물번호">
 
              <h2>🔳 기본정보</h2>
             <div id="address">

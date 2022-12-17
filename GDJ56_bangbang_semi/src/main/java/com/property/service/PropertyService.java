@@ -90,7 +90,7 @@ public class PropertyService {
 //		System.out.println("propertyServiceClass: "+files);
 		
 		List option = OptionDao.getOptionDao().searchOption(conn,propertyNo);
-//		System.out.println("propertyServiceClass: "+option);
+//		System.out.println("propertyService(옵션): "+option);
 		
 		Broker broker = BrokerDao.getBrokerDao().searchBroker(conn,property.getBrokerNo());
 //		System.out.println("propertyServiceClass: "+broker);
@@ -101,6 +101,35 @@ public class PropertyService {
 //		System.out.println(list);
 		close(conn);
 		return list;
+	}
+	
+	
+	//매물수정 (매물테이블,옵션테이블)
+	public int updateProperty(Property p, String[] option) {
+		Connection conn = getConnection();
+		
+		int optionDelete = OptionDao.getOptionDao().deleteOption(conn, p.getPropertyNo()); 
+		System.out.println("propertyService_update(옵션삭제): "+optionDelete);
+		
+		int optionInsert = 0;
+		for(String o : option) {
+			optionInsert += OptionDao.getOptionDao().insertOption(conn,p.getPropertyNo(), o);
+		}
+		System.out.println("propertyService_update(옵션등록): "+optionInsert);
+		
+		int propertyResult = PropertyDao.getPropertyDao().updateProperty(conn, p);
+		System.out.println("propertyService_update(매물등록): "+propertyResult);
+		
+		int resultAll = 0;
+		if(propertyResult>0 && optionDelete>0 && optionInsert==option.length) {
+			resultAll = 1;
+		}
+		System.out.println("propertyService_update(전체결과): "+resultAll);
+
+		if(resultAll>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return resultAll;
 	}
 	
 }
