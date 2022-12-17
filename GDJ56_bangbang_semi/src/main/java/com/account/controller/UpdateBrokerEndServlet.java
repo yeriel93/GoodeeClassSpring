@@ -56,8 +56,8 @@ public class UpdateBrokerEndServlet extends HttpServlet {
 		
 		String msg="",loc="";
 		if(result>0) {
-			msg="🟢 회원정보 수정 완료";
-			loc="/account.bb";
+			msg="🟢 회원정보 수정 완료. 다시 로그인 해주세요.";
+			loc="/user/logout.bb";
 		}else {
 			msg="🔴 회원정보 수정 실패. 문제가 지속될 경우 관리자에게 문의하세요.";
 			loc="/account/broker/updateBroker.bb";			
