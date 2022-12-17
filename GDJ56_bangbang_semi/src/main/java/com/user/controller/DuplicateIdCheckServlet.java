@@ -41,12 +41,6 @@ public class DuplicateIdCheckServlet extends HttpServlet {
 		
 		int idCheck=UserService.getUserService().checkId(userId);
 		
-		if(idCheck==0) {
-			System.out.println("이미 존재");
-		}else if(idCheck==1) {
-			System.out.println("사용 가능한 아이디");
-		}
-		
 		out.write(idCheck+"");
 		
 	}
