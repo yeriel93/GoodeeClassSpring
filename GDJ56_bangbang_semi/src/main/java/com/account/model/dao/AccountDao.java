@@ -1,5 +1,7 @@
 package com.account.model.dao;
 
+import static com.bangbang.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -7,10 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import com.account.model.vo.Alert;
 import com.property.model.vo.Property;
 import com.user.model.vo.User;
-
-import static com.bangbang.common.JDBCTemplate.*;
 
 public class AccountDao {
 	private static AccountDao accountDao;
@@ -53,7 +54,6 @@ public class AccountDao {
 		int result=0;
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("updatePw"));
-			//updatePw=UPDATE USER_C SET PASSWORD=? WHERE ID=?
 			pstmt.setString(1, afterPw);
 			pstmt.setString(2, userId);
 			result=pstmt.executeUpdate();
@@ -65,6 +65,28 @@ public class AccountDao {
 		}
 		return result;
 		
+	}
+	
+	public int sendMessage(Connection conn,Alert a) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String content="문의합니다.";
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("sendMessage"));
+			//sendMessage=INSERT INTO ALERT VALUES(SEQ_ALERT_NO.NEXTVAL,?,?,?,?,DEFAULT)
+			//보내는유저번호, 받는 유저번호, 매물번호, 내용
+			pstmt.setInt(1, a.getSendUserNo());
+			pstmt.setInt(2, a.getReceiveUserNo());
+			pstmt.setInt(3, a.getPropertyNo());
+			pstmt.setString(4, content);
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 	
 }

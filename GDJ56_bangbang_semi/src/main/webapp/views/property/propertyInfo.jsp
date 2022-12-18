@@ -354,7 +354,24 @@
     </div>
     <script>
     	const fn_inquiry=()=>{
-    		
+            const userNo="<%=loginUser.getUserNo()%>";
+            const propertyNo="<%=property.getPropertyNo()%>";
+            const brokerUserNo="<%=broker.getUserNo()%>";
+            
+    		$.ajax({
+                url:"<%=request.getContextPath()%>/account/sendMessage.bb",
+                data:{userNo:userNo,propertyNo:propertyNo,brokerUserNo:brokerUserNo},
+                success:function(result){
+                	console.log(result);
+                	if(result>0){
+                		alert("🟢 문의하기 성공.");
+                	}else{
+                		alert("🔴 문의하기 실패. 문제가 지속되면 관리자에게 문의해주세요.");
+                	}
+                }
+            })
+
+
     	}
     	const fn_report=()=>{
     		open("<%=request.getContextPath()%>/property/propertyInfo/fakeReport.bb?propertyNo=<%=property.getPropertyNo()%>"+"&userNo=<%=loginUser.getUserNo()%>",

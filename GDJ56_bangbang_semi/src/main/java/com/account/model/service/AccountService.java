@@ -1,10 +1,15 @@
 package com.account.model.service;
 
+import static com.bangbang.common.JDBCTemplate.close;
+import static com.bangbang.common.JDBCTemplate.commit;
+import static com.bangbang.common.JDBCTemplate.getConnection;
+import static com.bangbang.common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
 
 import com.account.model.dao.AccountDao;
+import com.account.model.vo.Alert;
 import com.user.model.vo.User;
-import static com.bangbang.common.JDBCTemplate.*;
 
 public class AccountService {
 	private static AccountService accountService;
@@ -30,5 +35,15 @@ public class AccountService {
 		else rollback(conn);
 		close(conn);
 		return result;
+	}
+	
+	public int sendMessage(Alert a) {
+		Connection conn=getConnection();
+		int result=AccountDao.getAccountDao().sendMessage(conn,a);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+		
 	}
 }
