@@ -20,8 +20,8 @@ div#pageBarContainer{
 }
 
 div#search-container{text-align:center;}
-div#search-officeName{display:inline-block;}
-div#search-brokerNo{display:none;}
+div#search-brokerNo{display:inline-block;}
+div#search-officeName{display:none;}
 div#search-registrationNo{display:none;} 
 div#search-admissionState{display:none;} 
 div#search-container {margin:0 0 10px 0; padding:3px; }
