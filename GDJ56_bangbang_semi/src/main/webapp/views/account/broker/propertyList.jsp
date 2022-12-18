@@ -5,82 +5,58 @@
 <!-- css -->
 <link href="<%=request.getContextPath() %>/css/account/broker/propertyList.css" type="text/css" rel="stylesheet">
 
-     <br>
-     <!-- 버튼 -->
-     <div id="buttonDiv" style="margin-right: 10px">
-         <input type="button" value="전체선택" class="button" onclick="">
-         <input type="button" value=" 삭제 " class="button" onclick="">
-     </div>
-     <br><br>
-     <!-- 매물 목록 -->
-     <form action="">
-         <table>
-             <thead>
-             	<tr>
-	                <th>매물번호</th>
-	                <th>사진</th>
-	                <th>주소</th>
-	                <th>구조</th>
-	                <th>금액(만원)</th>
-	                <th>관리비</th>
-	                <th>입주가능일</th>
-	                <th>매물등록일</th>
-	                <th>수정</th>
-	                <th><input type="checkbox" checked></th>
-            	</tr>
-             </thead>
-             <tbody>
-                 <tr>
-                     <td>123456</td>
-                     <td></td>
-                     <td>관악로 6길10-2</td>
-                     <td>원룸(오픈형)</td>
-                     <td>4000/25</td>
-                     <td>7만/월</td>
-                     <td>협의입주</td>
-                     <td>2022-10-16</td>
-                     <td>
-                         <input type="button" class="button" value=" 수정 " onclick="">
-                     </td>
-                     <td>
-                         <input type="checkbox" name="">
-                     </td>
-                 </tr>
-                 <tr>
-                     <td>123456</td>
-                     <td></td>
-                     <td>관악로 6길10-2</td>
-                     <td>원룸(오픈형)</td>
-                     <td>4000/25</td>
-                     <td>7만/월</td>
-                     <td>협의입주</td>
-                     <td>2022-10-16</td>
-                     <td>
-                         <input type="button" class="button" value=" 수정 " onclick="">
-                     </td>
-                     <td>
-                         <input type="checkbox" name="">
-                     </td>
-                 </tr>
-                 <tr>
-                     <td>123456</td>
-                     <td></td>
-                     <td>관악로 6길10-2</td>
-                     <td>원룸(오픈형)</td>
-                     <td>4000/25</td>
-                     <td>7만/월</td>
-                     <td>협의입주</td>
-                     <td>2022-10-16</td>
-                     <td>
-                         <input type="button" class="button" value=" 수정 " onclick="fn_update()" style="cursor:pointe">
-                     </td>
-                     <td>
-                         <input type="checkbox" name="">
-                     </td>
-                 </tr>
-             </tbody>
-         </table>
-     </form>
+	<br>
+    <!-- 버튼 -->
+    <div style="display: flex; justify-content: center;">
+        <div id="buttonDiv" style="margin-right: 10px">
+            <input type="button" value="전체선택" class="button" onclick="">
+            <input type="button" value=" 삭제 " class="button" onclick="">
+        </div>
+    </div>
+    
+    <!-- 매물목록 -->
+    <section style="display:flex; justify-content:center;">
+        <div id="container">
+            <div class="propertyWrap">
+                <input type="checkbox">
+                <input type="button" value="수정" class="updateBtn" style="float: right">
+
+                <div class="imgDiv">
+                    <img src="./매물사진/서울특별시 관악구 봉천동 1529-14/property2_91.PNG" alt="">
+                </div>
+                
+                <div class="infoDiv">
+                    <div>
+                        <span>매물번호</span>
+                        <span>300056</span>
+                    </div>
+                    <div class="price">
+                        <span>월세</span>
+                        <span>500</span>
+                        <span>/</span>
+                        <span>40</span>
+                    </div>
+                    <div>
+                        <span>관리비</span>
+                        <span>7</span>
+                        <span>만</span>
+                    </div>
+                    <div>
+                        <span>주소</span>
+                        <span>서울시 봉천동 379-21</span>
+                    </div>
+                    <div>
+                        <span>원룸(오픈형)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="propertyWrap"></div>
+            <div class="propertyWrap"></div>
+            <div class="propertyWrap"></div>
+            <div class="propertyWrap"></div>
+            <div class="propertyWrap"></div>
+        </div>
+     
      <script>
      	const fn_update=()=>{
      		window.open("<%=request.getContextPath()%>/account/broker/updateProperty.bb","_blank");
