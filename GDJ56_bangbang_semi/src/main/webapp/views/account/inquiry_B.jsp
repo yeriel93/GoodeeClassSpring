@@ -6,7 +6,7 @@
 	List<AlertList> userAlert=(List<AlertList>)request.getAttribute("userAlert");
 %>
 <style>
-.feedback{
+#feedback{
 	background-color: rgb(7, 90, 42);
 	color:white;
 	border:none;
@@ -61,21 +61,22 @@
                     <%} else{
                     	for(int i=0;i<userAlert.size();i++){%>                    
                     	<tr>
-	                        <td><%=userAlert.get(i).getAlertNo() %></td>
-	                        <td><a href="<%=request.getContextPath() %>/property/propertyInfo.bb?propertyNo=<%=userAlert.get(i).getPropertyNo() %>"><%=userAlert.get(i).getPropertyNo() %></a></td>
+	                        <td id="alertNo"><%=userAlert.get(i).getAlertNo() %></td>
+	                        <td><a id="propertyNo" href="<%=request.getContextPath() %>/property/propertyInfo.bb?propertyNo=<%=userAlert.get(i).getPropertyNo() %>"><%=userAlert.get(i).getPropertyNo() %></a></td>
 	                        <td><img id="propertyImg" src="<%=request.getContextPath() %>/upload/property/<%=userAlert.get(i).getRenamedFilename() %>"></td> 
 	                        <td><%=userAlert.get(i).getRenttype() %></td>
 	                        <td><%=userAlert.get(i).getDeposit() %></td>
 	                        <td><%=userAlert.get(i).getMonthlycharge() %></td>
-	                        <td><%=userAlert.get(i).getName() %></td>
+	                        <td id="userCName"><%=userAlert.get(i).getName() %></td>
 	                        <td><%=userAlert.get(i).getPhone() %></td>
 	                        <td><%=userAlert.get(i).getAlertDate() %></td>                       
 	                        <td id="replyState" style="color:green">
 	                        답변 대기
-	                        </td>                        
-	                        <td><button class="feedback">답변하기</button></td>
-                        
-
+	                        </td>
+		                    <input type="hidden" id="userCNo" value="<%=userAlert.get(i).getSendUserNo()%>">
+		                    <input type="hidden" id="userBNo" value="<%=userAlert.get(i).getReceiveUserNo()%>">
+		                    <td><button id="feedback" >답변하기</button></td>                       
+							
                     	</tr>
                     <%}
                     }%>
@@ -90,11 +91,17 @@
 
  </section>
  
- <script>
- 	const fn_Openfeedback=()=>{
- 	      open("<%=request.getContextPath()%>/account/feedback.bb?userId=<%=loginUser!=null?loginUser.getId():""%>", 
- 	             "_blank","width=330,height=440");
- 	}
+ <script>    
+    $("#feedback").click(e=>{
+    	const alertNo=$("#alertNo").text();
+    	const propertyNo=$("#propertyNo").text();
+    	const userCName=$("#userCName").text();
+    	const userCNo=$("#userCNo").val();
+    	const userBNo=$("#userBNo").val();
+    	
+    	const url="<%=request.getContextPath()%>/account/feedback.bb?alertNo=" + alertNo+"&propertyNo="+propertyNo+"&userCName="+userCName+"&userCNo="+userCNo+"&userBNo="+userBNo;
+    	window.open(url,"_blank","width=330,height=480");
+    });
  </script>
 
 

@@ -60,12 +60,8 @@ public class InquiryBServlet extends HttpServlet {
 		
 		//알림내용
 		List<AlertList> aList=AccountService.getAccountService().searchUserAlert(cPage,numPerpage,userNo);		
-//		System.out.println(aList);
-		
-		//매물정보
-				
-		//sender(user_c) 정보
-		
+//		System.out.println(aList);	
+
 		int totalData=AccountService.getAccountService().userAlertCount(userNo);
 		
 		String pageBar="";
