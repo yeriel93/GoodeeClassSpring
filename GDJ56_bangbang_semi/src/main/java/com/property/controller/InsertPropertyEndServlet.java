@@ -160,7 +160,7 @@ public class InsertPropertyEndServlet extends HttpServlet {
 			
 			//옵션
 			String[] option = mr.getParameterValues("option");
-			System.out.println(" 옵션:"+Arrays.toString(option));
+//			System.out.println(" 옵션:"+Arrays.toString(option));
 			
 			//반려동물,주차
 			char pet = mr.getParameter("petSelect").charAt(0);
