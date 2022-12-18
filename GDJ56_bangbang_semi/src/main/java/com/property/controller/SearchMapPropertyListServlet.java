@@ -48,7 +48,7 @@ public class SearchMapPropertyListServlet extends HttpServlet {
 		String applianceAny = request.getParameter("applianceAny");
 		String[] applianceOption = request.getParameterValues("applianceOptions");
 		
-		String propertyQuery = " WHERE THUMBNAIL = 'Y' AND ";
+		String propertyQuery = " WHERE HIDING = 'N' AND THUMBNAIL = 'Y' AND ";
 		//위도 경도 parsing
 		propertyQuery += " LONGITUDE BETWEEN " + longitudes[0] + " AND " + longitudes[1];
 		propertyQuery += " AND LATITUDE BETWEEN " + latitudes[0] + " AND " + latitudes[1];
