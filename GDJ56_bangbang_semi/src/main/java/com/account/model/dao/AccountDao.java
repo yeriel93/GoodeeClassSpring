@@ -6,10 +6,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import com.account.model.vo.Alert;
+import com.account.model.vo.AlertList;
 import com.property.model.vo.Property;
 import com.user.model.vo.User;
 
@@ -73,8 +77,6 @@ public class AccountDao {
 		String content="문의합니다.";
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("sendMessage"));
-			//sendMessage=INSERT INTO ALERT VALUES(SEQ_ALERT_NO.NEXTVAL,?,?,?,?,DEFAULT)
-			//보내는유저번호, 받는 유저번호, 매물번호, 내용
 			pstmt.setInt(1, a.getSendUserNo());
 			pstmt.setInt(2, a.getReceiveUserNo());
 			pstmt.setInt(3, a.getPropertyNo());
@@ -87,6 +89,81 @@ public class AccountDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	public int userAlertCount(Connection conn,int userNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int count=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("userAlertCount"));
+			pstmt.setInt(1, userNo);
+			rs=pstmt.executeQuery();
+			if(rs.next()) count=rs.getInt(1);
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return count;
+	}
+	
+	public List<AlertList> searchUserAlert(Connection conn,int cPage,int numPerpage,int userNo){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		List<AlertList> list=new ArrayList();
+		
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("searchUserAlert"));
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, (cPage-1)*numPerpage+1);
+			pstmt.setInt(3, cPage*numPerpage);
+			
+			rs=pstmt.executeQuery();
+			AlertList a=new AlertList();
+			while(rs.next()) {
+				a=getAlertList(rs);
+				list.add(a);
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+		
+	}
+	
+	public static Alert getAlert(ResultSet rs) throws SQLException{
+		return Alert.builder()
+				.alertNo(rs.getInt("ALERT_NO"))
+				.sendUserNo(rs.getInt("SEND_USER_NO"))
+				.receiveUserNo(rs.getInt("RECEIVE_USER_NO"))
+				.propertyNo(rs.getInt("PROPERTY_NO"))
+				.content(rs.getString("CONTENT"))
+				.alertDate(rs.getDate("ALERT_DATE"))
+				.build();
+	}
+	
+	public static AlertList getAlertList(ResultSet rs) throws SQLException{
+		return AlertList.builder()
+				.alertNo(rs.getInt("ALERT_NO"))
+				.sendUserNo(rs.getInt("SEND_USER_NO"))
+				.receiveUserNo(rs.getInt("RECEIVE_USER_NO"))
+				.propertyNo(rs.getInt("PROPERTY_NO"))
+				.content(rs.getString("CONTENT"))
+				.alertDate(rs.getDate("ALERT_DATE"))
+				.name(rs.getString("NAME"))
+				.phone(rs.getString("PHONE"))
+				.renttype(rs.getString("RENTTYPE"))
+				.deposit(rs.getInt("DEPOSIT"))
+				.monthlycharge(rs.getInt("MONTHLY_CHARGE"))
+				.renamedFilename(rs.getString("RENAMED_FILENAME"))
+				.build();
 	}
 	
 }
