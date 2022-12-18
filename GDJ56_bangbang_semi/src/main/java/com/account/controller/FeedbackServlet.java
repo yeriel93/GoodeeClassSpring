@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class FeedbackServlet
@@ -26,6 +27,22 @@ public class FeedbackServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String alertNo=request.getParameter("alertNo");
+		String propertyNo=request.getParameter("propertyNo");
+		String userCName=request.getParameter("userCName");
+		
+		String userCNo=request.getParameter("userCNo");
+		String userBNo=request.getParameter("userBNo");
+		
+		//System.out.println(alertNo+"|"+propertyNo+"|"+userCName+"|"+userCNo+"|"+userBNo);
+		
+		request.setAttribute("alertNo", alertNo);
+		request.setAttribute("propertyNo", propertyNo);
+		request.setAttribute("userCName", userCName);	
+		
+		request.setAttribute("userCNo", userCNo);
+		request.setAttribute("userBNo", userBNo);
+		
 		request.getRequestDispatcher("/views/account/feedback.jsp").forward(request, response);
 	}
 

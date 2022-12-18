@@ -8,21 +8,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.user.model.dao.UserDao;
 import com.user.model.service.UserService;
 
 /**
- * Servlet implementation class DuplicateIdCheckServlet
+ * Servlet implementation class CertNumCheckServlet
  */
-@WebServlet("/user/duplicateId.bb")
-public class DuplicateIdCheckServlet extends HttpServlet {
+@WebServlet("/user/certNumCheck.bb")
+public class CertNumCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DuplicateIdCheckServlet() {
+    public CertNumCheckServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,18 +31,24 @@ public class DuplicateIdCheckServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int userCode=Integer.parseInt(request.getParameter("userCode"));
 
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
+		HttpSession ss=request.getSession();		
+		Integer certNum=(Integer)ss.getAttribute("certNum");
 		
-		String userId=request.getParameter("userId");
+		//System.out.println("userCode : "+userCode+"|certNum : "+certNum);
 		
-		PrintWriter out=response.getWriter();
+		int result=0;
+		if(userCode==certNum) {
+			//인증번호 일치
+			result=1;
+		}else {
+			//불일치
+			result=0;
+		}
 		
-		int idCheck=UserService.getUserService().checkId(userId);
-		
-		out.write(idCheck+"");
-		
+		PrintWriter out=response.getWriter();		
+		out.write(result+"");
 	}
 
 	/**

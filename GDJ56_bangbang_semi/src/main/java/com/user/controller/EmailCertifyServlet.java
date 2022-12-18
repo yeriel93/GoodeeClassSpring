@@ -68,7 +68,7 @@ public class EmailCertifyServlet extends HttpServlet {
 
 		//인증번호
 		int certNum=(int)(Math.random()*9999999+1111111);
-//		System.out.println(certNum);
+		System.out.println(certNum);
 		
 		//인증번호 세션에 저장
 		HttpSession ss=request.getSession();
@@ -81,7 +81,7 @@ public class EmailCertifyServlet extends HttpServlet {
 			InternetAddress to=new InternetAddress(userEmail);
 			msg.setRecipient(Message.RecipientType.TO, to);
 			msg.setSubject("'방 구해줘 방' 회원가입 인증코드","UTF-8");
-			msg.setText("안녕하세요. '방 구해줘 방' 회원가입 인증코드 입니다. 인증코드 :  "+certNum, "UTF-8");
+			msg.setText("안녕하세요. '방 구해줘 방' 회원가입 인증코드 입니다. \n 인증코드 :  "+certNum, "UTF-8");
 			
 			Transport.send(msg);
 			

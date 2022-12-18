@@ -1,28 +1,23 @@
-package com.user.controller;
+package com.account.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.user.model.dao.UserDao;
-import com.user.model.service.UserService;
-
 /**
- * Servlet implementation class DuplicateIdCheckServlet
+ * Servlet implementation class FeedbackEndServlet
  */
-@WebServlet("/user/duplicateId.bb")
-public class DuplicateIdCheckServlet extends HttpServlet {
+@WebServlet("/account/feedbackEnd.bb")
+public class FeedbackEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DuplicateIdCheckServlet() {
+    public FeedbackEndServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,17 +26,18 @@ public class DuplicateIdCheckServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
+		int userCNo=Integer.parseInt(request.getParameter("userCNo"));
+		int userBNo=Integer.parseInt(request.getParameter("userBNo"));
+		int propertyNo=Integer.parseInt(request.getParameter("propertyNo"));
+		String content=request.getParameter("feedbackContent");
 		
-		String userId=request.getParameter("userId");
+//		System.out.println(userCNo);
+//		System.out.println(userBNo);
+//		System.out.println(propertyNo);
+//		System.out.println(content);
 		
-		PrintWriter out=response.getWriter();
 		
-		int idCheck=UserService.getUserService().checkId(userId);
 		
-		out.write(idCheck+"");
 		
 	}
 

@@ -1,33 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String searchType = request.getParameter("searchType");
+	String searchKeyword = request.getParameter("searchKeyword");
+%>
 <%@ include file="/views/common/adminHeader.jsp" %>
-<link href="<%=request.getContextPath()%>/css/admin/adminBrokerStyle.css" type="text/css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/css/admin/adminBrokerStyle.css?ver=1" type="text/css" rel="stylesheet">
 <section>
 	<div id="listContainer">
 		<h2>중개사관리</h2>
 		<div id="search-container">
         	검색타입 : 
         	<select id="searchType">
-        		<option value="officeName">상호명</option>
         		<option value="brokerNo">중개사번호</option>
+        		<option value="officeName">상호명</option>
         		<option value="registrationNo">중개등록번호</option>
         		<option value="admissionState">승인여부</option>
         	</select>
+        	
+        	<div id="search-brokerNo">
+       			<input type="text" name="searchKeyword" size="30" 
+       			placeholder="검색할 중개사번호를 입력하세요">
+       			<input type="hidden" name="searchType" value="BROKER_NO">
+       			<button class="searchBtn">검색</button>
+        	</div>
         	<div id="search-officeName">
        			<input type="text" name="searchKeyword" size="30" 
        			placeholder="검색할 상호명을 입력하세요" >
        			<input type="hidden" name="searchType" value="OFFICE_NAME">
        			<button class="searchBtn">검색</button>
         	</div>
-        	<div id="search-brokerNo">
-       			<input type="text" name="searchKeyword" size="30" 
-       			placeholder="검색할 중개등록번호를 입력하세요">
-       			<input type="hidden" name="searchType" value="BROKER_NO">
-       			<button class="searchBtn">검색</button>
-        	</div>
         	<div id="search-registrationNo">
        			<input type="text" name="searchKeyword" size="30" 
-       			placeholder="검색할 이름을 입력하세요">
+       			placeholder="검색할 중개등록번호를 입력하세요">
        			<input type="hidden" name="searchType" value="REGISTRATION_NO">
        			<button class="searchBtn">검색</button>
         	</div>
@@ -66,7 +71,14 @@
 	//페이지가 열릴 때
 	$(()=>{
 		searchState = "clear";
+		<%if(searchType != null){%>
+			searchState = "<%=searchType%>";
+		<%}%>
 		searchKeyword = "";
+		<%if(searchKeyword != null){ %>
+			searchKeyword = "<%=searchKeyword%>";
+			$("div#search-brokerNo").children().first().val("<%=searchKeyword%>");
+		<%}%>
 		cPage = "1";
 		numPerpage = "15";
 		
@@ -105,8 +117,8 @@
 	});
 	
 	//페이지바 클릭했을 때
-	$(document).on("click","a",(e)=>{
-		console.log(!isNaN(Number($(e.target).text().trim())));
+	$(document).on("click","a.pageBarTag",(e)=>{
+		//console.log(!isNaN(Number($(e.target).text().trim())));
 		if(!isNaN(Number($(e.target).text().trim()))){
 			cPage = Number($(e.target).text().trim());
 			drawUserList(true, searchState, searchKeyword, cPage, numPerpage);
@@ -118,6 +130,13 @@
 			drawUserList(true, searchState, searchKeyword, cPage, numPerpage);
 		}
 	}); 
+	
+	//회원 번호 클릭했을 때
+	$(document).on("click","a.userNoTag",(e)=>{
+		//console.log($(e.target).text()); // 중개사번호
+		let url = "<%=request.getContextPath()%>/admin/user.bb?searchType=USER_NO&searchKeyword=" + $(e.target).text();
+		window.open(url);
+	});
 	
 	//승인하기 버튼을 클릭했을 때
 	$(document).on("click","button.admissionBtn",e=>{
@@ -136,10 +155,7 @@
 					alert(data);
 					drawUserList(true, searchState, searchKeyword, cPage, numPerpage);
 				}
-			})
-			
-		} else {
-			console.log("거부");
+			})		
 		}
 	})
 	
@@ -183,7 +199,7 @@
 				for(let i = 0; i<brokerArray.length; i++){
 					let tr = $("<tr>");
 					tr.append($("<td>").text(brokerArray[i].brokerNo));
-					tr.append($("<td>").text(brokerArray[i].userNo));
+					tr.append($("<td>").html($("<a>").attr("href","javascript:void(0)").attr("class","userNoTag").text(brokerArray[i].userNo)));
 					tr.append($("<td>").text(userIdArray[i]));
 					tr.append($("<td>").text(brokerArray[i].registrationNo));
 					tr.append($("<td>").text(brokerArray[i].officeName));

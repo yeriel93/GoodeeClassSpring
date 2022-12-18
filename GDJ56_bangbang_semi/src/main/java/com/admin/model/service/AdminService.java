@@ -64,12 +64,35 @@ public class AdminService {
 		return result;
 	}
 	
+	//매물 리스트, 매물당누적신고 출력
+	public List searchPropertyList(String adminQuery) {
+		Connection conn = getConnection();
+		List list = AdminDao.getAdminDao().searchPropertyList(conn, adminQuery);
+		close(conn);
+		
+		return list;
+	}
 	
+	public int searchPropertyListCount(String totalQuery) {
+		Connection conn = getConnection();
+		int count = AdminDao.getAdminDao().searchPropertyListCount(conn, totalQuery);
+		close(conn);
+		
+		return count;
+	}
 	
-	
-	
-	
-	
+	//매물 숨김, 공개 기능
+	//중개사 승인 기능
+	public int updatePropertyHiding(int propertyNo, String setHiding) {
+		Connection conn = getConnection();
+		int result = AdminDao.getAdminDao().updatePropertyHiding(conn, propertyNo, setHiding);
+		close(conn);
+		
+		if(result>0)commit(conn);
+		else rollback(conn);
+		
+		return result;
+	}
 	
 	
 	

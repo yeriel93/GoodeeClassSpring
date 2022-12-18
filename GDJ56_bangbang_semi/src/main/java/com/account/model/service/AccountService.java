@@ -1,10 +1,17 @@
 package com.account.model.service;
 
+import static com.bangbang.common.JDBCTemplate.close;
+import static com.bangbang.common.JDBCTemplate.commit;
+import static com.bangbang.common.JDBCTemplate.getConnection;
+import static com.bangbang.common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
+import java.util.List;
 
 import com.account.model.dao.AccountDao;
+import com.account.model.vo.Alert;
+import com.account.model.vo.AlertList;
 import com.user.model.vo.User;
-import static com.bangbang.common.JDBCTemplate.*;
 
 public class AccountService {
 	private static AccountService accountService;
@@ -31,4 +38,29 @@ public class AccountService {
 		close(conn);
 		return result;
 	}
+	
+	public int sendMessage(Alert a) {
+		Connection conn=getConnection();
+		int result=AccountDao.getAccountDao().sendMessage(conn,a);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;		
+	}
+	
+	public int userAlertCount(int userNo) {
+		Connection conn=getConnection();
+		int result=AccountDao.getAccountDao().userAlertCount(conn,userNo);
+		close(conn);
+		return result;
+	}
+	
+	public List<AlertList> searchUserAlert(int cPage,int numPerpage,int userNo){
+		Connection conn=getConnection();
+		List<AlertList> list=AccountDao.getAccountDao().searchUserAlert(conn,cPage,numPerpage,userNo);
+		close(conn);
+		return list;
+				
+	}
+	
 }

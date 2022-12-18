@@ -1,16 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/mypageMain.jsp"%>
+<%@ page import="java.util.List,com.account.model.vo.AlertList" %>
+<%
+	List<AlertList> userAlert=(List<AlertList>)request.getAttribute("userAlert");
+%>
+<style>
+#feedback{
+	background-color: rgb(7, 90, 42);
+	color:white;
+	border:none;
+	height:28px;
+	width:70px;
+}
 
+#pageBar{
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+#propertyImg{
+    width:70px;
+    height: 50px;
+    padding:0px;
+    margin: 0px;
+}
+
+
+</style>
 <link href="<%=request.getContextPath() %>/css/account/inquiry_BStyle.css" type="text/css" rel="stylesheet">
 <section class="content">
      <br>
 
      <br><br>
 
-     <form action="">
+
         <div id="table-container">
-            <table style="width: 1850px; margin: auto;">
+            <table style="width: 100%; margin: auto;">
                 <thead>
                     <tr>
                         <th>문의번호</th>
@@ -27,117 +54,55 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>123456</td>
-                        <td><a href="">매물번호1234</a></td>
-                        <td>방 사진</td>
-                        <td>전세</td>
-                        <td>4000</td>
-                        <td>33</td>
-                        <td>임연지</td>
-                        <td>01011112222</td>
-                        <td>2022-10-16</td>
-
-                        <!-- if~ -->
-                        <!-- <td id="replyState" style="color:green">
-                            답변 대기
-                        </td> -->
-                        <td id="replyState" style="color:gray">
-                            답변 완료
-                        </td>
-
-                        <!-- if~ -->
-                        <!-- <td><button>답변하기</button></td> -->
-                        <td></td>
-
-                    </tr>
-                    <tr>
-                        <td>123456</td>
-                        <td><a href="">매물번호1234</a></td>
-                        <td>방 사진</td>
-                        <td>전세</td>
-                        <td>4000</td>
-                        <td>33</td>
-                        <td>이병도</td>
-                        <td>01022223333</td>
-                        <td>2022-10-16</td>
-                        <td id="replyState" style="color:green">
-                        답변 대기
-                        </td>
-                        <!-- <td id="replyState" style="color:green">
-                        답변 대기
-                        </td> -->
-                        <td><button id="reply">답변하기</button></td>
-                    </tr>
+                    <%if(userAlert.isEmpty()){ %>
+                    	<tr>
+                    		<td colspan="11">조회된 결과가 없습니다.</td>
+                    	</tr>
+                    <%} else{
+                    	for(int i=0;i<userAlert.size();i++){%>                    
+                    	<tr>
+	                        <td id="alertNo"><%=userAlert.get(i).getAlertNo() %></td>
+	                        <td><a id="propertyNo" href="<%=request.getContextPath() %>/property/propertyInfo.bb?propertyNo=<%=userAlert.get(i).getPropertyNo() %>"><%=userAlert.get(i).getPropertyNo() %></a></td>
+	                        <td><img id="propertyImg" src="<%=request.getContextPath() %>/upload/property/<%=userAlert.get(i).getRenamedFilename() %>"></td> 
+	                        <td><%=userAlert.get(i).getRenttype() %></td>
+	                        <td><%=userAlert.get(i).getDeposit() %></td>
+	                        <td><%=userAlert.get(i).getMonthlycharge() %></td>
+	                        <td id="userCName"><%=userAlert.get(i).getName() %></td>
+	                        <td><%=userAlert.get(i).getPhone() %></td>
+	                        <td><%=userAlert.get(i).getAlertDate() %></td>                       
+	                        <td id="replyState" style="color:green">
+	                        답변 대기
+	                        </td>
+		                    <input type="hidden" id="userCNo" value="<%=userAlert.get(i).getSendUserNo()%>">
+		                    <input type="hidden" id="userBNo" value="<%=userAlert.get(i).getReceiveUserNo()%>">
+		                    <td><button id="feedback" >답변하기</button></td>                       
+							
+                    	</tr>
+                    <%}
+                    }%>
 
                 </tbody>
             </table>
+            <div id="pageBar">
+        		<%=request.getAttribute("pageBar") %>
+        	</div>
+            
         </div>
-     </form> 
+
  </section>
-
-
-
-
-
-<!-- modal -->
-<form action="">    
-    <div class="modal">
-        <div class="modal_body">
-            <h1>허위매물신고</h1>
-            <p>
-                <hr>
-                허위매물로 피해를 입으신 경우, 신고를 하실 수 있습니다.<br>
-                허위매물 신고시, 아래 항목을 정확히 기재해주시고,<br>
-                신고하신 내용은 확인 후 조치하겠습니다.<br>
-                허위매물임이 확인된 경우에는 중개업소에 패널티가 부여되며,<br>
-                신고내용이 정확하지 않거나, 허위신고일 경우 서비스 이용에 제한이 있으니 유의해주세요.
-            </p>
-            <hr>
-            <!-- <select name="report">
-                <option value="매물">매물신고</option>
-                <option value="업주">부동산신고</option>
-                <option value="직원">중개인신고</option>
-            </select> -->
-            <br><br>
-            <label>
-                <textarea name="content" placeholder="200자 이내로 작성해주세요"></textarea><br>
-            </label>
-            <hr>
-            <input type="checkbox" name="agree">이와 같은 내용으로 신고합니다
-            <input type="submit" value="확인">
-        </div>
-    </div>
-</form>
-
-<button class="btn-open-popup">허위매물신고 모달 테스트용</button>
-
-<script>
-    const body = document.querySelector('body');
-    const modal = document.querySelector('.modal');
-    const btnOpenPopup = document.querySelector('.btn-open-popup');
-
-    btnOpenPopup.addEventListener('click', () => {
-        modal.classList.toggle('show');
-
-        if (modal.classList.contains('show')) {
-            body.style.overflow = 'hidden';
-        }
+ 
+ <script>    
+    $("#feedback").click(e=>{
+    	const alertNo=$("#alertNo").text();
+    	const propertyNo=$("#propertyNo").text();
+    	const userCName=$("#userCName").text();
+    	const userCNo=$("#userCNo").val();
+    	const userBNo=$("#userBNo").val();
+    	
+    	const url="<%=request.getContextPath()%>/account/feedback.bb?alertNo=" + alertNo+"&propertyNo="+propertyNo+"&userCName="+userCName+"&userCNo="+userCNo+"&userBNo="+userBNo;
+    	window.open(url,"_blank","width=330,height=480");
     });
-    modal.addEventListener('click', (event) => {
-        if (event.target === modal) {
-            modal.classList.toggle('show');
-
-            if (!modal.classList.contains('show')) {
-                body.style.overflow = 'auto';
-            }
-         }
-    });
-</script>
+ </script>
 
 
-</body>
-</html>
 
-
-</section>

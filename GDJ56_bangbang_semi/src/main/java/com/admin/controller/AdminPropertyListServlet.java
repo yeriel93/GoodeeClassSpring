@@ -13,16 +13,16 @@ import com.admin.model.service.AdminService;
 import com.google.gson.Gson;
 
 /**
- * Servlet implementation class AdminBrokerListServlet
+ * Servlet implementation class AdminPropertyListServlet
  */
-@WebServlet("/admin/brokerList.bb")
-public class AdminBrokerListServlet extends HttpServlet {
+@WebServlet("/admin/propertyList.bb")
+public class AdminPropertyListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminBrokerListServlet() {
+    public AdminPropertyListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -47,23 +47,21 @@ public class AdminBrokerListServlet extends HttpServlet {
 		}
 		
 		String query = "";
-		if(searchType.equals("OFFICE_NAME")||searchType.equals("BROKER_NO")||searchType.equals("REGISTRATION_NO")||searchType.equals("ADMISSION_STATE")) {
-			query += " WHERE B." + searchType + " LIKE '%" + searchKeyword + "%' ";
+		if(searchType.equals("PROPERTY_NO")||searchType.equals("BROKER_NO")||searchType.equals("HIDING")) {
+			query += " WHERE P." + searchType + " LIKE '%" + searchKeyword + "%' ";
 		}
-		query += " ORDER BY B.ENROLL_DATE DESC) RR) WHERE RNUM BETWEEN ";
+		query += " ORDER BY P.ENROLL_DATE DESC) RR) WHERE RNUM BETWEEN ";
 		query += ((cPage-1)*numPerpage + 1) + " AND " + (cPage*numPerpage);
 		
-		List list = AdminService.getAdminService().searchBrokerList(query);
-
-		//pageBar 만들어서 반환하기
-		//1. totalData : 전체 페이지 수를 알기 위해
+		List list = AdminService.getAdminService().searchPropertyList(query);
+		
 		String totalQuery = "";
-		if(searchType.equals("OFFICE_NAME")||searchType.equals("BROKER_NO")||searchType.equals("REGISTRATION_NO")||searchType.equals("ADMISSION_STATE")) {
-			totalQuery += " WHERE B." + searchType + " LIKE '%" + searchKeyword + "%' ";
+		if(searchType.equals("PROPERTY_NO")||searchType.equals("BROKER_NO")||searchType.equals("HIDING")) {
+			totalQuery += " WHERE " + searchType + " LIKE '%" + searchKeyword + "%' ";
 		}
-		int totalData = AdminService.getAdminService().searchBrokerListCount(totalQuery);
-		//System.out.println(totalQuery);
+		int totalData = AdminService.getAdminService().searchPropertyListCount(totalQuery);
 		//System.out.println(totalData);
+		
 		//pageBar html코드를 저장할 수 있는 변수 선언
 		String pageBar = "";
 		
