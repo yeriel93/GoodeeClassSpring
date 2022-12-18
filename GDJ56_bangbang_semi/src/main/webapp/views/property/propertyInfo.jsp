@@ -347,7 +347,7 @@
                 <span><%=broker.getTelephone() %></span>
             </div>
             <div id="buttonDiv">
-                <button onclick="fn_inquiry()">문의하기</button>
+                <button id="inquiryBtn" onclick="fn_inquiry()">문의하기</button>
                 <button onclick="fn_report()">허위매물신고</button>
             </div>
         </div>
@@ -365,6 +365,9 @@
                 	console.log(result);
                 	if(result>0){
                 		alert("🟢 문의하기 성공.");
+                		$("#inquiryBtn").attr("disabled","false");
+                		$("#inquiryBtn").css("background-color","lightgray");
+                		
                 	}else{
                 		alert("🔴 문의하기 실패. 문제가 지속되면 관리자에게 문의해주세요.");
                 	}
