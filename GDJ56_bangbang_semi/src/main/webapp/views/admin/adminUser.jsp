@@ -1,17 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String searchType = request.getParameter("searchType");
+	String searchKeyword = request.getParameter("searchKeyword");
+%>
 <%@ include file="/views/common/adminHeader.jsp" %>
-<link href="<%=request.getContextPath()%>/css/admin/adminUserStyle.css" type="text/css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/css/admin/adminUserStyle.css?ver=1" type="text/css" rel="stylesheet">
 <section>
 		<div id="listContainer">
 			<h2>회원관리</h2>
 			<div id="search-container">
 	        	검색타입 : 
 	        	<select id="searchType">
+	        		<option value="userNo" >회원번호</option>
 	        		<option value="userId" >아이디</option>
 	        		<option value="userName" >회원이름</option>
 	        		<option value="userLevel" >회원등급</option>
 	        	</select>
+	        	<div id="search-userNo">
+        			<input type="text" name="searchKeyword" size="25" 
+        			placeholder="검색할 회원번호를 입력하세요" >
+        			<input type="hidden" name="searchType" value="USER_NO">
+        			<button class="searchBtn">검색</button>
+	        	</div>
 	        	<div id="search-userId">
         			<input type="text" name="searchKeyword" size="25" 
         			placeholder="검색할 아이디를 입력하세요" >
@@ -63,7 +74,14 @@
 	//페이지가 열릴 때
 	$(()=>{
 		searchState = "clear";
+		<%if(searchType != null){%>
+			searchState = "<%=searchType%>";
+		<%}%>
 		searchKeyword = "";
+		<%if(searchKeyword != null){ %>
+			searchKeyword = "<%=searchKeyword%>";
+			$("div#search-userNo").children().first().val("<%=searchKeyword%>");
+		<%}%>
 		cPage = "1";
 		numPerpage = "15";
 		
@@ -90,7 +108,7 @@
 	//검색 버튼을 눌렀을 때
 	$("button.searchBtn").click(e=>{
 		searchState = $(e.target).prev().val();
-		if(searchState == 'ID' || searchState == 'NAME') {
+		if(searchState == 'ID' || searchState == 'NAME' || searchState == "USER_NO") {
 			searchKeyword = $(e.target).prev().prev().val();
 		} else if(searchState == "USER_LEVEL") {
 			searchKeyword = $("div#search-userLevel input[name=searchKeyword]:checked").val();
@@ -98,11 +116,12 @@
 			searchKeyword="";
 		}
 		cPage = 1;
+		console.log(searchState, searchKeyword, cPage, numPerpage);
 		drawUserList(true, searchState, searchKeyword, cPage, numPerpage);
 	});
 	
 	//페이지바 클릭했을 때
-	$(document).on("click","a",(e)=>{
+	$(document).on("click","a.pageBarTag",(e)=>{
 		console.log(!isNaN(Number($(e.target).text().trim())));
 		if(!isNaN(Number($(e.target).text().trim()))){
 			cPage = Number($(e.target).text().trim());
@@ -114,7 +133,14 @@
 			cPage = cPage - 1;
 			drawUserList(true, searchState, searchKeyword, cPage, numPerpage);
 		}
-	})
+	});
+	
+	//중개사 번호 클릭했을 때
+	$(document).on("click","a.brokerNoTag",(e)=>{
+		//console.log($(e.target).text()); // 중개사번호
+		let url = "<%=request.getContextPath()%>/admin/broker.bb?searchType=BROKER_NO&searchKeyword=" + $(e.target).text();
+		window.open(url);
+	});
 		
 	
 	//유저리스트 그리는 함수
@@ -154,7 +180,11 @@
 					tr.append($("<td>").text(userArray[i].userNo));
 					tr.append($("<td>").text(userArray[i].id));
 					tr.append($("<td>").text(userArray[i].userLevel=='A'?'관리자':(userArray[i].userLevel=='B'?'중개사':(userArray[i].userLevel=='C'?'일반회원':''))));
-					tr.append($("<td>").text(brokerNoArray[i]!='0'?brokerNoArray[i]:'-'));
+					let brokerNoTag;
+					if(brokerNoArray[i] != '0'){
+						brokerNoTag = $("<a>").attr("href","javascript:void(0)").attr("class","brokerNoTag").text(brokerNoArray[i]);
+					}
+					tr.append($("<td>").html(brokerNoArray[i]!='0'?brokerNoTag:'-'));
 					tr.append($("<td>").text(userArray[i].name));
 					tr.append($("<td>").text(userArray[i].email));
 					tr.append($("<td>").text(userArray[i].phone));

@@ -78,20 +78,20 @@ public class AdminBrokerListServlet extends HttpServlet {
 		if(pageNo==1) {
 			pageBar += "<span>[이전] </span>";
 		} else {
-			pageBar += "<a href='javascript:void(0);'>[이전] </a>";
+			pageBar += "<a class='pageBarTag' href='javascript:void(0);'>[이전] </a>";
 		}
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
 			if(cPage==pageNo) {
-				pageBar += "<span>"+pageNo+" </span>";
+				pageBar += "<span class='pageBarTag'>"+pageNo+" </span>";
 			} else { 
-				pageBar += "<a href='javascript:void(0);'>"+pageNo+" </a>";
+				pageBar += "<a class='pageBarTag' href='javascript:void(0);'>"+pageNo+" </a>";
 			}
 			pageNo++;
 		}
 		if(pageNo>totalPage) {
-			pageBar += "<span> [다음]</span>";
+			pageBar += "<span class='pageBarTag'> [다음]</span>";
 		} else {
-			pageBar += "<a href='javascript:void(0);'> [다음]</a>";
+			pageBar += "<a class='pageBarTag' href='javascript:void(0);'> [다음]</a>";
 		}
 		
 		list.add(pageBar);

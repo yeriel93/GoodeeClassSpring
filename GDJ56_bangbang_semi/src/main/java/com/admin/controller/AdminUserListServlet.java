@@ -49,7 +49,7 @@ public class AdminUserListServlet extends HttpServlet {
 		//System.out.println(searchType + " " + searchKeyword + " " + cPage + " " + numPerpage);
 		
 		String query = "";
-		if(searchType.equals("ID")||searchType.equals("NAME")||searchType.equals("USER_LEVEL")) {
+		if(searchType.equals("ID") || searchType.equals("NAME")|| searchType.equals("USER_LEVEL") || searchType.equals("USER_NO")) {
 			query += " WHERE U." + searchType + " LIKE '%" + searchKeyword + "%' ";
 		}
 		query += " ORDER BY U.ENROLL_DATE DESC) RR) WHERE RNUM BETWEEN ";
@@ -60,7 +60,7 @@ public class AdminUserListServlet extends HttpServlet {
 		//pageBar 만들어서 반환하기
 		//1. totalData : 전체 페이지 수를 알기 위해
 		String totalQuery = "";
-		if(searchType.equals("ID")||searchType.equals("NAME")||searchType.equals("USER_LEVEL")) {
+		if(searchType.equals("ID") || searchType.equals("NAME")|| searchType.equals("USER_LEVEL") || searchType.equals("USER_NO")) {
 			totalQuery += " WHERE U." + searchType + " LIKE '%" + searchKeyword + "%' ";
 		}
 		int totalData = AdminService.getAdminService().searchUserListCount(totalQuery);
@@ -79,20 +79,20 @@ public class AdminUserListServlet extends HttpServlet {
 		if(pageNo==1) {
 			pageBar += "<span>[이전] </span>";
 		} else {
-			pageBar += "<a href='javascript:void(0);'>[이전] </a>";
+			pageBar += "<a class='pageBarTag' href='javascript:void(0);'>[이전] </a>";
 		}
 		while(!(pageNo>pageEnd||pageNo>totalPage)) {
 			if(cPage==pageNo) {
 				pageBar += "<span>"+pageNo+" </span>";
 			} else { 
-				pageBar += "<a href='javascript:void(0);'>"+pageNo+" </a>";
+				pageBar += "<a class='pageBarTag' href='javascript:void(0);'>"+pageNo+" </a>";
 			}
 			pageNo++;
 		}
 		if(pageNo>totalPage) {
 			pageBar += "<span> [다음]</span>";
 		} else {
-			pageBar += "<a href='javascript:void(0);'> [다음]</a>";
+			pageBar += "<a class='pageBarTag' href='javascript:void(0);'> [다음]</a>";
 		}
 		
 		list.add(pageBar);

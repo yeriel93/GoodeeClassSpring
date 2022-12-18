@@ -19,8 +19,11 @@ div#pageBarContainer{
 	justify-content: center;
 }
 
+
+
 div#search-container{text-align:center;}
-div#search-userId{display:inline-block;}
+div#search-userNo{display:inline-block;}
+div#search-userId{display:none;}
 div#search-userName{display:none;}
 div#search-userLevel{display:none;} 
 div#search-container {margin:0 0 10px 0; padding:3px; }
