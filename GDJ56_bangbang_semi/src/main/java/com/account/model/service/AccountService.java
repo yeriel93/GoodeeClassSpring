@@ -63,4 +63,12 @@ public class AccountService {
 				
 	}
 	
+	public int giveFeedback(Alert a) {
+		Connection conn=getConnection();
+		int result=AccountDao.getAccountDao().giveFeedback(conn,a);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		return result;
+	}
+	
 }

@@ -91,11 +91,14 @@ td.con{
                         <td class="con"><input type="text" name="userCName" value="<%=request.getAttribute("userCName") %>" readonly></td>
                     </tr>
                 </table>
+                
                 <select class="feedbackContent" name="feedbackContent">
                     <option value="곧 연락드리겠습니다." selected="selected">곧 연락드리겠습니다. </option>
-                    <option value="편한 시간에 연락부탁드립니다.">편한 시간에 연락부탁드립니다.</option>
-                    <option value="연락처로 전화드리겠습니다.">연락처로 전화드리겠습니다.</option>
+                    <option value="편한 시간에 연락부탁드립니다.">편한 시간에 연락부탁드립니다.</option>    
+                    <option value="유선으로 연락드렸습니다.">유선으로 연락드렸습니다.</option>       
+                    <option value="부재중이셔서 문자로 안내드렸습니다.">부재중이셔서 문자로 안내드렸습니다.</option>       
                 </select>
+                
                 <input type="hidden" name="userCNo" value="<%=request.getAttribute("userCNo")%>">              
                 <input type="hidden" name="userBNo" value="<%=request.getAttribute("userBNo")%>">              
                 <div id="buttonContainer">

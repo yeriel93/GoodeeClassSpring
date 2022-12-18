@@ -138,6 +138,30 @@ public class AccountDao {
 		
 	}
 	
+	public int giveFeedback(Connection conn,Alert a) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("sendMessage"));
+			//sendMessage=INSERT INTO ALERT VALUES(SEQ_ALERT_NO.NEXTVAL,?,?,?,?,DEFAULT)
+			//senduser  receiveuser propertyNO, content
+			pstmt.setInt(1, a.getSendUserNo());
+			pstmt.setInt(2, a.getReceiveUserNo());
+			pstmt.setInt(3, a.getPropertyNo());
+			pstmt.setString(4, a.getContent());
+			
+			result=pstmt.executeUpdate();	
+			
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
 	public static Alert getAlert(ResultSet rs) throws SQLException{
 		return Alert.builder()
 				.alertNo(rs.getInt("ALERT_NO"))
@@ -165,5 +189,7 @@ public class AccountDao {
 				.renamedFilename(rs.getString("RENAMED_FILENAME"))
 				.build();
 	}
+	
+	
 	
 }

@@ -6,7 +6,7 @@
 	List<AlertList> userAlert=(List<AlertList>)request.getAttribute("userAlert");
 %>
 <style>
-#feedback{
+.feedback{
 	background-color: rgb(7, 90, 42);
 	color:white;
 	border:none;
@@ -70,12 +70,12 @@
 	                        <td id="userCName"><%=userAlert.get(i).getName() %></td>
 	                        <td><%=userAlert.get(i).getPhone() %></td>
 	                        <td><%=userAlert.get(i).getAlertDate() %></td>                       
-	                        <td id="replyState" style="color:green">
+	                        <td id="replyState">
 	                        답변 대기
 	                        </td>
 		                    <input type="hidden" id="userCNo" value="<%=userAlert.get(i).getSendUserNo()%>">
 		                    <input type="hidden" id="userBNo" value="<%=userAlert.get(i).getReceiveUserNo()%>">
-		                    <td><button id="feedback" >답변하기</button></td>                       
+		                    <td><button class="feedback">답변하기</button></td>                       
 							
                     	</tr>
                     <%}
@@ -92,15 +92,22 @@
  </section>
  
  <script>    
-    $("#feedback").click(e=>{
-    	const alertNo=$("#alertNo").text();
-    	const propertyNo=$("#propertyNo").text();
-    	const userCName=$("#userCName").text();
-    	const userCNo=$("#userCNo").val();
-    	const userBNo=$("#userBNo").val();
+    $(".feedback").click(e=>{
+    	const alertNo=$(e.target).parent().parent().children().first().text();
+    	const propertyNo=$(e.target).parent().parent().children().find('a').text();
+    	const userCName=$(e.target).parent().parent().children().eq(6).text();
+    	const userCNo=$(e.target).parent().parent().children().eq(10).val();
+    	const userBNo=$(e.target).parent().parent().children().eq(11).val();
+/*     	console.log(userCNo);
+    	console.log(userBNo); */
     	
     	const url="<%=request.getContextPath()%>/account/feedback.bb?alertNo=" + alertNo+"&propertyNo="+propertyNo+"&userCName="+userCName+"&userCNo="+userCNo+"&userBNo="+userBNo;
-    	window.open(url,"_blank","width=330,height=480");
+    	window.open(url,"_blank","width=430,height=480");
+    	
+/*     	$(e.target).css("background-color","lightgray");
+    	$(e.target).attr("disabled","false");
+        $(e.target).parent().prev().prev().prev().text("답변 완료").css("font","gray"); */
+
     });
  </script>
 
