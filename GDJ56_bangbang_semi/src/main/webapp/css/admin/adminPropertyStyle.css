@@ -22,5 +22,16 @@ div#pageBarContainer{
 div#search-container{text-align:center;}
 div#search-propertyNo{display:inline-block;}
 div#search-brokerNo{display:none;}
+div#search-hiding{display:none;}
 div#search-container {margin:0 0 10px 0; padding:3px; }
 div#numPerpage-container{text-align:right; padding:0px 40px 20px 0px;}
+button#hidingBtnToY{
+	background-color: yellow;
+	color:black;
+	border:none;
+}
+button#hidingBtnToN{
+	background-color: rgb(7, 90, 42);
+	color:white;
+	border:none;
+}

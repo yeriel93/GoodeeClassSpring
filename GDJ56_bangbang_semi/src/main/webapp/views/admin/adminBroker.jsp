@@ -155,10 +155,7 @@
 					alert(data);
 					drawUserList(true, searchState, searchKeyword, cPage, numPerpage);
 				}
-			})
-			
-		} else {
-			console.log("거부");
+			})		
 		}
 	})
 	

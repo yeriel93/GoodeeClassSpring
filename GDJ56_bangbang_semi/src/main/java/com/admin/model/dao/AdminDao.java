@@ -153,6 +153,90 @@ public class AdminDao {
 	}
 	
 	
+	//매물 목록, 매물당누적신고 
+	public List searchPropertyList(Connection conn, String adminQuery) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List list = null;
+		List<Property> propertyList = null;
+		List<Integer> reportCountList = null;
+		String query = sql.getProperty("searchPropertyListAdmin");
+		//System.out.println(query + adminQuery);
+		try {
+			pstmt = conn.prepareStatement(query + adminQuery);
+			rs = pstmt.executeQuery();
+			list = new ArrayList();
+			propertyList = new ArrayList();
+			reportCountList = new ArrayList();
+			while(rs.next()) {
+				Property p = getRsPropertyData(rs);
+				propertyList.add(p);
+				int reportCount = rs.getInt("REPORT_COUNT");
+				reportCountList.add(reportCount);
+				//System.out.println(reportCount + " / " + p);
+			}
+			list.add(propertyList);
+			list.add(reportCountList);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}	
+		return list;
+	}
+	
+	public int searchPropertyListCount(Connection conn, String totalQuery) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int count = 0;
+		String query = sql.getProperty("searchPropertyListCount");
+		try {
+			pstmt = conn.prepareStatement(query + totalQuery);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return count;
+	}
+	
+	
+	
+	//2022-12-18
+	//매물 숨김, 공개 전환 기능
+	public int updatePropertyHiding(Connection conn, int propertyNo, String setHiding) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = sql.getProperty("updatePropertyHiding");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, setHiding);
+			pstmt.setInt(2, propertyNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	private User getRsUserData(ResultSet rs) throws SQLException {
 		return User.builder()
 				.userNo(rs.getInt("USER_NO"))
@@ -182,6 +266,19 @@ public class AdminDao {
 				.enrollDate(rs.getDate("ENROLL_DATE"))
 				.editDate(rs.getDate("EDIT_DATE"))
 				.build();
+	}
+	
+	private Property getRsPropertyData(ResultSet rs) throws SQLException {
+		return Property.builder()
+				.propertyNo(rs.getInt("PROPERTY_NO"))
+				.brokerNo(rs.getInt("BROKER_NO"))
+				.address(rs.getString("ADDRESS"))
+				.enrollDate(rs.getDate("ENROLL_DATE"))
+				.editDate(rs.getDate("EDIT_DATE"))
+				.hiding(rs.getString("HIDING").charAt(0))
+				.build();
+		
+		
 	}
 	
 }
