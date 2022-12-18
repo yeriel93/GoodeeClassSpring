@@ -361,8 +361,7 @@
     		$.ajax({
                 url:"<%=request.getContextPath()%>/account/sendMessage.bb",
                 data:{userNo:userNo,propertyNo:propertyNo,brokerUserNo:brokerUserNo},
-                success:function(result){
-                	console.log(result);
+                success:function(result){                	
                 	if(result>0){
                 		alert("🟢 문의하기 성공.");
                 		$("#inquiryBtn").attr("disabled","false");
