@@ -84,22 +84,21 @@ public class FilesDao {
 	}
 	
 	//선택한 매물의 파일들 이름 불러오기 
-	public Map callFileNames(Connection conn,String propertyNo) {
+	public List<String> callFileNames(Connection conn,String propertyNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		Map map = new HashMap();
+		List<String> result = new ArrayList();
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("callFileNames")+propertyNo);
-//			SELECT PROPERTY_NO,LISTAGG(RENAMED_FILENAME, ',') WITHIN GROUP(ORDER BY PROPERTY_NO ASC) AS RENAMED_FILENAME_PARSING FROM FILES GROUP BY PROPERTY_NO HAVING PROPERTY_NO IN 
+//			SELECT RENAMED_FILENAME FROM FILES WHERE PROPERTY_NO IN 
 			
-//			System.out.println(sql.getProperty("callFileNames")+propertyNo);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				map.put(rs.getInt("PROPERTY_NO"), rs.getString("RENAMED_FILENAME_PARSING"));
+				result.add(rs.getString("RENAMED_FILENAME"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return map;
+		return result;
 	}
 }

@@ -145,9 +145,9 @@ public class PropertyService {
 	}
 	
 	//선택한 매물의 파일들 이름 불러오기 
-	public Map callFileNames(String propertyNo) {
+	public List<String> callFileNames(String propertyNo) {
 		Connection conn = getConnection();
-		Map fileNames = FilesDao.getFilesDao().callFileNames(conn,propertyNo);
+		List<String> fileNames = FilesDao.getFilesDao().callFileNames(conn,propertyNo);
 //		System.out.println(fileNames);
 		close(conn);
 		return fileNames;
