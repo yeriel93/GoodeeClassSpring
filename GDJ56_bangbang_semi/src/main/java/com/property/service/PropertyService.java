@@ -8,6 +8,7 @@ import static com.bangbang.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.broker.model.dao.BrokerDao;
 import com.broker.model.vo.Broker;
@@ -143,10 +144,22 @@ public class PropertyService {
 		return propertys;
 	}
 	
+	//선택한 매물의 파일들 이름 불러오기 
+	public List<String> callFileNames(String propertyNo) {
+		Connection conn = getConnection();
+		List<String> fileNames = FilesDao.getFilesDao().callFileNames(conn,propertyNo);
+//		System.out.println(fileNames);
+		close(conn);
+		return fileNames;
+	}
+	
 	//선택한 매물 삭제
 	public int deleteProperty(String propertyNo) {
 		Connection conn = getConnection();
 		int result = PropertyDao.getPropertyDao().deleteProperty(conn,propertyNo);
+		
+		if(result>0) commit(conn);
+		else rollback(conn);
 		close(conn);
 		return result;
 	}
