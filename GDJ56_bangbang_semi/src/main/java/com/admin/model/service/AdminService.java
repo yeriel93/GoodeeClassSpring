@@ -1,9 +1,13 @@
 package com.admin.model.service;
 
-import static com.bangbang.common.JDBCTemplate.*;
+import static com.bangbang.common.JDBCTemplate.close;
+import static com.bangbang.common.JDBCTemplate.commit;
+import static com.bangbang.common.JDBCTemplate.getConnection;
+import static com.bangbang.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.Map;
 
 import com.admin.model.dao.AdminDao;
 
@@ -94,6 +98,64 @@ public class AdminService {
 		return result;
 	}
 	
+	//허위매물 조회
+	public List searchReportList(String adminQuery) {
+		Connection conn = getConnection();
+		List list = AdminDao.getAdminDao().searchReportList(conn, adminQuery);
+		close(conn);
+		
+		return list;
+	}
 	
+	//매물당 신고횟수 조회
+	public Map<Integer, Integer> searchPropertyReportCount(){
+		Connection conn = getConnection();
+		Map<Integer, Integer> propertyReportCount = AdminDao.getAdminDao().searchPropertyReportCount(conn);
+		close(conn);
+		
+		return propertyReportCount;
+	}
+	
+	//중개사 누적신고횟수 조회
+	public Map<Integer, Integer> searchBrokerReportCount(){
+		Connection conn = getConnection();
+		Map<Integer, Integer> brokerReportCount = AdminDao.getAdminDao().searchBrokerReportCount(conn);
+		close(conn);
+		
+		return brokerReportCount;
+	}
+	
+	//페이지바용 카운트
+	public int searchReportListCount(String totalQuery) {
+		Connection conn = getConnection();
+		int count = AdminDao.getAdminDao().searchReportListCount(conn, totalQuery);
+		close(conn);
+		
+		return count;
+	}
+	
+	//신고 처리(PROCESSING_DATE NULL to SYSDATE)
+	public int updateProcessingDate(int userNo, int propertyNo) {
+		Connection conn = getConnection();
+		int result = AdminDao.getAdminDao().updateProcessingDate(conn, userNo, propertyNo);
+		close(conn);
+		
+		if(result>0)commit(conn);
+		else rollback(conn);
+		
+		return result;
+	}
+	
+	//신고삭제
+	public int deleteReport(String adminQuery) {
+		Connection conn = getConnection();
+		int result = AdminDao.getAdminDao().deleteReport(conn, adminQuery);
+		close(conn);
+		
+		if(result>0)commit(conn);
+		else rollback(conn);
+		
+		return result;
+	}
 	
 }
