@@ -14,6 +14,8 @@ import java.util.Properties;
 
 import com.property.model.vo.Property;
 
+import oracle.jdbc.proxy.annotation.Pre;
+
 public class PropertyDao {
 	// [BD] singleton 방식으로 만들었음. getPropertyDao() 사용해서 호출할 것.
 	private static PropertyDao propertyDao;
@@ -259,7 +261,23 @@ public class PropertyDao {
 		return propertys;
 	}
 	
-	
+	//매물번호로 매물삭제
+	public int deleteProperty(Connection conn,String propertyNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("deleteProperty")+propertyNo);
+//			DELETE FROM PROPERTY WHERE PROPERTY_NO IN 
+			System.out.println(sql.getProperty("deleteProperty")+propertyNo);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	
 	private Property getRsData(ResultSet rs) {

@@ -18,19 +18,31 @@
     <!-- 버튼 -->
     <div style="display: flex; justify-content: center;">
         <div id="buttonDiv" style="margin-right: 10px">
-            <input type="button" value="전체선택" class="button" onclick="">
-            <input type="button" value=" 삭제 " class="button" onclick="">
+            <input type="button" value="전체선택" class="button" onclick="fn_allChecked()">
+            <input type="button" value="전체해제" class="button" onclick="fn_allNoChecked()">
+            <input type="button" value="삭제" class="button" onclick="fn_delete()">
         </div>
     </div>
+	<script>
+        const fn_allChecked=()=>{
+            // console.log($("input[name=inputCheckbox]"));
+            $("input[name=inputCheckbox]").prop("checked",true);
+        }
+        const fn_allNoChecked=()=>{
+            // console.log($("input[name=inputCheckbox]"));
+            $("input[name=inputCheckbox]").prop("checked",false);
+        }
+    </script>
     
     <section style="display:flex; justify-content:center;">
     <!-- 매물목록 -->
         <div id="container">
    		<%for(Property p : propertys){%>
             <div class="propertyWrap">
-                <input type="checkbox">
+                <input type="checkbox" name="inputCheckbox">
                 <input type="button" value="수정" class="updateBtn" onclick="fn_updatePage(event)">
-
+                <input type="number" name="propertyNo" value="<%=p.getPropertyNo()%>" hidden>
+                
                 <div class="imgDiv">
                     <img src="<%=request.getContextPath() %>/upload/property/<%=p.getThumbnail() %>" alt="">
                 </div>
@@ -69,18 +81,42 @@
  		<%}%>
         </div>
 	 </section>
+        
+        <script>
+            //수정버튼 클릭했을때
+            let fn_updatePage=(e)=>{
+                // console.log($(e.target).next().val())
+                // console.log($("input[name=propertyNo]"));
+                let proeprtyNo= $(e.target).next().val(); 
+                window.open("<%=request.getContextPath()%>/account/broker/updateProperty.bb?propertyNo="+proeprtyNo,"_blank");
+            }
+            
+            //삭제버튼 클릭했을때
+            let fn_delete=()=>{
+                const checkTag = $("input[name=inputCheckbox]:checked").next().next();
+                // console.log(checkTag);
+                if(checkTag.length==0){
+                    alert("체크된 매물이 없습니다");
+                }else{
+                    let propertysNo = "(";
+                    checkTag.each((i,v)=>{
+                        // console.log($(v).val());
+                        propertysNo += $(v).val()+","
+                    });
+                    //console.log(propertysNo.slice(0,-1));
+                    var propertyNo = propertysNo.slice(0,-1)+")";
+                    console.log(propertyNo);
+                    window.open("<%=request.getContextPath()%>/account/broker/deleteProperty.bb?propertyNo="+propertyNo);
+                }
+            }
+        </script> 
      
      <%}else {%>
      	<div id="noDiv">
      		<h1>등록된 매물이 없습니다.</h1>
      	</div>
      <%} %> 
-     
-     <script>
-     	const fn_updatePage=(e)=>{
-     		window.open("<%=request.getContextPath()%>/account/broker/updateProperty.bb","_blank");
-     	}
-     </script> 
+       
 </body>
 </html>
 

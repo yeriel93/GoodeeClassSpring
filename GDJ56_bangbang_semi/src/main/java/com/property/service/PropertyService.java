@@ -63,14 +63,14 @@ public class PropertyService {
 			}
 		}
 		
-		System.out.println("propertyService_insert(매물등록): "+propertyResult);
-		System.out.println("propertyService_insert(파일등록): "+filesResult);
-		System.out.println("propertyService_insert(옵션등록): "+optionResult);
+//		System.out.println("propertyService_insert(매물등록): "+propertyResult);
+//		System.out.println("propertyService_insert(파일등록): "+filesResult);
+//		System.out.println("propertyService_insert(옵션등록): "+optionResult);
 		int allResult = 0;
 		if(propertyResult>0 && filesResult>0 && optionResult==option.length) {
 			allResult = 1;
 		}
-		System.out.println("propertyService_insert(전체등록): "+allResult);
+//		System.out.println("propertyService_insert(전체등록): "+allResult);
 		if(allResult>0) commit(conn);
 		else rollback(conn);
 		close(conn);
@@ -109,22 +109,22 @@ public class PropertyService {
 		Connection conn = getConnection();
 		
 		int optionDelete = OptionDao.getOptionDao().deleteOption(conn, p.getPropertyNo()); 
-		System.out.println("propertyService_update(옵션삭제): "+optionDelete);
+//		System.out.println("propertyService_update(옵션삭제): "+optionDelete);
 		
 		int optionInsert = 0;
 		for(String o : option) {
 			optionInsert += OptionDao.getOptionDao().insertOption(conn,p.getPropertyNo(), o);
 		}
-		System.out.println("propertyService_update(옵션등록): "+optionInsert);
+//		System.out.println("propertyService_update(옵션등록): "+optionInsert);
 		
 		int propertyResult = PropertyDao.getPropertyDao().updateProperty(conn, p);
-		System.out.println("propertyService_update(매물등록): "+propertyResult);
+//		System.out.println("propertyService_update(매물등록): "+propertyResult);
 		
 		int resultAll = 0;
 		if(propertyResult>0 && optionDelete>0 && optionInsert==option.length) {
 			resultAll = 1;
 		}
-		System.out.println("propertyService_update(전체결과): "+resultAll);
+//		System.out.println("propertyService_update(전체결과): "+resultAll);
 
 		if(resultAll>0) commit(conn);
 		else rollback(conn);
@@ -141,6 +141,14 @@ public class PropertyService {
 		
 		close(conn);
 		return propertys;
+	}
+	
+	//선택한 매물 삭제
+	public int deleteProperty(String propertyNo) {
+		Connection conn = getConnection();
+		int result = PropertyDao.getPropertyDao().deleteProperty(conn,propertyNo);
+		close(conn);
+		return result;
 	}
 	
 }

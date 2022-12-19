@@ -25,9 +25,8 @@ public class UpdatePropertyServlet extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//임시로 매물번호를 받아서 데이터 불러옴 -> 나중에 수정필요
-		//매물리스트에서 통해서 넘어오는 페이지니 거기서 매물 객체전체를 넘기면 더 좋지 않을까? 생각 좀 더 필요
-		int propertyNo = 300087;
+		int propertyNo = Integer.parseInt(request.getParameter("propertyNo"));
+		System.out.println(propertyNo);
 				
 		List propertyInfo = PropertyService.getPropertyService().searchPropertyInfo(propertyNo);
 //		propertyInfo.forEach(p->System.out.println(p));
