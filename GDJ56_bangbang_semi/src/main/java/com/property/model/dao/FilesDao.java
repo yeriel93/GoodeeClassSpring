@@ -7,10 +7,11 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLClientInfoException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import com.property.model.vo.Files;
@@ -80,5 +81,25 @@ public class FilesDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	//선택한 매물의 파일들 이름 불러오기 
+	public Map callFileNames(Connection conn,String propertyNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Map map = new HashMap();
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("callFileNames")+propertyNo);
+//			SELECT PROPERTY_NO,LISTAGG(RENAMED_FILENAME, ',') WITHIN GROUP(ORDER BY PROPERTY_NO ASC) AS RENAMED_FILENAME_PARSING FROM FILES GROUP BY PROPERTY_NO HAVING PROPERTY_NO IN 
+			
+//			System.out.println(sql.getProperty("callFileNames")+propertyNo);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				map.put(rs.getInt("PROPERTY_NO"), rs.getString("RENAMED_FILENAME_PARSING"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return map;
 	}
 }
