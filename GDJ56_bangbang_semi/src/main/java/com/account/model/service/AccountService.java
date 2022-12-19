@@ -87,4 +87,12 @@ public class AccountService {
 		return result;
 	}
 	
+	public int deleteUser(int userNo) {
+		Connection conn=getConnection();
+		int result=AccountDao.getAccountDao().deleteUser(conn,userNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		return result;
+	}
+	
 }

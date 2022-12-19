@@ -263,4 +263,22 @@ public class AccountDao {
 		return result;
 	}
 	
+	public int deleteUser(Connection conn,int userNo) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("deleteUser"));
+			pstmt.setInt(1, userNo);
+			result=pstmt.executeUpdate();
+						
+		}catch(SQLException e) {
+			e.printStackTrace();
+			
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	
 }

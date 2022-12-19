@@ -38,10 +38,10 @@
     <!-- 매물목록 -->
         <div id="container">
    		<%for(Property p : propertys){%>
-            <div class="propertyWrap">
+            <div class="propertyWrap" onclick="fn_showPropertyInfo(event)">
                 <input type="checkbox" name="inputCheckbox">
                 <input type="button" value="수정" class="updateBtn" onclick="fn_updatePage(event)">
-                <input type="number" name="propertyNo" value="<%=p.getPropertyNo()%>" hidden>
+                <input type="number" name="propertyNo" id="propertyNo" value="<%=p.getPropertyNo()%>" hidden>
                 
                 <div class="imgDiv">
                     <img src="<%=request.getContextPath() %>/upload/property/<%=p.getThumbnail() %>" alt="">
@@ -83,6 +83,16 @@
 	 </section>
         
         <script>
+        	//매물클릭했을때 상세페이지 이동
+        	const fn_showPropertyInfo=(e)=>{
+                console.log($(e.target).parents("div.propertyWrap"));
+                console.log($(e.target).parents("div.propertyWrap").children("#propertyNo"));
+                let propertyNo = $(e.target).parents("div.propertyWrap").children("#propertyNo").val();
+                console.log(propertyNo);
+                window.open("<%=request.getContextPath()%>/property/propertyInfo.bb?propertyNo=" + propertyNo);
+        		
+        	}
+        	
             //수정버튼 클릭했을때
             let fn_updatePage=(e)=>{
                 // console.log($(e.target).next().val())

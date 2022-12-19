@@ -1,6 +1,9 @@
 package com.broker.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,9 +22,22 @@ public class DeletePropertyServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String propertyNo = request.getParameter("propertyNo");
-		System.out.println(propertyNo);
+//		System.out.println(propertyNo);
 		
-		int result = PropertyService.getPropertyService().deleteProperty(propertyNo);
+		List<String> fileNames = PropertyService.getPropertyService().callFileNames(propertyNo);
+		System.out.println(fileNames);
+		for(String f : fileNames) {
+			
+			String path = getServletContext().getRealPath("/upload/property/");
+			File delFile = new File(path+f);
+			if(delFile.exists()){
+				delFile.delete();
+			}
+		}
+		
+		
+		
+//		int result = PropertyService.getPropertyService().deleteProperty(propertyNo);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
