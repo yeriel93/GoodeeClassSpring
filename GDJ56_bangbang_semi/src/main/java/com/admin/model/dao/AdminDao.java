@@ -157,6 +157,24 @@ public class AdminDao {
 		return result;
 	}
 	
+	public int updatePropertyHidingByBrokerNo(Connection conn, int brokerNo, String hidingState) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = sql.getProperty("updatePropertyHidingByBrokerNo");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, hidingState);
+			pstmt.setInt(2, brokerNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
 	
 	//매물 목록, 매물당누적신고 
 	public List searchPropertyList(Connection conn, String adminQuery) {
@@ -164,7 +182,6 @@ public class AdminDao {
 		ResultSet rs = null;
 		List list = null;
 		List<Property> propertyList = null;
-		List<Integer> reportCountList = null;
 		String query = sql.getProperty("searchPropertyListAdmin");
 		//System.out.println(query + adminQuery);
 		try {
@@ -172,16 +189,13 @@ public class AdminDao {
 			rs = pstmt.executeQuery();
 			list = new ArrayList();
 			propertyList = new ArrayList();
-			reportCountList = new ArrayList();
 			while(rs.next()) {
 				Property p = getRsPropertyData(rs);
 				propertyList.add(p);
 				int reportCount = rs.getInt("REPORT_COUNT");
-				reportCountList.add(reportCount);
 				//System.out.println(reportCount + " / " + p);
 			}
 			list.add(propertyList);
-			list.add(reportCountList);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

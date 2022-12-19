@@ -2,6 +2,7 @@ package com.admin.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -54,6 +55,9 @@ public class AdminPropertyListServlet extends HttpServlet {
 		query += ((cPage-1)*numPerpage + 1) + " AND " + (cPage*numPerpage);
 		
 		List list = AdminService.getAdminService().searchPropertyList(query);
+		
+		Map<Integer, Integer> propertyReportCount = AdminService.getAdminService().searchPropertyReportCount();
+		list.add(propertyReportCount);
 		
 		String totalQuery = "";
 		if(searchType.equals("PROPERTY_NO")||searchType.equals("BROKER_NO")||searchType.equals("HIDING")) {

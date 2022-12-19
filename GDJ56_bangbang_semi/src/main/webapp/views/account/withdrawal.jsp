@@ -17,9 +17,11 @@
              </div>
             <div id="withdrawalBtn-Container">
                 <hr>
-                <p><input type="checkbox" name="withdrawalAgree" value="Y"> 위 내용을 숙지하였으며, 동의합니다.</p>
-                <button id="withdrawalBtn">탈퇴하기</button>
-                
+                <form id="withdrawal" action="<%=request.getContextPath()%>/account/withdrawalEnd.bb">
+                	<p><input type="checkbox" name="withdrawalAgree" value="Y" required> 위 내용을 숙지하였으며, 동의합니다.</p>
+                	<input type="hidden" name="userNo" value="<%=loginUser.getUserNo()%>">
+                	<button id="withdrawalBtn" >탈퇴하기</button>
+                </form>
                 <br>
             </div>
  

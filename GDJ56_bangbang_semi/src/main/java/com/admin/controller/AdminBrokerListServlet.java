@@ -2,6 +2,7 @@ package com.admin.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -54,6 +55,9 @@ public class AdminBrokerListServlet extends HttpServlet {
 		query += ((cPage-1)*numPerpage + 1) + " AND " + (cPage*numPerpage);
 		
 		List list = AdminService.getAdminService().searchBrokerList(query);
+		
+		Map<Integer, Integer> brokerReportCount = AdminService.getAdminService().searchBrokerReportCount();
+		list.add(brokerReportCount);
 
 		//pageBar 만들어서 반환하기
 		//1. totalData : 전체 페이지 수를 알기 위해
