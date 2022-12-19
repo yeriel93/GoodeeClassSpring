@@ -34,6 +34,10 @@ public class AdminBrokerAdmissionServlet extends HttpServlet {
 		//System.out.println(brokerNo + " / " + setAdmission);
 		
 		int result = AdminService.getAdminService().updateBrokerAdmissionToY(brokerNo, setAdmission);
+		int result2 = 0;
+		if(result>0 && setAdmission.equals("N")) {
+			result2 = AdminService.getAdminService().updatePropertyHidingByBrokerNo(brokerNo, "Y");
+		}
 		String msg = "";
 		if(result>0 && setAdmission.equals("Y")) {
 			msg = "승인이 완료되었습니다.";
