@@ -45,10 +45,11 @@ public class PropertyInfoServlet extends HttpServlet {
 		User user=(User)session.getAttribute("loginUser");
 		int userNo=user.getUserNo();
 		
-//		System.out.println(userNo);
-//		System.out.println(propertyNo);
+//		System.out.println("userNo:"+userNo);
+//		System.out.println("propertyNo:"+propertyNo);
 		
 		int inquiryCount=AccountService.getAccountService().inquiryCount(userNo,propertyNo);
+//		System.out.println("inquiryCount:"+inquiryCount);
 		
 		request.setAttribute("inquiryCount", inquiryCount);
 		

@@ -104,9 +104,10 @@
     	const url="<%=request.getContextPath()%>/account/feedback.bb?alertNo=" + alertNo+"&propertyNo="+propertyNo+"&userCName="+userCName+"&userCNo="+userCNo+"&userBNo="+userBNo;
     	window.open(url,"_blank","width=430,height=480");
     	
-/*     	$(e.target).css("background-color","lightgray");
+    	$(e.target).css("background-color","lightgray");
     	$(e.target).attr("disabled","false");
-        $(e.target).parent().prev().prev().prev().text("답변 완료").css("font","gray"); */
+        $(e.target).parent().prev().prev().prev().text("답변 완료").css("font","gray");
+        
 
     });
  </script>

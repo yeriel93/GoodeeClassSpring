@@ -1,13 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/mypageMain.jsp"%>
+<%@ page import="java.util.List,com.account.model.vo.AlertListC" %>
+<%
+	List<AlertListC> userAlertC=(List<AlertListC>)request.getAttribute("userAlertC");
+%>
 
 <link href="<%=request.getContextPath() %>/css/account/inquiry_CStyle.css" type="text/css" rel="stylesheet">
+<style>
+	#pageBar{
+	    text-align: center;
+	    margin-top: 15px;
+	    margin-bottom: 20px;
+	}
+	
+	#propertyImg{
+	    width:70px;
+	    height: 50px;
+	    padding:0px;
+	    margin: 0px;
+	}
+</style>
+
 <section class="content">
      <br>
-     <br><br>
-
-     <form action="">
+     <br><br>    
 
          <table style="width: 1400px; margin: auto;">
              <thead>
@@ -26,50 +43,39 @@
             	</tr>
              </thead>
              <tbody>
+	             <%if(userAlertC.isEmpty()){ %>
+	             	<tr>
+	             		<td colspan="10">조회된 결과가 없습니다.</td>
+	             	</tr>
+	             <%} else{
+	             	for(int i=0;i<userAlertC.size();i++){%>               
                  <tr>
-                     <td>123456</td>
-                     <td><a href="">매물번호1234</a></td>
-                     <td>방 사진</td>
-                     <td>전세</td>
-                     <td>4000</td>
-                     <td>25</td>
-                     <td>유림 부동산 </td>
-                     <td>2022-10-16</td>
-                     <td>2022-10-16</td>
-                     <!-- <td id="replyState" style="color:green">
-                        답변 대기
-                     </td> -->
-                     <td id="replyState">
-                        낼 연락할게~
-                     </td>
-
+                     <td><%=userAlertC.get(i).getAlertNo() %></td>
+                     <td><a href="<%=request.getContextPath() %>/property/propertyInfo.bb?propertyNo=<%=userAlertC.get(i).getPropertyNo() %>"><%=userAlertC.get(i).getPropertyNo() %></a></td>
+                     <td><img id="propertyImg" src="<%=request.getContextPath() %>/upload/property/<%=userAlertC.get(i).getRenamedFilename() %>"></td>
+                     <td><%=userAlertC.get(i).getRenttype() %></td>
+                     <td><%=userAlertC.get(i).getDeposit() %></td>
+                     <td><%=userAlertC.get(i).getMonthlycharge() %></td>
+                     <td><%=userAlertC.get(i).getOfficename() %></td>
+                     <td><%=userAlertC.get(i).getTelephone() %></td>
+                     <td><%=userAlertC.get(i).getAlertDate() %></td>
+                     <%if(userAlertC.get(i).getFeedback_content()==null){ %>
+	                     <td id="replyState">답변 대기</td>
+                     <%} else{%>
+	                     <td id="replyState"><%=userAlertC.get(i).getFeedback_content() %></td>
+                     <%} %>
+	
                  </tr>
-                 <tr>
-                    <td>123456</td>
-                    <td><a href="">매물번호1234</a></td>
-                    <td>방 사진</td>
-                    <td>전세</td>
-                    <td>4000</td>
-                    <td>25</td>
-                    <td>유림 부동산 </td>
-                    <td>2022-10-16</td>
-                    <td>2022-10-16</td>
-                     <td id="replyState" style="color:green">
-                        답변 대기
-                     </td>
-                     <!-- <td id="replyState">
-                        답변 완료
-                     </td> -->
-
-                 </tr>
-
+              <%}
+              }%>                 
              </tbody>
          </table>
-     </form> 
- </section>
-</body>
-</html>
+         <div id="pageBar">
+         	<%=request.getAttribute("pageBar") %>
+         </div>
 
-<%-- <%@ include file="/views/common/footer.jsp" %> --%>
-</section>
+ </section>
+
+
+
 <%-- <%@ include file="/views/common/footer.jsp"%> --%>

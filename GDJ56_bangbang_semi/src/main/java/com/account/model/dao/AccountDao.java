@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 import com.account.model.vo.Alert;
 import com.account.model.vo.AlertList;
 import com.account.model.vo.AlertListC;
@@ -77,6 +79,7 @@ public class AccountDao {
 				.deposit(rs.getInt("DEPOSIT"))
 				.monthlycharge(rs.getInt("MONTHLY_CHARGE"))
 				.renamedFilename(rs.getString("RENAMED_FILENAME"))
+				.feedback_content(rs.getString("FEEDBACK_CONTENT"))
 				.build();
 	}
 	
@@ -225,6 +228,7 @@ public class AccountDao {
 				a=getAlertListC(rs);
 				list.add(a);
 			}
+//			System.out.println(a);
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -239,13 +243,17 @@ public class AccountDao {
 	
 	public int inquiryCount(Connection conn,int userNo,int propertyNo) {
 		PreparedStatement pstmt=null;
+		ResultSet rs=null;
 		int result=0;
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("inquiryCount"));
 			pstmt.setInt(1, userNo);
 			pstmt.setInt(2, propertyNo);
-			result=pstmt.executeUpdate();
-//			System.out.println(result);
+			rs=pstmt.executeQuery();
+			if(rs.next()) result=rs.getInt(1);			
+			
+//			System.out.println("dao rs:"+rs);
+//			System.out.println("dao result:"+result);
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
