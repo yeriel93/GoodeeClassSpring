@@ -174,8 +174,9 @@
 			success:data=>{	
 				//console.log(data);
 				let propertyArray = data[0];
-				let reportCountArray = data[1];
+				let propertyReportCount = data[1];
 				let pageBar = data[2];
+				//console.log(propertyArray, propertyReportCount, pageBar);
 				
 				$("table#propertyTable").html("");
 				let trHead = $("<tr>");
@@ -196,7 +197,7 @@
 					tr.append($("<td>").text(propertyArray[i].address));
 					tr.append($("<td>").text(propertyArray[i].enrollDate));
 					tr.append($("<td>").text(propertyArray[i].editDate!=null?propertyArray[i].editDate:"-"));
-					tr.append($("<td>").text(reportCountArray[i]));
+					tr.append($("<td>").text(propertyReportCount[propertyArray[i].propertyNo]!=null?propertyReportCount[propertyArray[i].propertyNo]:'0'));
 					tr.append($("<td>").text(propertyArray[i].hiding=='N'?"공개":"숨김"));
 					if(propertyArray[i].hiding=='N'){
 						let hidingBtnToN = $("<button>").attr("class","hidingBtn").attr("id","hidingBtnToY").text("숨기기");

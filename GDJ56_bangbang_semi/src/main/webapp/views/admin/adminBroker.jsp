@@ -175,7 +175,9 @@
 			success:data=>{	
 				let brokerArray = data[0];
 				let userIdArray = data[1];
-				let pageBar = data[2];
+				let brokerReportCount = data[2];
+				let pageBar = data[3];
+				//console.log(brokerArray, userIdArray, brokerReportCount, pageBar);
 				
 				$("table#brokerTable").html("");
 				let trHead = $("<tr>");
@@ -206,7 +208,7 @@
 					tr.append($("<td>").text(brokerArray[i].officeAddress));
 					tr.append($("<td>").text(brokerArray[i].telephone));
 					tr.append($("<td>").text(brokerArray[i].propertyCount));
-					tr.append($("<td>").text(brokerArray[i].reportCount!=null?brokerArray[i].reportCount:"0"));
+					tr.append($("<td>").text(brokerReportCount[brokerArray[i].brokerNo]!=null?brokerReportCount[brokerArray[i].brokerNo]:'0'));
 					tr.append($("<td>").text(brokerArray[i].restrictionDate!=null?brokerArray[i].restrictionDate:"-"));
 					tr.append($("<td>").text(brokerArray[i].enrollDate));
 					tr.append($("<td>").text(brokerArray[i].editDate!=null?brokerArray[i].editDate:"-"));

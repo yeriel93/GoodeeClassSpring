@@ -245,9 +245,9 @@
 					tr.append($("<td>").append(deleteCheck));
 					tr.append($("<td>").html($("<a>").attr("href","javascript:void(0)").attr("class","userNoTag").text(reportArray[i].userNo)));
 					tr.append($("<td>").html($("<a>").attr("href","javascript:void(0)").attr("class","propertyNoTag").text(reportArray[i].propertyNo)));
-					tr.append($("<td>").text(propertyReportCount[reportArray[i].propertyNo]));
+					tr.append($("<td>").text(propertyReportCount[reportArray[i].propertyNo]!=null?propertyReportCount[reportArray[i].propertyNo]:'0'));
 					tr.append($("<td>").html($("<a>").attr("href","javascript:void(0)").attr("class","brokerNoTag").text(brokerNoArray[i])));
-					tr.append($("<td>").text(brokerReportCount[brokerNoArray[i]]));
+					tr.append($("<td>").text(brokerReportCount[brokerNoArray[i]]!=null?brokerReportCount[brokerNoArray[i]]:"0"));
 					tr.append($("<td>").append($("<textarea>").attr({
 						"rows":"3",
 						"cols":"40",

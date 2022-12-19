@@ -68,6 +68,18 @@ public class AdminService {
 		return result;
 	}
 	
+	//중개사 승인해제시 중개사 매물 모두 숨김처리
+	public int updatePropertyHidingByBrokerNo(int brokerNo, String hidingState) {
+		Connection conn = getConnection();
+		int result = AdminDao.getAdminDao().updatePropertyHidingByBrokerNo(conn, brokerNo, hidingState);
+		close(conn);
+		
+		if(result>0)commit(conn);
+		else rollback(conn);
+		
+		return result;
+	}
+	
 	//매물 리스트, 매물당누적신고 출력
 	public List searchPropertyList(String adminQuery) {
 		Connection conn = getConnection();
