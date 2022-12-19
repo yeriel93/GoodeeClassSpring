@@ -9,11 +9,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import com.broker.model.vo.Broker;
 import com.property.model.vo.Property;
+import com.report.model.vo.Report;
 import com.user.model.vo.User;
 
 public class AdminDao {
@@ -147,6 +150,8 @@ public class AdminDao {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		
 		return result;
@@ -221,6 +226,8 @@ public class AdminDao {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		
 		return result;
@@ -228,10 +235,137 @@ public class AdminDao {
 	
 	
 	
+	//허위매물신고 리스트
+	public List searchReportList(Connection conn, String adminQuery) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List list = null;
+		List<Report> reportList = null;
+		List<String> brokerNoList = null;
+		String query = sql.getProperty("searchReportListAdmin");
+		//System.out.println(query + adminQuery);
+		try {
+			pstmt = conn.prepareStatement(query + adminQuery);
+			rs = pstmt.executeQuery();
+			list = new ArrayList();
+			reportList = new ArrayList();
+			brokerNoList = new ArrayList();
+			while(rs.next()) {
+				Report r = getRsReportData(rs);
+				reportList.add(r);
+				String brokerNo = rs.getString("BROKER_NO");
+				brokerNoList.add(brokerNo);
+				//System.out.println(brokerNo + " " + r);
+			}
+			list.add(reportList);
+			list.add(brokerNoList);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}	
+		return list;
+	}
 	
+	//매물 별 누적신고
+	public Map<Integer, Integer> searchPropertyReportCount(Connection conn){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Map<Integer, Integer> propertyReportCount = null;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("searchPropertyReportCount"));
+			rs = pstmt.executeQuery();
+			propertyReportCount = new HashMap();
+			while(rs.next()) {
+				int propertyNo = rs.getInt("PROPERTY_NO");
+				int count = rs.getInt("PROPERTY_REPORT_COUNT");
+				propertyReportCount.put(propertyNo, count);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return propertyReportCount;
+	}
 	
+	//중개사 별 누적신고
+	public Map<Integer, Integer> searchBrokerReportCount(Connection conn){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Map<Integer, Integer> brokerReportCount = null;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("searchBrokerReportCount"));
+			rs = pstmt.executeQuery();
+			brokerReportCount = new HashMap();
+			while(rs.next()) {
+				int brokerNo = rs.getInt("BROKER_NO");
+				int count = rs.getInt("BROKER_REPORT_COUNT");
+				brokerReportCount.put(brokerNo, count);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return brokerReportCount;
+	}
 	
+	//신고리스트 카운트(페이지바용)
+	public int searchReportListCount(Connection conn, String totalQuery) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int count = 0;
+		String query = sql.getProperty("searchReportListCount");
+		try {
+			pstmt = conn.prepareStatement(query + totalQuery);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return count;	
+	}
 	
+	public int updateProcessingDate(Connection conn, int userNo, int propertyNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = sql.getProperty("updateProcessingDate");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, propertyNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int deleteReport(Connection conn, String adminQuery) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String query = sql.getProperty("deleteReport");
+		try {
+			pstmt = conn.prepareStatement(query + adminQuery);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 	
 	
@@ -279,6 +413,16 @@ public class AdminDao {
 				.build();
 		
 		
+	}
+	
+	private Report getRsReportData(ResultSet rs) throws SQLException {
+		return Report.builder()
+				.userNo(rs.getInt("USER_NO"))
+				.propertyNo(rs.getInt("PROPERTY_NO"))
+				.content(rs.getString("CONTENT"))
+				.reportDate(rs.getDate("REPORT_DATE"))
+				.processingDate(rs.getDate("PROCESSING_DATE"))
+				.build();	
 	}
 	
 }

@@ -16,7 +16,7 @@
 		<div><p><a href="<%=request.getContextPath()%>/admin/user.bb">회원관리</a></p></div>
 		<div><p><a href="<%=request.getContextPath()%>/admin/broker.bb">중개사관리</a></p></div>
 		<div><p><a href="<%=request.getContextPath()%>/admin/property.bb">매물관리</a></p></div>
-		<div><p><a href="<%=request.getContextPath()%>/admin/fakeReport.bb">신고관리</a></p></div>
+		<div><p><a href="<%=request.getContextPath()%>/admin/report.bb">신고관리</a></p></div>
 	</header>
 	 <script>
     	$("div#logoContainer>img").click(e=>{

@@ -101,11 +101,12 @@
 		if(searchState == 'PROPERTY_NO' || searchState == 'BROKER_NO') {
 			searchKeyword = $(e.target).prev().prev().val();
 		} else if(searchState == "HIDING") {
-			searchKeyword = $("div#search-admissionState input[name=searchKeyword]:checked").val();
+			searchKeyword = $("div#search-hiding input[name=searchKeyword]:checked").val();
 		} else {
 			searchKeyword="";
 		}
 		cPage = 1;
+		console.log(searchState,searchKeyword);
 		drawUserList(true, searchState, searchKeyword, cPage, numPerpage);
 	});
 	
