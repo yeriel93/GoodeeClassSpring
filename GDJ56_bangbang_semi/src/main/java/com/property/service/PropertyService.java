@@ -132,4 +132,15 @@ public class PropertyService {
 		return resultAll;
 	}
 	
+	//중개인번호로 등록된 매물리스트
+	public List<Property> brokerPropertyList(int borkerNo) {
+		Connection conn = getConnection();
+		
+		List<Property> propertys  = PropertyDao.getPropertyDao().brokerPropertyList(conn,borkerNo);
+//		System.out.println("propertyService_brokerProperty(매물+썸네일파일이름): "+propertys);
+		
+		close(conn);
+		return propertys;
+	}
+	
 }

@@ -61,12 +61,14 @@ public class FilesDao {
 		List<Files> result = new ArrayList<Files>();
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("searchFileNames"));
-//			SELECT RENAMED_FILENAME, THUMBNAIL FROM FILES WHERE PROPERTY_NO=? ORDER BY FILES_NO ASC
+//			SELECT * FROM FILES WHERE PROPERTY_NO=? ORDER BY FILES_NO ASC
 			pstmt.setInt(1, propertyNo);
 			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				Files files = new Files();
+				files.setFilesNo(rs.getInt("FILES_NO"));
+				files.setPropertyNo(rs.getInt("PROPERTY_NO"));
 				files.setRenameFilename(rs.getString("RENAMED_FILENAME"));
 				files.setThumbnail((rs.getString("THUMBNAIL")).charAt(0));
 				result.add(files);
