@@ -91,6 +91,7 @@
                 	const floor = $("select[name=floorSelect]");
                 	if(floor.val()=="반지하" || floor.val()=="옥탑") {
                 		$("input[name=floorIn]").attr("disabled",true);
+                		$("input[name=floorIn]").val("");
                 	}else {
                 		$("input[name=floorIn]").attr("disabled",false);
                 	}

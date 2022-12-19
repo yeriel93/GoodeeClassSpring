@@ -74,11 +74,22 @@ public class InsertPropertyEndServlet extends HttpServlet {
 				Files addFile4 = Files.builder().renameFilename(addFileName4).thumbnail('N').build();
 				fileList.add(addFile4);
 			}
-			System.out.println(fileName+"/"+addFileName1+"/"+addFileName2+"/"+addFileName3+"/"+addFileName4);
+//			System.out.println(fileName+"/"+addFileName1+"/"+addFileName2+"/"+addFileName3+"/"+addFileName4);
 			
 			//중개인번호
-			int brokerNo = Integer.parseInt(mr.getParameter("brokerNo"));
-			System.out.println("insertPropertyEndServlet(중개인번호): "+brokerNo);
+			int brokerNo = 0;
+			try{
+				brokerNo = Integer.parseInt(mr.getParameter("brokerNo"));
+				System.out.println("insertPropertyEndServlet(중개인번호): "+brokerNo);
+			}catch(NumberFormatException e) {
+				String msg = "로그인 후 이용해주세요!";
+				String loc = "/user/login.bb";
+				
+				request.setAttribute("msg", msg);
+				request.setAttribute("loc", loc);
+				
+				request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+			}
 			
 			//주소
 			String address = mr.getParameter("address");
@@ -149,7 +160,7 @@ public class InsertPropertyEndServlet extends HttpServlet {
 			
 			//옵션
 			String[] option = mr.getParameterValues("option");
-			System.out.println(" 옵션:"+Arrays.toString(option));
+//			System.out.println(" 옵션:"+Arrays.toString(option));
 			
 			//반려동물,주차
 			char pet = mr.getParameter("petSelect").charAt(0);

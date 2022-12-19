@@ -224,7 +224,40 @@ public class PropertyDao {
 		return result;
 	}
 	
-	
+	//브로커번호로 등록된 매물리스트(+썸네일)
+	public List<Property> brokerPropertyList(Connection conn,int borkerNo){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<Property> propertys = new ArrayList<Property>();
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("brokerPropertyList"));
+//			SELECT * FROM PROPERTY P JOIN FILES F ON P.PROPERTY_NO = F.PROPERTY_NO WHERE THUMBNAIL='Y' AND BROKER_NO = ?
+			pstmt.setInt(1, borkerNo);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Property p = Property.builder()
+							.propertyNo(rs.getInt("PROPERTY_NO"))
+							.renttype(rs.getString("RENTTYPE"))
+							.deposit(rs.getInt("DEPOSIT"))
+							.monthlyCharge(rs.getInt("MONTHLY_CHARGE"))
+							.managementCharge(rs.getInt("MANAGEMENT_CHARGE"))
+							.address(rs.getString("ADDRESS"))
+							.propertyStructure(rs.getString("PROPERTY_STRUCTURE"))
+							.thumbnail(rs.getString("RENAMED_FILENAME"))
+							.build();
+				
+				propertys.add(p);
+			}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return propertys;
+	}
 	
 	
 	
