@@ -12,6 +12,7 @@
 	List<Files> files = (List<Files>)request.getAttribute("files");
 	List<String> option = (List<String>)request.getAttribute("option"); 
 	Broker broker = (Broker)request.getAttribute("broker");
+	int inquiryCount=(int)request.getAttribute("inquiryCount");
 %>
 
 <!-- css -->
@@ -346,8 +347,14 @@
                 <span><b>대표번호: </b></span>
                 <span><%=broker.getTelephone() %></span>
             </div>
-            <div id="buttonDiv">
-                <button id="inquiryBtn" onclick="fn_inquiry()">문의하기</button>
+            <div id="buttonDiv">            	
+	            	<%if(inquiryCount>0){ %>
+	                	<button id="inquiryBtn">문의하기 완료</button>
+						
+	                <%}else{ %>
+	                	<button id="inquiryBtn" onclick="fn_inquiry()">문의하기</button>
+	                
+	                <%}%>
                 <button onclick="fn_report()">허위매물신고</button>
             </div>
         </div>

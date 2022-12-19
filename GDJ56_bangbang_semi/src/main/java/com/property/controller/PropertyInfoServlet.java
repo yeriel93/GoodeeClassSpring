@@ -8,11 +8,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.account.model.service.AccountService;
 import com.broker.model.vo.Broker;
 import com.property.model.vo.Files;
 import com.property.model.vo.Property;
 import com.property.service.PropertyService;
+import com.user.model.vo.User;
 
 @WebServlet("/property/propertyInfo.bb")
 public class PropertyInfoServlet extends HttpServlet {
@@ -36,6 +39,18 @@ public class PropertyInfoServlet extends HttpServlet {
 //		System.out.println(property);
 //		System.out.println(option);
 		Broker broker = (Broker)propertyInfo.get(2);
+		
+		//문의하기 한번만 할 수 있게
+		HttpSession session=request.getSession();
+		User user=(User)session.getAttribute("loginUser");
+		int userNo=user.getUserNo();
+		
+//		System.out.println(userNo);
+//		System.out.println(propertyNo);
+		
+		int inquiryCount=AccountService.getAccountService().inquiryCount(userNo,propertyNo);
+		
+		request.setAttribute("inquiryCount", inquiryCount);
 		
 		request.setAttribute("property", property);
 		request.setAttribute("files", files);

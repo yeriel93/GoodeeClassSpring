@@ -11,6 +11,7 @@ import java.util.List;
 import com.account.model.dao.AccountDao;
 import com.account.model.vo.Alert;
 import com.account.model.vo.AlertList;
+import com.account.model.vo.AlertListC;
 import com.user.model.vo.User;
 
 public class AccountService {
@@ -68,6 +69,21 @@ public class AccountService {
 		int result=AccountDao.getAccountDao().giveFeedback(conn,a);
 		if(result>0) commit(conn);
 		else rollback(conn);
+		return result;
+	}
+	
+	public List<AlertListC> searchUserAlertC(int cPage,int numPerpage,int userNo){
+		Connection conn=getConnection();
+		List<AlertListC> list=AccountDao.getAccountDao().searchUserAlertC(conn,cPage,numPerpage,userNo);
+		close(conn);
+		return list;
+				
+	}
+	
+	public int inquiryCount(int userNo,int propertyNo) {
+		Connection conn=getConnection();
+		int result=AccountDao.getAccountDao().inquiryCount(conn,userNo,propertyNo);
+		close(conn);
 		return result;
 	}
 	
