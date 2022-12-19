@@ -1,11 +1,15 @@
 package com.account.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.account.model.service.AccountService;
+import com.account.model.vo.Alert;
 
 /**
  * Servlet implementation class FeedbackEndServlet
@@ -36,6 +40,28 @@ public class FeedbackEndServlet extends HttpServlet {
 //		System.out.println(propertyNo);
 //		System.out.println(content);
 		
+		Alert a=Alert.builder()
+				.sendUserNo(userBNo)
+				.receiveUserNo(userCNo)
+				.propertyNo(propertyNo)
+				.content(content)				
+				.build();
+		
+		int result=AccountService.getAccountService().giveFeedback(a);
+		
+		String msg="", loc="";
+		if(result>0) {
+			msg="🟢 답변이 전송되었습니다. ";
+			loc="/account/inquiryBroker.bb";
+			String script="opener.location.replace('"+request.getContextPath()+"/account/inquiryBroker.bb');close();";
+			request.setAttribute("script", script);
+		}else {
+			msg="🔴 답변전송에 실패했습니다. 문제가 지속될 경우 관리자에게 문의해주세요.";
+			loc="/account/inquiryBroker.bb";
+		}
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 		
 		
 		
