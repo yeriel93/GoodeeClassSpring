@@ -34,10 +34,19 @@ public class DeletePropertyServlet extends HttpServlet {
 				delFile.delete();
 			}
 		}
+		int result = PropertyService.getPropertyService().deleteProperty(propertyNo);
 		
-		
-		
-//		int result = PropertyService.getPropertyService().deleteProperty(propertyNo);
+		String msg="", loc="";
+		if(result>0) {
+			msg = "삭제 완료";
+			loc = "/account/broker/propertyList.bb";
+		}else {
+			msg = "삭제 실패";
+			loc = "/account/broker/propertyList.bb";
+		}
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
