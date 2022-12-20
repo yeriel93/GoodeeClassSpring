@@ -361,7 +361,7 @@
 	                
 	                <%}%>
 
-                <button onclick="fn_report()" style="border:none";>허위매물신고</button>
+                <button onclick="fn_report()" style="border:none">허위매물신고</button>
             </div>
         </div>
     </div>
@@ -392,14 +392,18 @@
 
     	}
     	const fn_report=()=>{
-    		open("<%=request.getContextPath()%>/property/propertyInfo/fakeReport.bb?propertyNo=<%=property.getPropertyNo()%>"+"&userNo=<%=loginUser.getUserNo()%>",
+    		<%if(loginUser != null){%>
+    			open("<%=request.getContextPath()%>/property/propertyInfo/fakeReport.bb?propertyNo=<%=property.getPropertyNo()%>"+"&userNo=<%=loginUser.getUserNo()%>",
 					"_blank","top=200,left=500,width=555px,height=330px");
+    		<%} else {%>
+    			alert("로그인 후 이용하실 수 있습니다.")
+    		<%}%>
     	}
     </script>
     
 
 
-    
+   
 </section>
 
 <%@ include file="/views/common/footer.jsp" %>
