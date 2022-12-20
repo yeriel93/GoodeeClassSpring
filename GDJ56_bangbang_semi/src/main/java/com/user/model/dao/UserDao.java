@@ -114,6 +114,29 @@ public class UserDao {
 		return result;
 	}
 	
+	//이메일 중복확인
+	public int checkEmail(Connection conn,String email) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("checkEmail"));
+			pstmt.setString(1, email);
+			rs=pstmt.executeQuery();
+			if(rs.next()||email.equals("")) {
+				result=0;
+			}else {
+				result=1;
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	//아이디 찾기
 	public String searchId(Connection conn,String userName,String userEmail,String userPhone) {
 		PreparedStatement pstmt=null;

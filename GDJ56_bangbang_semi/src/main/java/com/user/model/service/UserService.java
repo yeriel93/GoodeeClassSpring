@@ -41,6 +41,14 @@ public class UserService {
 		return result;
 	}
 	
+	//이메일 중복확인
+	public int checkEmail(String email) {
+		Connection conn=getConnection();
+		int result=UserDao.getUserDao().checkEmail(conn,email);
+		close(conn);
+		return result;
+	}
+	
 	//아이디 찾기
 	public String searchId(String userName,String userEmail,String userPhone) {
 		Connection conn=getConnection();

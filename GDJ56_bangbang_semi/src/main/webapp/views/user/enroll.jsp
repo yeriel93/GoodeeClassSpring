@@ -8,7 +8,7 @@
 
 <style>
 .enroll_input{
-  width: 290px;
+  width: 340px;
   height: 32px;
   font-size: 15px;
   border: 0;
@@ -30,13 +30,13 @@
 
 }
 #signupBtn{
-	width:420px;
+	width:360px;
 	border:none;
 	font-size: larger;
 }
 
 #signupRule1{
-    width:420px;
+    width:360px;
     height:100px;
     margin-top: 10px;
     background-color: white;
@@ -44,7 +44,7 @@
     
 }
 #signupRule2{
-    width:420px;
+    width:360px;
     height:100px;
     margin-top: 5px;
     background-color: white;
@@ -88,13 +88,15 @@
 		            <h3>비밀번호 확인</h3>
 		            <input type="password" class="enroll_input" name="userPw_chk" id="userPw_chk" placeholder="비밀번호를 한번 더 입력해주세요." required>
 					<input type="button" class="btns" id="pwCheck" value="(❁´▽`❁)*✲ﾟ*">						     						     
-							            
+					
 		            <h3>이름</h3>
 		            <input type="text" class="enroll_input" name="userName" id="userName" placeholder="이름을 입력해주세요." required>
 		            
 		            <h3>이메일</h3>
-		            <input type="text" class="enroll_input" name="userEmail" id="userEmail" placeholder="이메일 주소를 입력해주세요." required>
-		            <input type="button" class="btns" id="certifyEmail" value="이메일 인증">
+		            <input type="text" class="enroll_input" name="userEmail" id="userEmail" placeholder="이메일 주소를 입력해주세요." required>					
+		            <input type="button" class="btns" id="duplicateEmail" value="이메일 중복확인">
+		            <input type="hidden" name="userEmail_chk" id="userEmail_chk" value="" required>
+		            <input type="button" class="btns" id="certifyEmail" value="이메일 인증" disabled="false">
 		            
 		            <h3>이메일 인증</h3>
 		            <input type="text" class="enroll_input" name="userEmail_Cert" id="userEmailCert" placeholder="인증코드를 입력해주세요." required>
@@ -349,8 +351,43 @@
 					alert("아이디 중복여부를 다시 확인해주세요.");
 					return false;
 				}
+
+				const email=$("#userEmail").val();
+				const emailchk=$("#userEmail_chk").val();
+				if(email!=emailchk){
+					alert("이메일 중복여부를 다시 확인해주세요.");
+					return false;
+				}
+
 				
 			}	
+			// 이메일 중복확인
+			$("#duplicateEmail").click(e=>{
+				const userEmail=$("#userEmail").val();
+				$.ajax({
+					url:"<%=request.getContextPath()%>/user/duplicateEmail.bb",
+					data:{userEmail:userEmail},
+					success:function(result){
+						if(result==0){
+							alert("🔴 이미 존재하는 이메일입니다.");
+							$("#userEmail").val("");
+							// setTimeout(function(){ //alert 무한루프 문제 해결								
+							// }, 10)
+						}else{
+							alert("🟢 사용할 수 있는 이메일입니다.");
+							
+							const email=$("#userEmail").val();
+							$("#userEmail_chk").val(email);							
+							const emailchkk=$("#userEmail_chk").val();
+							$("#certifyEmail").attr("disabled","true")
+							
+							
+						}
+					
+					}
+				})
+			})
+			
 
 			//이메일 인증코드 확인 - 얘자체가 ajax로 움직여야댐 수정할것
 			$("#Emailcode_Chk").click(e=>{			
@@ -375,7 +412,7 @@
 
 						}else{
 							alert("🔴 인증에 실패했습니다. 인증번호를 다시 확인해주세요.")
-							$("#userEmail_chk").focus();
+							// $("#userEmail_chk").focus();
 						}
 					}
 				})
@@ -390,7 +427,6 @@
 					type:"post",
 					url:"<%=request.getContextPath()%>/user/certifyEmail.bb",
 					data:{userEmail:userEmail},
-					async:false,
 					success:function(data){
 						alert("인증코드 전송완료! 입력하신 이메일을 확인해주세요.");
 							$("#certifyEmail").attr("disabled","false");
@@ -454,7 +490,7 @@
 						alert("⛔ 비밀번호는 8자 이상, 영문자/숫자로만 구성할 수 있습니다.⛔");
 						$("#userPw").val('');
 						$("#userPw_chk").val('');
-						$("#userPw").focus();
+						// $("#userPw").focus();
 						
 					}
 
@@ -465,7 +501,7 @@
 						$("#pwCheck").val("비밀번호 불일치").css("color","red");
 						$("#userPw").val('');
 						$("#userPw_chk").val('');
-						$("#userPw").focus();
+						//$("#userPw").focus();
 					}
 					
 				})
@@ -480,7 +516,7 @@
 						alert("⛔ 아이디는 5자 이상, 영문자/숫자로만 구성할 수 있습니다. ⛔");
 						$("#userId").val("");
 						setTimeout(function(){ //alert 무한루프 문제 해결
-							$("#userId").focus();
+							// $("#userId").focus();
 						}, 10)
 						
 						
@@ -494,10 +530,10 @@
 					const emailChk=/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])+@[a-z]+\.[a-z]{2,3}/
 					
 					if(!emailChk.test(userEmail)){
-						alert("⛔ 이메일을 정확히 입력해주세요 ⛔");
-						$("#userEmail").val("");
 						setTimeout(function(){ 
-							$("#userEmail").focus();
+							alert("⛔ 이메일을 정확히 입력해주세요 ⛔");
+							$("#userEmail").val("");
+							// $("#userEmail").focus();
 						}, 10);
 						
 						
@@ -514,7 +550,7 @@
 						alert("⛔ 생년월일을 yyyy-mm-dd 형식으로 입력해주세요 예시) 1995년 01월 02일 ⛔");
 						$("#userBirth").val("");
 						setTimeout(function(){
-							$("#userBirth").focus();
+							// $("#userBirth").focus();
 						}, 10);
 						
 					}
@@ -530,7 +566,7 @@
                 alert("⛔ 휴대폰번호를 정확히 입력해주세요 ⛔");
                 $("#userPhone").val("");
                 setTimeout(function(){ 
-                    $("#userPhone").focus();
+                    // $("#userPhone").focus();
                 }, 10);
                 
                 
