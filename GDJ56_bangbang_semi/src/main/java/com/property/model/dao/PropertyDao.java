@@ -248,6 +248,8 @@ public class PropertyDao {
 							.propertyStructure(rs.getString("PROPERTY_STRUCTURE"))
 							.thumbnail(rs.getString("RENAMED_FILENAME"))
 							.hiding(rs.getString("HIDING").charAt(0))
+							.editDate(rs.getDate("EDIT_DATE"))
+							.enrollDate(rs.getDate("ENROLL_DATE"))
 							.build();
 				
 				propertys.add(p);

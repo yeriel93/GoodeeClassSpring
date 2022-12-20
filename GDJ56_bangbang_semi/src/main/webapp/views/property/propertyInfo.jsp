@@ -96,7 +96,7 @@
             </div>
             <div id="dealDataDiv" class="data">
                 <div id="price">
-                    <span><%=property.getDeposit()%></span>  
+                    <span id="deposit"><%=property.getDeposit()%></span>  
                     <%if(property.getRenttype().equals("월세")) {%>
                     <span>/</span>	
                     <span><%=property.getMonthlyCharge()%></span>
@@ -105,13 +105,13 @@
                 <br>
                 <div id="cost">
                 	<%if(property.getManagementCharge()!=0) {%>
-                   	<span><%=property.getManagementCharge() %></span> 
-                    	<span>만원</span>
+                   	<span><%=property.getManagementCharge() %>만</span> 
                 	<%} else {%>
                 		<span>없음</span>
                 	<%} %>
                 </div>
                 <br>
+                
                 <div id="costInclude">
                 	<%if(property.getElectric()=='Y') {%>
                     	<span>전기</span>
@@ -308,7 +308,7 @@
             <br>
             <div id="priceFix">
                 <span><%=property.getRenttype() %></span>
-                <span><%=property.getDeposit()%></span>  
+                <span id="deposit"><%=property.getDeposit()%></span>  
                     <%if(property.getRenttype().equals("월세")) {%>
                 <span>/</span>	
                 <span><%=property.getMonthlyCharge()%></span>
@@ -317,8 +317,7 @@
             <div>
                 <span>관리비</span>
                 <%if(property.getManagementCharge()!=0) {%>
-                  	<span><%=property.getManagementCharge() %></span> 
-                   	<span>만원</span>
+                  	<span><%=property.getManagementCharge() %>만</span> 
                	<%} else {%>
                		<span>없음</span>
                	<%} %>
@@ -365,6 +364,34 @@
             </div>
         </div>
     </div>
+    <!-- 보증금 금액 억단위 설정하기 -->
+    <script type="text/javascript">
+        $(()=>{
+            $("span#deposit").each((i,v)=>{
+                console.log($(v).text());
+                let parsePrice = changePrice($(v).text());
+                $(v).text(parsePrice);
+
+            });
+        });
+        //조건검색 div deposit,monthlyCharge range를 변경했을때 -> 위 text 변경
+        const changePrice = (price) => {           
+             let parsePrice = "";
+             
+           if(Math.trunc(price/10000) > 0){
+              parsePrice += Math.trunc(price/10000) + "억";
+              price = price - Math.trunc(price/10000)*10000;
+           }
+           if(price > 0){
+              parsePrice += " " +price+"만";
+           }
+           /* parsePrice += "원"; */
+           
+           //console.log(parsePrice.replace(/ /g, ''));
+           return parsePrice;      
+           
+        }
+    </script>
     <script>
     	const fn_inquiry=()=>{
             <%if(loginUser!=null){%>            
