@@ -50,6 +50,12 @@ p{
 	color:rgb(7, 90, 42) !important;
 }
 .buttonContainer #loginUser{
+	width:150px;
+	height:45px;
+	display:flex;
+	justify-content: center;
+}
+.buttonContainer #loginUser>div{
 	font-size:22px !important;
 	color:black !important;
 	text-align:center;

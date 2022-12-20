@@ -38,7 +38,7 @@
 		        	<%if(loginUser.getId().equals("admin")) {%>
 	            		<button><p><a href="<%=request.getContextPath()%>/admin/adminDashBoard.bb" style="color:white;text-decoration:none;">관리자페이지</a></p></button>
 	            	<%} %>
-	            	<button onclick='location.replace("<%=request.getContextPath()%>/user/logout.bb")'><p>로그아웃</p></button>
+	            	<button onclick='location.replace("<%=request.getContextPath()%>/user/logout.bb")' style="border-radius:5px;"><p>로그아웃</p></button>
 	        	</div>
 	        <%} %>
 	        
@@ -62,7 +62,7 @@
 	                			<%-- <%} %> --%>
 	                		</select>
 	                	</div>
-	                	<input type="submit" value ="검색">
+	                	<input type="submit" style="color:white;background-color:rgb(7, 90, 42);border:none;" value ="검색">
 					</div>
                 </form>
             </div>
