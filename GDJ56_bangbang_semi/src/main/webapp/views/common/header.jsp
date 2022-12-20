@@ -49,11 +49,16 @@
         <%} else { %>
        		<div class="buttonContainer" id="logoutBtn">
             	<div>
-            		<div id="loginUser">
-            			<img id="alertImage" src="<%=request.getContextPath()%>/images/noalert.png" width="25px" height="25px" style="padding-top:15px;">
-            			<%=loginUser.getName()%>님
-            		</div>
-            		<br>
+           			<div id="loginUser">
+           				<%if(!loginUser.getId().equals("admin")){ %>
+           					<div style="width=35px;height=35px;margin-right:5px;margin-left:10px;">
+           						<img id="alertImage" src="<%=request.getContextPath()%>/images/noalert.png" width="35px" height="35px" style="">
+           					</div>
+           				<%} %>
+           				<div style="margin-top:3px;">
+           					<%=loginUser.getName()%>님
+           				</div>
+           			</div>
             		<button><p><a href="<%=request.getContextPath()%>/user/logout.bb" style="color:white">로그아웃</a></p></button>
             		<%if(loginUser.getId().equals("admin")) {%>
        			     	<br>
@@ -68,6 +73,9 @@
     <script>
     	$("div#logoContainer>img").click(e=>{
     		location.assign("<%=request.getContextPath()%>/");
-    	})
+    	});
+    	$("img#alertImage").click(e=>{
+    		location.assign("<%=request.getContextPath()%>/account/inquiry.bb");
+    	});
     </script>
     
