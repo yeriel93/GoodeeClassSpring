@@ -4,7 +4,7 @@
 				com.property.model.vo.Property"%>
 <%
 	List<Property> propertys = (List<Property>)request.getAttribute("propertys");
-	propertys.forEach(v->System.out.println(v));
+	/* propertys.forEach(v->System.out.println(v)); */
 %>
  
 <%@ include file="/views/common/mypageMain.jsp"%>
@@ -63,10 +63,10 @@
                     </div>
                         <div class="price">
                             <span><%=p.getRenttype() %></span>
-                            <span><%=p.getDeposit() %></span>
+                            <span id="deposit"><%=p.getDeposit() %></span>
                             <%if(p.getRenttype().equals("월세")) {%>
                                 <span>/</span>
-                                <span><%=p.getMonthlyCharge() %></span>
+                                <span><%=p.getMonthlyCharge() %>만</span>
                             <%} %>
                         </div>
                         <div>
@@ -99,7 +99,33 @@
  		<%}%>
         </div>
 	 </section>
-        
+        <script type="text/javascript">
+        $(()=>{
+            $("span#deposit").each((i,v)=>{
+                console.log($(v).text());
+                let parsePrice = changePrice($(v).text());
+                $(v).text(parsePrice);
+
+            });
+        });
+        //조건검색 div deposit,monthlyCharge range를 변경했을때 -> 위 text 변경
+        const changePrice = (price) => {           
+             let parsePrice = "";
+             
+           if(Math.trunc(price/10000) > 0){
+              parsePrice += Math.trunc(price/10000) + "억";
+              price = price - Math.trunc(price/10000)*10000;
+           }
+           if(price > 0){
+              parsePrice += " " +price+"만";
+           }
+           /* parsePrice += "원"; */
+           
+           //console.log(parsePrice.replace(/ /g, ''));
+           return parsePrice;      
+           
+        }
+    </script>
         <script>
         	//매물클릭했을때 상세페이지 이동
         	const fn_showPropertyInfo=(e)=>{
