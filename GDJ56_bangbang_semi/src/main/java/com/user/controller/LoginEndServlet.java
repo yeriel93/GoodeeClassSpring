@@ -50,9 +50,11 @@ public class LoginEndServlet extends HttpServlet {
 			if(user.getUserLevel()=='B') {
 				Broker broker=BrokerService.getBrokerService().loginBroker(user.getUserNo());
 				
-				HttpSession session=request.getSession();
-				session.setAttribute("loginBroker", broker);			
-							
+				if(broker.getAdmissionState()=='Y') {
+					HttpSession session=request.getSession();
+					session.setAttribute("loginBroker", broker);					
+					
+				}
 			}
 			
 			//로그인세션
