@@ -52,36 +52,47 @@
                 <div class="infoDiv">
                     <div>
                     	<div style="float:right; margin-right: 24px; font-weight: bolder;">
-                    		<span>Hidden status : </span>
-	                    	<span style="color:blue;"><%=p.getHiding() %></span>
+                    		<%if(p.getHiding()=='N') {%>
+	                    		<span style="color:blue;">전체공개</span>
+	                    	<%}else{ %>
+	                    		<span style="color:red;">숨김</span>
+	                    	<%} %>
 	                    </div>
                         <span>매물번호</span>
                         <span><%=p.getPropertyNo() %></span>
                     </div>
-                    <div class="price">
-                        <span><%=p.getRenttype() %></span>
-                        <span><%=p.getDeposit() %></span>
-                        <%if(p.getRenttype().equals("월세")) {%>
-                            <span>/</span>
-                            <span><%=p.getMonthlyCharge() %></span>
-                        <%} %>
-                    </div>
-                    <div>
-                        <span>관리비</span>
-                        <%if(p.getManagementCharge()==0) {%>
-                            <span>없음</span>
-                        <%}else{%>
-                            <span><%=p.getManagementCharge()%></span>
-                            <span>만</span>
-                        <%} %>
-                    </div>
-                    <div>
-                        <span>주소</span>
-                        <span><%=p.getAddress() %></span>
-                    </div>
-                    <div>
-                        <span><%=p.getPropertyStructure() %></span>
-                    </div>
+                        <div class="price">
+                            <span><%=p.getRenttype() %></span>
+                            <span><%=p.getDeposit() %></span>
+                            <%if(p.getRenttype().equals("월세")) {%>
+                                <span>/</span>
+                                <span><%=p.getMonthlyCharge() %></span>
+                            <%} %>
+                        </div>
+                        <div>
+                            <span>관리비</span>
+                            <%if(p.getManagementCharge()==0) {%>
+                                <span>없음</span>
+                            <%}else{%>
+                                <span><%=p.getManagementCharge()%></span>
+                                <span>만</span>
+                            <%} %>
+                        </div>
+                        <div>
+                            <span>주소</span>
+                            <span><%=p.getAddress() %></span>
+                        </div>
+                        <div>
+                            <span><%=p.getPropertyStructure() %></span>
+                        </div>
+                        <div>
+                            <span>등록일 : </span>
+                            <span><%=p.getEnrollDate() %></span>
+                        </div>
+                        <div>
+                            <span>수정일 : </span>
+                            <span><%=p.getEditDate()==null ? "-" : p.getEditDate() %></span>
+                        </div>
                     </div>
                 </div>
             </div>
