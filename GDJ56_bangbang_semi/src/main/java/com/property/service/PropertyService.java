@@ -158,9 +158,15 @@ public class PropertyService {
 	}
 	
 	//선택한 매물 삭제
-	public int deleteProperty(String propertyNo) {
+	public int deleteProperty(String propertyNo, int brokerNo) {
 		Connection conn = getConnection();
-		int result = PropertyDao.getPropertyDao().deleteProperty(conn,propertyNo);
+		int propertyResult = PropertyDao.getPropertyDao().deleteProperty(conn,propertyNo);
+		int brokerResult = BrokerDao.getBrokerDao().minusPropertyCount(conn, brokerNo);
+		
+		int result = 0;
+		if(propertyResult>0 && brokerResult>0) {
+			result = 1;
+		}
 		
 		if(result>0) commit(conn);
 		else rollback(conn);

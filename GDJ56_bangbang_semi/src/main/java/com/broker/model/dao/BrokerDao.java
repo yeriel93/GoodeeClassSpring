@@ -153,4 +153,22 @@ public class BrokerDao {
 		}
 		return result;
 	}
+	
+	//매물삭제시 매물등록갯수 빼기
+	public int minusPropertyCount(Connection conn,int brokerNo) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("minusPropertyCount"));
+//			UPDATE BROKER SET PROPERTY_COUNT = PROPERTY_COUNT-1 WHERE BROKER_NO = ?
+			pstmt.setInt(1, brokerNo);
+			result = pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(conn);
+		}
+		return result;
+	}
 }

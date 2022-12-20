@@ -43,6 +43,7 @@
                 <input type="button" value="수정" class="updateBtn" onclick="fn_updatePage(event)">
                 <input type="number" name="propertyNo" id="propertyNo" value="<%=p.getPropertyNo()%>" hidden>
                 
+                
                 <div class="showProperty" onclick="fn_showPropertyInfo(event)">
                 <div class="imgDiv">
                     <img src="<%=request.getContextPath() %>/upload/property/<%=p.getThumbnail() %>" alt="">
@@ -50,6 +51,10 @@
                 
                 <div class="infoDiv">
                     <div>
+                    	<div style="float:right; margin-right: 24px; font-weight: bolder;">
+                    		<span>Hidden status : </span>
+	                    	<span style="color:blue;"><%=p.getHiding() %></span>
+	                    </div>
                         <span>매물번호</span>
                         <span><%=p.getPropertyNo() %></span>
                     </div>
@@ -57,17 +62,17 @@
                         <span><%=p.getRenttype() %></span>
                         <span><%=p.getDeposit() %></span>
                         <%if(p.getRenttype().equals("월세")) {%>
-                        	<span>/</span>
-                        	<span><%=p.getMonthlyCharge() %></span>
+                            <span>/</span>
+                            <span><%=p.getMonthlyCharge() %></span>
                         <%} %>
                     </div>
                     <div>
                         <span>관리비</span>
                         <%if(p.getManagementCharge()==0) {%>
-							<span>없음</span>
+                            <span>없음</span>
                         <%}else{%>
-	                        <span><%=p.getManagementCharge()%></span>
-	                        <span>만</span>
+                            <span><%=p.getManagementCharge()%></span>
+                            <span>만</span>
                         <%} %>
                     </div>
                     <div>

@@ -247,6 +247,7 @@ public class PropertyDao {
 							.address(rs.getString("ADDRESS"))
 							.propertyStructure(rs.getString("PROPERTY_STRUCTURE"))
 							.thumbnail(rs.getString("RENAMED_FILENAME"))
+							.hiding(rs.getString("HIDING").charAt(0))
 							.build();
 				
 				propertys.add(p);
@@ -268,7 +269,7 @@ public class PropertyDao {
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("deleteProperty")+propertyNo);
 //			DELETE FROM PROPERTY WHERE PROPERTY_NO IN 
-			System.out.println(sql.getProperty("deleteProperty")+propertyNo);
+//			System.out.println(sql.getProperty("deleteProperty")+propertyNo);
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {

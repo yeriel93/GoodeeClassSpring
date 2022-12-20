@@ -9,7 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.broker.model.vo.Broker;
 import com.property.service.PropertyService;
 
 @WebServlet("/account/broker/deleteProperty.bb")
@@ -24,8 +26,13 @@ public class DeletePropertyServlet extends HttpServlet {
 		String propertyNo = request.getParameter("propertyNo");
 //		System.out.println(propertyNo);
 		
+		HttpSession session = request.getSession();
+		Broker broker = (Broker)session.getAttribute("loginBroker");
+//		System.out.println("DeletePropertyServlet(브로커번호): "+ broker.getBrokerNo());
+		
+		
 		List<String> fileNames = PropertyService.getPropertyService().callFileNames(propertyNo);
-		System.out.println(fileNames);
+//		System.out.println("DeletePropertyServlet: "+fileNames);
 		for(String f : fileNames) {
 			
 			String path = getServletContext().getRealPath("/upload/property/");
@@ -34,7 +41,7 @@ public class DeletePropertyServlet extends HttpServlet {
 				delFile.delete();
 			}
 		}
-		int result = PropertyService.getPropertyService().deleteProperty(propertyNo);
+		int result = PropertyService.getPropertyService().deleteProperty(propertyNo, broker.getBrokerNo());
 		
 		String msg="", loc="";
 		if(result>0) {
