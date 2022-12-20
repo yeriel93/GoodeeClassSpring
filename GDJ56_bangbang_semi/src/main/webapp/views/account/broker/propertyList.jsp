@@ -99,7 +99,9 @@
  		<%}%>
         </div>
 	 </section>
+	 
         <script type="text/javascript">
+        //보증금 억단위 문자 파싱
         $(()=>{
             $("span#deposit").each((i,v)=>{
                 console.log($(v).text());
@@ -133,7 +135,7 @@
                 console.log($(e.target).parents("div.showProperty").children("#showProperty"));
                 let propertyNo = $(e.target).parents("div.showProperty").prev().val();
                 console.log(propertyNo);
-                <%-- window.open("<%=request.getContextPath()%>/property/propertyInfo.bb?propertyNo=" + propertyNo); --%>
+                window.open("<%=request.getContextPath()%>/property/propertyInfo.bb?propertyNo=" + propertyNo);
         		
         	}
         	
@@ -142,7 +144,7 @@
                 // console.log($(e.target).next().val())
                 // console.log($("input[name=propertyNo]"));
                 let proeprtyNo= $(e.target).next().val(); 
-                window.open("<%=request.getContextPath()%>/account/broker/updateProperty.bb?propertyNo="+proeprtyNo,"_blank");
+                location.assign("<%=request.getContextPath()%>/account/broker/updateProperty.bb?propertyNo="+proeprtyNo);
             }
             
             //삭제버튼 클릭했을때
