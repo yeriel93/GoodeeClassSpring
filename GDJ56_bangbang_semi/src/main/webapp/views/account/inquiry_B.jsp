@@ -65,8 +65,8 @@
 	                        <td><a id="propertyNo" href="<%=request.getContextPath() %>/property/propertyInfo.bb?propertyNo=<%=userAlert.get(i).getPropertyNo() %>"><%=userAlert.get(i).getPropertyNo() %></a></td>
 	                        <td><img id="propertyImg" src="<%=request.getContextPath() %>/upload/property/<%=userAlert.get(i).getRenamedFilename() %>"></td> 
 	                        <td><%=userAlert.get(i).getRenttype() %></td>
-	                        <td><%=userAlert.get(i).getDeposit() %></td>
-	                        <td><%=userAlert.get(i).getMonthlycharge() %></td>
+	                        <td class="deposit"><%=userAlert.get(i).getDeposit() %></td>
+	                        <td class="monthlyCharge"><%=userAlert.get(i).getMonthlycharge() %></td>
 	                        <td id="userCName"><%=userAlert.get(i).getName() %></td>
 	                        <td><%=userAlert.get(i).getPhone() %></td>
 	                        <td><%=userAlert.get(i).getAlertDate() %></td>                       
@@ -110,6 +110,42 @@
         
 
     });
+    
+ 	$(()=>{
+ 		<%if(!userAlert.isEmpty()){ %>
+ 				$("td.deposit").each((i,v)=>{
+ 					let parsePrice = changePrice($(v).text());
+ 					$(v).text(parsePrice);
+ 				})
+ 				
+ 				$("td.monthlyCharge").each((i,v)=>{
+ 					if($(v).text()==0){
+ 						$(v).text("없음");
+ 						
+ 					}else{
+ 						$(v).text($(v).text() + "만원");
+ 						
+ 					}
+ 				})
+ 				
+ 		
+ 		<%}%>
+ 	});
+	const changePrice = (price) => {           
+	     let parsePrice = "";
+	     
+	   if(Math.trunc(price/10000) > 0){
+	      parsePrice += Math.trunc(price/10000) + "억";
+	      price = price - Math.trunc(price/10000)*10000;
+	   }
+	   if(price > 0){
+	      parsePrice += " " +price+"만";
+	   }
+	   parsePrice += "원";
+	   
+	   //console.log(parsePrice.replace(/ /g, ''));
+	   return parsePrice;      
+	}
  </script>
 
 
