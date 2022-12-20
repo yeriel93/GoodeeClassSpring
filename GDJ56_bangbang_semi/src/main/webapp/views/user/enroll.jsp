@@ -96,7 +96,7 @@
 		            <input type="text" class="enroll_input" name="userEmail" id="userEmail" placeholder="이메일 주소를 입력해주세요." required>					
 		            <input type="button" class="btns" id="duplicateEmail" value="이메일 중복확인">
 		            <input type="hidden" name="userEmail_chk" id="userEmail_chk" value="" required>
-		            <input type="button" class="btns" id="certifyEmail" value="이메일 인증" disabled="false">
+		            <input type="button" class="btns" id="certifyEmail" value="이메일 인증" disabled="false" style="background-color: gray;">
 		            
 		            <h3>이메일 인증</h3>
 		            <input type="text" class="enroll_input" name="userEmail_Cert" id="userEmailCert" placeholder="인증코드를 입력해주세요." required>
@@ -379,7 +379,7 @@
 							const email=$("#userEmail").val();
 							$("#userEmail_chk").val(email);							
 							const emailchkk=$("#userEmail_chk").val();
-							$("#certifyEmail").attr("disabled","true")
+							$("#certifyEmail").attr("disabled","true");
 							
 							
 						}
