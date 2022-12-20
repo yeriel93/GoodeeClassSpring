@@ -51,11 +51,11 @@
             	<div>
            			<div id="loginUser">
            				<%if(!loginUser.getId().equals("admin")){ %>
-           					<div style="width=35px;height=35px;margin-right:5px;margin-left:10px;">
+           					<div style="width=35px;height=35px;">
            						<img id="alertImage" src="<%=request.getContextPath()%>/images/noalert.png" width="35px" height="35px" style="">
            					</div>
            				<%} %>
-           				<div style="margin-top:3px;">
+           				<div style="margin:3px 20px 0px 5px;">
            					<%=loginUser.getName()%>님
            				</div>
            			</div>
