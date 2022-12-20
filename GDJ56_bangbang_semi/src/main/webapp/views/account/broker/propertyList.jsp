@@ -4,7 +4,7 @@
 				com.property.model.vo.Property"%>
 <%
 	List<Property> propertys = (List<Property>)request.getAttribute("propertys");
-	/* System.out.println(propertys); */
+	propertys.forEach(v->System.out.println(v));
 %>
  
 <%@ include file="/views/common/mypageMain.jsp"%>
@@ -38,11 +38,12 @@
     <!-- 매물목록 -->
         <div id="container">
    		<%for(Property p : propertys){%>
-            <div class="propertyWrap" onclick="fn_showPropertyInfo(event)">
+            <div class="propertyWrap" >
                 <input type="checkbox" name="inputCheckbox">
                 <input type="button" value="수정" class="updateBtn" onclick="fn_updatePage(event)">
                 <input type="number" name="propertyNo" id="propertyNo" value="<%=p.getPropertyNo()%>" hidden>
                 
+                <div class="showProperty" onclick="fn_showPropertyInfo(event)">
                 <div class="imgDiv">
                     <img src="<%=request.getContextPath() %>/upload/property/<%=p.getThumbnail() %>" alt="">
                 </div>
@@ -76,6 +77,7 @@
                     <div>
                         <span><%=p.getPropertyStructure() %></span>
                     </div>
+                    </div>
                 </div>
             </div>
  		<%}%>
@@ -85,11 +87,11 @@
         <script>
         	//매물클릭했을때 상세페이지 이동
         	const fn_showPropertyInfo=(e)=>{
-                console.log($(e.target).parents("div.propertyWrap"));
-                console.log($(e.target).parents("div.propertyWrap").children("#propertyNo"));
-                let propertyNo = $(e.target).parents("div.propertyWrap").children("#propertyNo").val();
+                console.log($(e.target).parents("div.showProperty"));
+                console.log($(e.target).parents("div.showProperty").children("#showProperty"));
+                let propertyNo = $(e.target).parents("div.showProperty").prev().val();
                 console.log(propertyNo);
-                window.open("<%=request.getContextPath()%>/property/propertyInfo.bb?propertyNo=" + propertyNo);
+                <%-- window.open("<%=request.getContextPath()%>/property/propertyInfo.bb?propertyNo=" + propertyNo); --%>
         		
         	}
         	
