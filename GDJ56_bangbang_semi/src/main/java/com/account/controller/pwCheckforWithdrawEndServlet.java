@@ -16,7 +16,7 @@ import com.user.model.vo.User;
 /**
  * Servlet implementation class pwCheckforUpdateEndServlet
  */
-@WebServlet("/account/pwCheckforwithdrawEnd.bb")
+@WebServlet(name="pwCheckWithdrawalEnd",urlPatterns = "/account/pwCheckforwithdrawEnd.bb")
 public class pwCheckforWithdrawEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

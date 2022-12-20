@@ -17,7 +17,7 @@ import com.user.model.service.UserService;
 /**
  * Servlet implementation class EnrollEndServlet
  */
-@WebServlet("/user/enrollEnd.bb")
+@WebServlet(name="enrollEnd",urlPatterns = "/user/enrollEnd.bb")
 public class EnrollEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

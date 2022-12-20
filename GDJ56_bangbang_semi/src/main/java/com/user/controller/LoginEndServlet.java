@@ -21,7 +21,7 @@ import com.user.model.vo.User;
 /**
  * Servlet implementation class LoginEndServlet
  */
-@WebServlet("/user/loginEnd.bb")
+@WebServlet(name="loginEnd",urlPatterns = "/user/loginEnd.bb")
 public class LoginEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
