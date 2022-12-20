@@ -43,15 +43,21 @@ public class PropertyInfoServlet extends HttpServlet {
 		//문의하기 한번만 할 수 있게
 		HttpSession session=request.getSession();
 		User user=(User)session.getAttribute("loginUser");
-		int userNo=user.getUserNo();
-		
-		System.out.println("userNo:"+userNo);
-		System.out.println("propertyNo:"+propertyNo);
-		
-		int inquiryCount=AccountService.getAccountService().inquiryCount(userNo,propertyNo);
+		if(user!=null) {
+			int userNo=user.getUserNo();
+			
+//		System.out.println("userNo:"+userNo);
+//		System.out.println("propertyNo:"+propertyNo);
+			
+			int inquiryCount=AccountService.getAccountService().inquiryCount(userNo,propertyNo);
 //		System.out.println("inquiryCount:"+inquiryCount);
+			
+			request.setAttribute("inquiryCount", inquiryCount);
+			
+		}
 		
-		request.setAttribute("inquiryCount", inquiryCount);
+		//여기까지
+		
 		
 		request.setAttribute("property", property);
 		request.setAttribute("files", files);

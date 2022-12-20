@@ -45,13 +45,14 @@ public class PropertyService {
 	}
 	
 	//중개사 방내놓기 
-	public int insertProperty(Property p, List<Files> fileList, String[] option) {
+	public int insertProperty(Property p, List<Files> fileList, String[] option, int brokerNo) {
 		Connection conn = getConnection();
 		
 		int propertyResult = PropertyDao.getPropertyDao().insertProperty(conn, p);
 		int propertyNo = 0;
 		int filesResult = 0;
 		int optionResult = 0;
+		int brokerResult = 0;
 		if(propertyResult>0) {
 			propertyNo = PropertyDao.getPropertyDao().searchPropertyNo(conn);
 			
@@ -62,13 +63,16 @@ public class PropertyService {
 			for(String o : option) {
 				optionResult += OptionDao.getOptionDao().insertOption(conn,propertyNo, o);
 			}
+			
+			brokerResult = BrokerDao.getBrokerDao().plusPropertyCount(conn, brokerNo);
 		}
 		
 //		System.out.println("propertyService_insert(매물등록): "+propertyResult);
 //		System.out.println("propertyService_insert(파일등록): "+filesResult);
 //		System.out.println("propertyService_insert(옵션등록): "+optionResult);
+//		System.out.println("propertyService_insert(매물카운트등록): "+brokerResult);
 		int allResult = 0;
-		if(propertyResult>0 && filesResult>0 && optionResult==option.length) {
+		if(propertyResult>0 && filesResult>0 && optionResult==option.length && brokerResult>0) {
 			allResult = 1;
 		}
 //		System.out.println("propertyService_insert(전체등록): "+allResult);
