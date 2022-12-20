@@ -5,7 +5,6 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -211,8 +210,9 @@ public class InsertPropertyEndServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 			}
-			System.out.println(p);
-			int result = PropertyService.getPropertyService().insertProperty(p, fileList, option);
+//			System.out.println(p);
+			
+			int result = PropertyService.getPropertyService().insertProperty(p, fileList, option, brokerNo);
 			
 			//등록 후 
 			String msg ="",loc="";
