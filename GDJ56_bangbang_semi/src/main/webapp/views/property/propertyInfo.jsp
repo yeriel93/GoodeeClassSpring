@@ -12,7 +12,11 @@
 	List<Files> files = (List<Files>)request.getAttribute("files");
 	List<String> option = (List<String>)request.getAttribute("option"); 
 	Broker broker = (Broker)request.getAttribute("broker");
-	int inquiryCount=(int)request.getAttribute("inquiryCount");
+	
+	int inquiryCount=0;
+	if(request.getAttribute("inquiryCount")!=null){
+		inquiryCount=(int)request.getAttribute("inquiryCount");		
+	}
 %>
 
 <!-- css -->
@@ -348,38 +352,43 @@
                 <span><%=broker.getTelephone() %></span>
             </div>
             <div id="buttonDiv">            	
-	            	<%if(inquiryCount>0){ %>
-	                	<button id="inquiryBtn">문의하기 완료</button>
+	            	
+                    <%if(inquiryCount>0){ %>
+	                	<button id="inquiryBtn" style="background-color: gray;border:none;">문의하기 완료</button>
 						
 	                <%}else{ %>
-	                	<button id="inquiryBtn" onclick="fn_inquiry()">문의하기</button>
+	                	<button id="inquiryBtn" onclick="fn_inquiry()" style="border:none;">문의하기</button>
 	                
 	                <%}%>
-                <button onclick="fn_report()">허위매물신고</button>
+
+                <button onclick="fn_report()" style="border:none";>허위매물신고</button>
             </div>
         </div>
     </div>
     <script>
     	const fn_inquiry=()=>{
-            const userNo="<%=loginUser.getUserNo()%>";
-            const propertyNo="<%=property.getPropertyNo()%>";
-            const brokerUserNo="<%=broker.getUserNo()%>";
-            
-    		$.ajax({
-                url:"<%=request.getContextPath()%>/account/sendMessage.bb",
-                data:{userNo:userNo,propertyNo:propertyNo,brokerUserNo:brokerUserNo},
-                success:function(result){                	
-                	if(result>0){
-                		alert("🟢 문의하기 성공.");
-                		$("#inquiryBtn").attr("disabled","false");
-                		$("#inquiryBtn").css("background-color","lightgray");
-                		
-                	}else{
-                		alert("🔴 문의하기 실패. 문제가 지속되면 관리자에게 문의해주세요.");
-                	}
-                }
-            })
-
+            <%if(loginUser!=null){%>            
+                const userNo="<%=loginUser.getUserNo()%>";
+                const propertyNo="<%=property.getPropertyNo()%>";
+                const brokerUserNo="<%=broker.getUserNo()%>";
+                
+                $.ajax({
+                    url:"<%=request.getContextPath()%>/account/sendMessage.bb",
+                    data:{userNo:userNo,propertyNo:propertyNo,brokerUserNo:brokerUserNo},
+                    success:function(result){                	
+                        if(result>0){
+                            alert("🟢 문의하기 성공.");
+                            $("#inquiryBtn").attr("disabled","false");
+                            $("#inquiryBtn").css("background-color","lightgray");
+                            
+                        }else{
+                            alert("🔴 문의하기 실패. 문제가 지속되면 관리자에게 문의해주세요.");
+                        }
+                    }
+                })
+            <%} else{%>
+                alert("로그인 후 이용하실 수 있습니다.");
+            <%}%>
 
     	}
     	const fn_report=()=>{
