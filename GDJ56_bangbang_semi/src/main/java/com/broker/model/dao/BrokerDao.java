@@ -136,5 +136,21 @@ public class BrokerDao {
 		return result;
 	}
 	
-	
+	//매물등록시 매물등록갯수 추가
+	public int plusPropertyCount(Connection conn, int brokerNo) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("plusPropertyCount"));
+//			UPDATE BROKER SET PROPERTY_COUNT = PROPERTY_COUNT+1 WHERE BROKER_NO = ?
+			pstmt.setInt(1, brokerNo);
+			result = pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(conn);
+		}
+		return result;
+	}
 }
