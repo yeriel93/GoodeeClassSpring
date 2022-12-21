@@ -99,6 +99,11 @@
  		<%}%>
         </div>
 	 </section>
+		<br><br>
+		<!-- 페이징처리 -->
+		<div id="pageDiv" style="text-align : center;">
+        	<div id="pageBar"><%=request.getAttribute("pageBar")%></div>
+		</div>
 	 
         <script type="text/javascript">
         //보증금 억단위 문자 파싱

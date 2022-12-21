@@ -13,11 +13,13 @@ import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.broker.model.vo.Broker;
 import com.user.model.vo.User;
 
 //LoginCheckFilter는 나중에 지워야함 임시로 적어놓은 주소임
 @WebFilter(urlPatterns = {
-		"/account/*"
+		"/account/*",
+		"/account.bb"
 })
 public class LoginCheckFilter extends HttpFilter implements Filter {
        
@@ -31,11 +33,15 @@ public class LoginCheckFilter extends HttpFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpSession session = ((HttpServletRequest)request).getSession(false);
 		
-		User loginUser = (User)session.getAttribute("loginUser");
+		User loginUser = null;
+		try {
+			loginUser = (User)session.getAttribute("loginUser");
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
 		
 		if(loginUser!=null) {
-			chain.doFilter(request, response);
-		
+			chain.doFilter(request, response);	
 		}else {
 			request.setAttribute("msg", "로그인 후 이용할 수 있는 서비스입니다. (¬_¬)");		
 			request.setAttribute("loc", "/user/login.bb");

@@ -227,14 +227,16 @@ public class PropertyDao {
 	}
 	
 	//브로커번호로 등록된 매물리스트(+썸네일)
-	public List<Property> brokerPropertyList(Connection conn,int borkerNo){
+	public List<Property> brokerPropertyList(Connection conn,int borkerNo,int cPage,int numPerpage){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<Property> propertys = new ArrayList<Property>();
 		try {
 			pstmt = conn.prepareStatement(sql.getProperty("brokerPropertyList"));
-//			SELECT * FROM PROPERTY P JOIN FILES F ON P.PROPERTY_NO = F.PROPERTY_NO WHERE THUMBNAIL='Y' AND BROKER_NO = ?
+//			SELECT * FROM ( SELECT rownum AS rnum, m.* FROM (SELECT * FROM PROPERTY P JOIN FILES F ON P.PROPERTY_NO = F.PROPERTY_NO WHERE THUMBNAIL='Y' AND BROKER_NO = ?)m) WHERE rnum BETWEEN ? AND ?
 			pstmt.setInt(1, borkerNo);
+			pstmt.setInt(2, (cPage-1)*numPerpage+1);
+			pstmt.setInt(3, cPage*numPerpage);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -262,6 +264,26 @@ public class PropertyDao {
 			close(pstmt);
 		}
 		return propertys;
+	}
+	
+	//페이징처리를 위한 브로커번호별 매물갯수
+	public int selectPropertyCount(Connection conn,int brokerNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int count = 0;
+		try {
+			pstmt = conn.prepareStatement(sql.getProperty("selectPropertyCount"));
+			pstmt.setInt(1, brokerNo);
+//			SELECT COUNT(*) FROM PROPERTY P JOIN FILES F ON P.PROPERTY_NO = F.PROPERTY_NO WHERE THUMBNAIL='Y' AND BROKER_NO = ?
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) count = rs.getInt(1);
+			
+		} catch (Exception e) {
+			close(rs);
+			close(pstmt);
+		}
+		return count;
 	}
 	
 	//매물번호로 매물삭제

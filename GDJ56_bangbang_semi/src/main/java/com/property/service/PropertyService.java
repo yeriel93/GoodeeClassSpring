@@ -138,14 +138,22 @@ public class PropertyService {
 	}
 	
 	//중개인번호로 등록된 매물리스트
-	public List<Property> brokerPropertyList(int borkerNo) {
+	public List<Property> brokerPropertyList(int borkerNo, int cPage,int numPerpage) {
 		Connection conn = getConnection();
 		
-		List<Property> propertys  = PropertyDao.getPropertyDao().brokerPropertyList(conn,borkerNo);
+		List<Property> propertys  = PropertyDao.getPropertyDao().brokerPropertyList(conn,borkerNo, cPage, numPerpage);
 //		System.out.println("propertyService_brokerProperty(매물+썸네일파일이름): "+propertys);
 		
 		close(conn);
 		return propertys;
+	}
+	
+	//페이징처리를 위한 매물 갯수
+	public int selectPropertyCount(int brokerNo) {
+		Connection conn = getConnection();
+		int result = PropertyDao.getPropertyDao().selectPropertyCount(conn, brokerNo);
+		close(conn);
+		return result;
 	}
 	
 	//선택한 매물의 파일들 이름 불러오기 

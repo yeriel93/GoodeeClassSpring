@@ -49,8 +49,19 @@ public class NotBrokerCheckFilter extends HttpFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpSession session = ((HttpServletRequest)request).getSession(false);
 		
-		User loginUser = (User)session.getAttribute("loginUser");
-		Broker loginBroker = (Broker)session.getAttribute("loginBroker");
+		User loginUser = null;
+		try {
+			loginUser = (User)session.getAttribute("loginUser");
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+		
+		Broker loginBroker = null;
+		try {
+			loginBroker = (Broker)session.getAttribute("loginBroker");
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
 		
 		if(loginUser != null && loginBroker == null && loginUser.getUserLevel()=='C') {
 			chain.doFilter(request, response);
