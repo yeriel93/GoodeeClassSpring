@@ -23,9 +23,8 @@ input::placeholder {
 	            <input type="password" name="userPw" id="userPw" placeholder="비밀번호를 입력해주세요">
 	            <br>
 	            <button id="loginBtn2">로그인</button>
-	            <!-- <input type="radio" id="rememberId"> 아이디 기억하기 -->
 	            <br>
-	            <a href="javascript:kakaoLogin();"><img src="../images/kakao_login_medium_wide.png" alt="" ></a>        
+	            <!-- <a href="javascript:kakaoLogin();"><img src="../images/kakao_login_medium_wide.png" alt="" ></a>  -->       
 	        </form>    
         </div>      
         
@@ -37,7 +36,7 @@ input::placeholder {
     </div>
 
 	<!-- 카카오 로그인  -->
-    <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<!--     <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
     <script>
         // 28988ab62325a7e38f8fbc58e32dcb66
         window.Kakao.init("28988ab62325a7e38f8fbc58e32dcb66");
@@ -55,7 +54,7 @@ input::placeholder {
                     });
                 }
             });
-        }
+        } -->
     </script>
 </section>
 <%-- <%@ include file="/views/common/footer.jsp"%> --%>
