@@ -135,4 +135,4 @@ input::placeholder {
     //중개등록번호 정규표현식 : ^\d{5}-\d{4}-\d{5}$
 
 </script>
-<%-- <%@ include file="/views/common/footer.jsp"%> --%>
+<%@ include file="/views/common/footer.jsp"%>
