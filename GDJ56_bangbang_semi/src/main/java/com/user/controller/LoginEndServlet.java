@@ -42,18 +42,16 @@ public class LoginEndServlet extends HttpServlet {
 		String userPw=request.getParameter("userPw");
 				
 		User user=UserService.getUserService().loginUser(userId,userPw);
-//		System.out.println(user);
+		//System.out.println(user);
 		
 		
 		
 		if(user!=null) {
 			if(user.getUserLevel()=='B') {
 				Broker broker=BrokerService.getBrokerService().loginBroker(user.getUserNo());
-				
-				if(broker.getAdmissionState()=='Y') {
+				if(broker.getAdmissionState()=='Y') {	
 					HttpSession session=request.getSession();
 					session.setAttribute("loginBroker", broker);					
-					
 				}
 			}
 			

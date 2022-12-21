@@ -14,7 +14,7 @@ import com.account.model.vo.Alert;
 /**
  * Servlet implementation class FeedbackEndServlet
  */
-@WebServlet("/account/feedbackEnd.bb")
+@WebServlet("/account/broker/feedbackEnd.bb")
 public class FeedbackEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

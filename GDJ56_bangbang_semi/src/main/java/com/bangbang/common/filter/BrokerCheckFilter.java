@@ -18,7 +18,9 @@ import com.user.model.vo.User;
 
 //BrokerCheckFilter는 나중에 지워야함 임시로 적어놓은 주소임
 @WebFilter(urlPatterns = {
-		"/BrokerCheckFilter"
+		"/account/broker/*",
+		"/property/insertProperty.bb",
+		"/property/insertPropertyEnd.bb"
 })
 public class BrokerCheckFilter extends HttpFilter implements Filter {
        
@@ -33,15 +35,17 @@ public class BrokerCheckFilter extends HttpFilter implements Filter {
 		HttpSession session = ((HttpServletRequest)request).getSession(false);
 		
 		User loginUser = (User)session.getAttribute("loginUser");
-		Broker loginBroker = (Broker)session.getAttribute("loginbroker");
+		Broker loginBroker = (Broker)session.getAttribute("loginBroker");
+		
+		//System.out.println(loginBroker);
 		
 		if(loginUser!=null && loginBroker!=null && 
 				loginUser.getUserLevel()=='B' && loginBroker.getAdmissionState()=='Y') {
 			chain.doFilter(request, response);
 		
 		}else {	
-			request.setAttribute("msg", "접근할 권한이 없습니다 (¬_¬)");		
-			request.setAttribute("loc", "/");
+			request.setAttribute("msg", "승인된 중개사회원만 이용 가능한 서비스입니다. (¬_¬)");		
+			request.setAttribute("loc", "/searchAddress.bb");
 			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 		}
 	}

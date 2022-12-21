@@ -20,7 +20,11 @@ import com.user.model.vo.User;
  * Servlet Filter implementation class NotBrokerCheckFilter
  */
 @WebFilter(urlPatterns = {
-		"/property/propertyInfo/fakeReport.bb"
+		"/user/enrollBroker.bb",
+		"/user/enrollBrokerEnd.bb",
+		"/property/propertyInfo/fakeReport.bb",
+		"/property/propertyInfo/fakeReportEnd.bb",
+		"/account/sendMessage.bb"
 })
 public class NotBrokerCheckFilter extends HttpFilter implements Filter {
        
@@ -51,8 +55,8 @@ public class NotBrokerCheckFilter extends HttpFilter implements Filter {
 		if(loginUser != null && loginBroker == null && loginUser.getUserLevel()=='C') {
 			chain.doFilter(request, response);
 		} else {
-			request.setAttribute("msg", "접근할 권한이 없습니다 (¬_¬)");		
-			request.setAttribute("loc", "/");
+			request.setAttribute("msg", "일반 등급 유저만 사용가능합니다. (¬_¬)");		
+			request.setAttribute("loc", "/searchAddress.bb");
 			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 		}
 	}
