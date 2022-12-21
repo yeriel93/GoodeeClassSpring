@@ -235,21 +235,21 @@
                     <label><input type="checkbox" class="checkbox selectOpt" id="opt3" name="option" value="3" >냉장고 </label>&nbsp;
                     <label><input type="checkbox" class="checkbox selectOpt" id="opt4" name="option" value="4" >인덕션 </label>&nbsp;
                     <label><input type="checkbox" class="checkbox selectOpt" id="opt5" name="option" value="5" >전자렌지 </label>&nbsp;
-                    <label><input type="checkbox" class="checkbox" name="option" value="6" id="optionNo" checked hidden></label>
+                    <label><input type="checkbox" class="checkbox" name="option" value="6" id="optionNohidden" checked hidden></label>
                 </div>
             </div>
             <br>
             <hr style="width: 95%;">
             <script>
                 const fn_no=()=>{
-                    $("#optionNo").prop("checked",true);
+                    $("#optionNohidden").prop("checked",true);
                     $("#optionAll").hide();
                     // const select = $(".selectOpt");
                     //5개 체크박스 전부 다 체크해제
                     $(".selectOpt").prop("checked",false);
                 }
                 const fn_yes=()=>{
-                    $("#optionNo").prop("checked",false);
+                    $("#optionNohidden").prop("checked",false);
                     $("#optionAll").show();
                 }
             </script>
