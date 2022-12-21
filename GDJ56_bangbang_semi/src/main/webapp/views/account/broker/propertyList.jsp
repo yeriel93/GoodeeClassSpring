@@ -99,6 +99,12 @@
  		<%}%>
         </div>
 	 </section>
+		<br>
+		<div>
+        <div id="pageBar">
+			<%=request.getAttribute("pageBar")%>
+		</div>
+		div
 	 
         <script type="text/javascript">
         //보증금 억단위 문자 파싱
