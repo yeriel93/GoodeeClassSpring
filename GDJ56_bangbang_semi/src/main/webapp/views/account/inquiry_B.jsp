@@ -110,7 +110,7 @@
 /*     	console.log(userCNo);
     	console.log(userBNo); */
     	
-    	const url="<%=request.getContextPath()%>/account/feedback.bb?alertNo=" + alertNo+"&propertyNo="+propertyNo+"&userCName="+userCName+"&userCNo="+userCNo+"&userBNo="+userBNo;
+    	const url="<%=request.getContextPath()%>/account/broker/feedback.bb?alertNo=" + alertNo+"&propertyNo="+propertyNo+"&userCName="+userCName+"&userCNo="+userCNo+"&userBNo="+userBNo;
     	window.open(url,"_blank","width=430,height=480");  	
 
         

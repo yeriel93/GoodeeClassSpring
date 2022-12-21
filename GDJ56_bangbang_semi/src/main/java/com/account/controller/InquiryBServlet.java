@@ -17,7 +17,7 @@ import com.user.model.vo.User;
 /**
  * Servlet implementation class InquiryBServlet
  */
-@WebServlet("/account/inquiryBroker.bb")
+@WebServlet("/account/broker/inquiryBroker.bb")
 public class InquiryBServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

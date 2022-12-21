@@ -390,7 +390,7 @@
     </script>
     <script>
     	const fn_inquiry=()=>{
-            <%if(loginUser!=null){%>            
+            <%if(loginUser!=null && loginBroker == null){%>            
                 const userNo="<%=loginUser.getUserNo()%>";
                 const propertyNo="<%=property.getPropertyNo()%>";
                 const brokerUserNo="<%=broker.getUserNo()%>";
@@ -409,17 +409,21 @@
                         }
                     }
                 })
-            <%} else{%>
-                alert("로그인 후 이용하실 수 있습니다.");
-            <%}%>
+            <%} else if(loginUser != null && loginBroker != null) {%>
+           		alert("중개사는 이용할 수 없는 서비스입니다.");
+            <%} else { %>
+    			alert("로그인 후 이용하실 수 있습니다.");
+    		<%}%>
 
     	}
     	const fn_report=()=>{
-    		<%if(loginUser != null){%>
+    		<%if(loginUser != null && loginBroker == null){%>
     			open("<%=request.getContextPath()%>/property/propertyInfo/fakeReport.bb?propertyNo=<%=property.getPropertyNo()%>"+"&userNo=<%=loginUser.getUserNo()%>",
 					"_blank","top=200,left=500,width=555px,height=330px");
-    		<%} else {%>
-    			alert("로그인 후 이용하실 수 있습니다.")
+    		<%} else if(loginUser != null && loginBroker != null){%>
+    			alert("중개사는 이용할 수 없는 서비스입니다.");
+    		<%} else { %>
+    			alert("로그인 후 이용하실 수 있습니다.");
     		<%}%>
     	}
     </script>

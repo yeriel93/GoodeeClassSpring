@@ -73,7 +73,7 @@ td.con{
     </div>
     <div id="outer">
         <div id="feedbackContainer">
-            <form id="feedbackForm" action="<%=request.getContextPath() %>/account/feedbackEnd.bb" method="post" >                
+            <form id="feedbackForm" action="<%=request.getContextPath() %>/account/broker/feedbackEnd.bb" method="post" >                
                 <hr>
                 <h3>답장하기</h3>
                 <hr>

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class FeedbackServlet
  */
-@WebServlet("/account/feedback.bb")
+@WebServlet("/account/broker/feedback.bb")
 public class FeedbackServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
