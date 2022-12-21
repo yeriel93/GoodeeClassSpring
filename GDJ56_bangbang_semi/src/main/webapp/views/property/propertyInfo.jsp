@@ -225,8 +225,8 @@
         <div id="optionTbl" style="margin-top: 10px">
 	         <table>
                 <tr>
-                   <% for(String o : option) { 
-                      if(!o.equals("옵션없음")){%>
+                   <% for(String o : option) {%>
+                      <%if(!o.equals("옵션없음")){%>
                          <td><img src="<%=request.getContextPath()%>/images/YJ/<%=o %>.png" class="optionIcon"></td>
                       <%}else{%>
                          <td><h2>◼ 없음</h2></td>
