@@ -18,7 +18,8 @@ import com.user.model.vo.User;
 
 //LoginCheckFilter는 나중에 지워야함 임시로 적어놓은 주소임
 @WebFilter(urlPatterns = {
-		"/account/*"
+		"/account/*",
+		"/account.bb"
 })
 public class LoginCheckFilter extends HttpFilter implements Filter {
        
