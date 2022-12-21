@@ -92,7 +92,7 @@ public class InquiryBServlet extends HttpServlet {
 		if(pageNo>totalPage) {
 			pageBar+="<span>| 다음 |</span>";
 		}else {
-			pageBar+="<a href='"+request.getContextPath()+"/admin/memberList.do?cPage="+pageNo+"'>| 다음 |</a>";
+			pageBar+="<a href='"+request.getContextPath()+"/account/inquiryBroker.bb?cPage="+pageNo+"'>| 다음 |</a>";
 		}
 		
 		request.setAttribute("pageBar", pageBar);

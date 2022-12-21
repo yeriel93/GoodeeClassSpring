@@ -75,7 +75,7 @@ public class InquiryCServlet extends HttpServlet {
 		if(pageNo==1){
 			pageBar+="<span>| 이전 |</span>";
 		}else {
-			pageBar+="<a href='"+request.getContextPath()+"/account/inquiryBroker.bb?cPage="+(pageNo-1)+"'>| 이전 |</a>";
+			pageBar+="<a href='"+request.getContextPath()+"/account/inquiry.bb?cPage="+(pageNo-1)+"'>| 이전 |</a>";
 
 		}
 		
@@ -84,7 +84,7 @@ public class InquiryCServlet extends HttpServlet {
 				pageBar+="<span>"+" "+pageNo+" "+"</span>";
 				
 			}else {
-				pageBar+="<a href='	"+request.getContextPath()+"/account/inquiryBroker.bb?cPage="+pageNo+"'>"+" "+pageNo+" "+"</a>";
+				pageBar+="<a href='	"+request.getContextPath()+"/account/inquiry.bb?cPage="+pageNo+"'>"+" "+pageNo+" "+"</a>";
 			}
 			
 			pageNo++;
@@ -93,14 +93,14 @@ public class InquiryCServlet extends HttpServlet {
 		if(pageNo>totalPage) {
 			pageBar+="<span>| 다음 |</span>";
 		}else {
-			pageBar+="<a href='"+request.getContextPath()+"/admin/memberList.do?cPage="+pageNo+"'>| 다음 |</a>";
+			pageBar+="<a href='"+request.getContextPath()+"/account/inquiry.bb?cPage="+pageNo+"'>| 다음 |</a>";
 		}
 		
 		request.setAttribute("pageBar", pageBar);
 		request.setAttribute("userAlertC", aList);
 		
-		HttpSession session2=request.getSession();
-		session2.setAttribute("userAlertC", aList);
+//		HttpSession session2=request.getSession();
+//		session2.setAttribute("userAlertC", aList);
 		
 		request.getRequestDispatcher("/views/account/inquiry_C.jsp").forward(request, response);
 	}
