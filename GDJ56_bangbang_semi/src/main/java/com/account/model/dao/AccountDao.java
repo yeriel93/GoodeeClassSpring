@@ -62,6 +62,7 @@ public class AccountDao {
 				.deposit(rs.getInt("DEPOSIT"))
 				.monthlycharge(rs.getInt("MONTHLY_CHARGE"))
 				.renamedFilename(rs.getString("RENAMED_FILENAME"))
+				.feedbackCount(rs.getInt("FEEDBACK_COUNT"))
 				.build();
 	}
 	

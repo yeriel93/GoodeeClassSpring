@@ -69,14 +69,23 @@
 	                        <td class="monthlyCharge"><%=userAlert.get(i).getMonthlycharge() %></td>
 	                        <td id="userCName"><%=userAlert.get(i).getName() %></td>
 	                        <td><%=userAlert.get(i).getPhone() %></td>
-	                        <td><%=userAlert.get(i).getAlertDate() %></td>                       
-	                        <td id="replyState">
-	                        답변 대기
-	                        </td>
-		                    <input type="hidden" id="userCNo" value="<%=userAlert.get(i).getSendUserNo()%>">
-		                    <input type="hidden" id="userBNo" value="<%=userAlert.get(i).getReceiveUserNo()%>">
-		                    <td><button class="feedback">답변하기</button></td>                       
-							
+	                        <td><%=userAlert.get(i).getAlertDate() %></td> 
+	                        
+	                        <%if(userAlert.get(i).getFeedbackCount()>0){ %>                      
+		                        <td id="replyState" style="color: green;">
+		                        답변 완료
+		                        </td>
+			                    <input type="hidden" id="userCNo" value="<%=userAlert.get(i).getSendUserNo()%>">
+			                    <input type="hidden" id="userBNo" value="<%=userAlert.get(i).getReceiveUserNo()%>">
+			                    <td><button class="feedback" disabled="false" style="background-color: gray">답변완료</button></td>                       
+							<%}else{ %>
+		                        <td id="replyState" sytle="">
+		                        답변 대기
+		                        </td>
+			                    <input type="hidden" id="userCNo" value="<%=userAlert.get(i).getSendUserNo()%>">
+			                    <input type="hidden" id="userBNo" value="<%=userAlert.get(i).getReceiveUserNo()%>">
+			                    <td><button class="feedback">답변하기</button></td> 							
+							<%} %>
                     	</tr>
                     <%}
                     }%>
@@ -102,11 +111,8 @@
     	console.log(userBNo); */
     	
     	const url="<%=request.getContextPath()%>/account/feedback.bb?alertNo=" + alertNo+"&propertyNo="+propertyNo+"&userCName="+userCName+"&userCNo="+userCNo+"&userBNo="+userBNo;
-    	window.open(url,"_blank","width=430,height=480");
-    	
-    	$(e.target).css("background-color","lightgray");
-    	$(e.target).attr("disabled","false");
-        $(e.target).parent().prev().prev().prev().text("답변 완료").css("font","gray");
+    	window.open(url,"_blank","width=430,height=480");  	
+
         
 
     });
