@@ -48,4 +48,3 @@
 <% if(loginUser!=null&&loginUser.getUserLevel()=='A'){ %>
 	<h2>안녕하세요 관리자님!</h2>
 <%} %>
-<%-- <%@ include file="/views/common/footer.jsp"%> --%>
