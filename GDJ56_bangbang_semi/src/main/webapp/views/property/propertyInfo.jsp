@@ -290,11 +290,7 @@
             <span>🔳 상세 정보</span>
         </div>
         <div id="description">
-            <pre name="description" style="margin-left: 10px;">
-            	<%if(property.getDetail()!=null){ %>
-					<%=property.getDetail().stripLeading() %>
-				<%} %>
-            </pre>
+            <pre name="description" style="margin-left: 10px;"><%if(property.getDetail()!=null){ %><%=property.getDetail().stripLeading() %><%} %></pre>
         </div>
     </div>
 
