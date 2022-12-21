@@ -79,7 +79,7 @@ public class InsertPropertyEndServlet extends HttpServlet {
 			int brokerNo = 0;
 			try{
 				brokerNo = Integer.parseInt(mr.getParameter("brokerNo"));
-				System.out.println("insertPropertyEndServlet(중개인번호): "+brokerNo);
+				//System.out.println("insertPropertyEndServlet(중개인번호): "+brokerNo);
 			}catch(NumberFormatException e) {
 				String msg = "로그인 후 이용해주세요!";
 				String loc = "/user/login.bb";

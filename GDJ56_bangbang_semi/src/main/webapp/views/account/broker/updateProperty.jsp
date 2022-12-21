@@ -230,7 +230,7 @@
                     <label><input type="checkbox" class="checkbox selectOpt" id="opt3" name="option" value="3" >냉장고</label>&nbsp;
                     <label><input type="checkbox" class="checkbox selectOpt" id="opt4" name="option" value="4" >인덕션</label>&nbsp;
                     <label><input type="checkbox" class="checkbox selectOpt" id="opt5" name="option" value="5" >전자레인지</label>&nbsp;
-                    <label><input type="checkbox" class="checkbox" name="option" value="6" id="optionNo" hidden></label>
+                    <label><input type="checkbox" class="checkbox" name="option" value="6" id="optionNohidden" ></label>
                 </div>
             </div>
             <br>
@@ -239,12 +239,12 @@
             	$(document).ready(function(){
             		<%if(option.equals("[옵션없음]")){%>
             			//console.log($("#optionNo"));
-	            		$("#optionNo").prop("checked",true);
+	            		$("#optionNohidden").prop("checked",true);
 	                    $("#optionAll").hide();
 	            	
 	            	<%}else{%>
 	            		$("#optionY").prop("checked",true);
-		            	$("#optionNo").prop("checked",false);
+		            	$("#optionNohidden").prop("checked",false);
 	                    $("#optionAll").show();
 		            	$(".selectOpt").each((i,v)=>{
 	            			let str = "<%=option%>";
@@ -256,17 +256,15 @@
 	            	<%}%>
             	});
             	
-                const fn_no=()=>{
-                    $("#optionNo").prop("checked",true);
+            	const fn_no=()=>{
+                    $("#optionNohidden").prop("checked",true);
                     $("#optionAll").hide();
-                    //console.dir($(".selectOpt")[0]);
-                    //console.dir($(".selectOpt").eq(2));
+                    // const select = $(".selectOpt");
                     //5개 체크박스 전부 다 체크해제
                     $(".selectOpt").prop("checked",false);
-                   
                 }
                 const fn_yes=()=>{
-                    $("#optionNo").prop("checked",false);
+                    $("#optionNohidden").prop("checked",false);
                     $("#optionAll").show();
                 }
             </script>
