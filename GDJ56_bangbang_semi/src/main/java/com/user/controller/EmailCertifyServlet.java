@@ -68,7 +68,7 @@ public class EmailCertifyServlet extends HttpServlet {
 
 		//인증번호
 		int certNum=(int)(Math.random()*9999999+1111111);
-		System.out.println(certNum);
+//		System.out.println(certNum);
 		
 		//인증번호 세션에 저장
 		HttpSession ss=request.getSession();
