@@ -76,11 +76,11 @@ public class UserDao {
 		try {
 			pstmt=conn.prepareStatement(sql.getProperty("insertUser"));
 			pstmt.setString(1, u.getId());
-			pstmt.setString(2, u.getPassword());
-			pstmt.setString(3, u.getName());
-			pstmt.setString(4, u.getEmail());
-			pstmt.setString(5, u.getPhone());
-			pstmt.setDate(6, u.getBirthday());
+			pstmt.setString(2, u.getName());
+			pstmt.setString(3, u.getEmail());
+			pstmt.setString(4, u.getPhone());
+			pstmt.setDate(5, u.getBirthday());
+			pstmt.setString(6, u.getPassword());
 			result=pstmt.executeUpdate();
 			
 		}catch(SQLException e) {

@@ -48,7 +48,10 @@ public class EnrollEndServlet extends HttpServlet {
 		u.setPhone(phone);
 				
 		String birth=request.getParameter("userBirth");
-//		System.out.println(birth);
+//		System.out.println(id);
+//		System.out.println(name);
+//		System.out.println(email);
+
 		try {
 			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 			Date birthday=new Date(sdf.parse(birth).getTime());

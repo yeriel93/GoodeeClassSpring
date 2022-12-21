@@ -95,8 +95,8 @@
 		            <h3>이메일</h3>
 		            <input type="text" class="enroll_input" name="userEmail" id="userEmail" placeholder="이메일 주소를 입력해주세요." required>					
 		            <input type="button" class="btns" id="duplicateEmail" value="이메일 중복확인">
-		            <input type="hidden" name="userEmail_chk" id="userEmail_chk" value="" required>
-		            <input type="button" class="btns" id="certifyEmail" value="이메일 인증" disabled="false" style="background-color: gray;">
+		            <input type="hidden" name="userEmailUnique_chk" id="userEmailUnique_chk" value="" required>
+		            <input type="button" class="btns" id="certifyEmail" value="이메일 인증" style="background-color: gray;" >
 		            
 		            <h3>이메일 인증</h3>
 		            <input type="text" class="enroll_input" name="userEmail_Cert" id="userEmailCert" placeholder="인증코드를 입력해주세요." required>
@@ -352,12 +352,12 @@
 					return false;
 				}
 
-				const email=$("#userEmail").val();
-				const emailchk=$("#userEmail_chk").val();
-				if(email!=emailchk){
-					alert("이메일 중복여부를 다시 확인해주세요.");
-					return false;
-				}
+				// const email=$("#userEmail").val();
+				// const emailchk=$("#userEmail_chk").val();
+				// if(email!=emailchk){
+				// 	alert("이메일 중복여부를 다시 확인해주세요.");
+				// 	return false;
+				// }
 
 				
 			}	
@@ -377,9 +377,11 @@
 							alert("🟢 사용할 수 있는 이메일입니다.");
 							
 							const email=$("#userEmail").val();
-							$("#userEmail_chk").val(email);							
-							const emailchkk=$("#userEmail_chk").val();
-							$("#certifyEmail").attr("disabled","true");
+							$("#userEmailUnique_chk").val(email);							
+							const emailchkk=$("#userEmailUnique_chk").val();
+							$("#certifyEmail").attr("disabled",false);
+							$("#certifyEmail").css("background-color","rgb(7, 90, 42)");
+							console.log($("#certifyEmail").is(":disabled"));
 							
 							
 						}
