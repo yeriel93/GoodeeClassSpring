@@ -31,7 +31,7 @@ body{
     /* border: 1px solid black; */
     display: flex;
     flex-wrap: wrap;
-    /* justify-content: space-evenly */;
+    justify-content: space-evenly;
     width: 90%;
 }
 .propertyWrap{
@@ -42,7 +42,7 @@ body{
     width: 400px;
     height: 443px;
     margin-top: 20px;
-    margin-right: 13px;
+    /* margin-right: 13px; */
 }
 .imgDiv{
     display: flex;
@@ -83,3 +83,24 @@ input[type=checkbox]{
 #noDiv{
 	text-align: center;
 }
+
+#pageDic{
+	width: 90%;
+}
+
+#pageBar{
+	font-size: 28px;
+    font-weight: bolder;
+}
+
+#pageBar>a:-webkit-any-link {
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+span#cPage{
+	text-align: center;
+    color: red;
+}
+

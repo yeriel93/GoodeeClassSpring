@@ -41,7 +41,7 @@ public class PropertyListServlet extends HttpServlet {
 			} catch (NumberFormatException e) {
 				cPage=1;
 			}
-			int numPerpage = 4;
+			int numPerpage = 8;
 			
 			brokerNo = broker.getBrokerNo();
 //			System.out.println(brokerNo);
@@ -61,25 +61,25 @@ public class PropertyListServlet extends HttpServlet {
 			int pageEnd = pageNo+pageBarSize-1;
 			
 			if(pageNo==1) {
-				pageBar +="<span> [이전] </span> ";
+				pageBar +="<span class='page'> [◀이전] </span> ";
 			}else {
-				pageBar +="<a href='"+request.getContextPath()+"/account/broker/propertyList.bb?cPage="+(pageNo-1)+"'> [이전] </a> ";
+				pageBar +="<a class='page' href='"+request.getContextPath()+"/account/broker/propertyList.bb?cPage="+(pageNo-1)+"'> [◀이전] </a> ";
 			}
 			
 			while(!(pageNo>pageEnd || pageNo>totalPage)) {
 				if(cPage==pageNo) {
 					//보고있는 페이지
-					pageBar +="<span> "+pageNo+" </span>";
+					pageBar +="<span class='page' id='cPage'> "+pageNo+" </span>";
 				}else {
-					pageBar +="<a href='"+request.getContextPath()+"/account/broker/propertyList.bb?cPage="+pageNo+"'> "+pageNo+" </a>";
+					pageBar +="<a class='page' href='"+request.getContextPath()+"/account/broker/propertyList.bb?cPage="+pageNo+"'> "+pageNo+" </a>";
 				}
 				pageNo++;
 			}
 			
 			if(pageNo>totalPage) {
-				pageBar +="<span> [다음] </span> ";
+				pageBar +="<span class='page'> [다음▶] </span> ";
 			} else {
-				pageBar +="<a href='"+request.getContextPath()+"/account/broker/propertyList.bb?cPage="+pageNo+"'> [다음] </a>";
+				pageBar +="<a class='page' href='"+request.getContextPath()+"/account/broker/propertyList.bb?cPage="+pageNo+"'> [다음▶] </a>";
 			}
 			
 			request.setAttribute("pageBar", pageBar);
