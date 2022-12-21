@@ -56,6 +56,13 @@ public class AccountService {
 		return result;
 	}
 	
+	public int userAlertCountC(int userNo) {
+		Connection conn=getConnection();
+		int result=AccountDao.getAccountDao().userAlertCountC(conn,userNo);
+		close(conn);
+		return result;
+	}
+	
 	public List<AlertList> searchUserAlert(int cPage,int numPerpage,int userNo){
 		Connection conn=getConnection();
 		List<AlertList> list=AccountDao.getAccountDao().searchUserAlert(conn,cPage,numPerpage,userNo);

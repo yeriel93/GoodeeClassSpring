@@ -160,6 +160,24 @@ public class AccountDao {
 		}
 		return count;
 	}
+	public int userAlertCountC(Connection conn,int userNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int count=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("userAlertCountC"));
+			pstmt.setInt(1, userNo);
+			rs=pstmt.executeQuery();
+			if(rs.next()) count=rs.getInt(1);
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return count;
+	}
 	
 	public List<AlertList> searchUserAlert(Connection conn,int cPage,int numPerpage,int userNo){
 		PreparedStatement pstmt=null;

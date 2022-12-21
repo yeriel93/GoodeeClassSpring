@@ -41,14 +41,7 @@ public class InquiryCServlet extends HttpServlet {
 			cPage=1;
 		}
 		
-		int numPerpage;
-		try {			
-			numPerpage=Integer.parseInt(request.getParameter("numPerpage"));
-		
-		}catch(NumberFormatException e) {			
-			numPerpage=10;
-			
-		}
+		int numPerpage=10;
 		
 		HttpSession session=request.getSession();
 		User loginUser=(User)session.getAttribute("loginUser");
@@ -63,7 +56,7 @@ public class InquiryCServlet extends HttpServlet {
 				
 //		System.out.println("aList:"+aList);	
 
-		int totalData=AccountService.getAccountService().userAlertCount(userNo);
+		int totalData=AccountService.getAccountService().userAlertCountC(userNo);
 		
 		String pageBar="";
 		int pageBarSize=5;

@@ -42,14 +42,7 @@ public class InquiryBServlet extends HttpServlet {
 			cPage=1;
 		}
 		
-		int numPerpage;
-		try {			
-			numPerpage=Integer.parseInt(request.getParameter("numPerpage"));
-		
-		}catch(NumberFormatException e) {			
-			numPerpage=10;
-			
-		}
+		int numPerpage=10;
 		
 		HttpSession session=request.getSession();
 		User loginUser=(User)session.getAttribute("loginUser");
@@ -63,7 +56,7 @@ public class InquiryBServlet extends HttpServlet {
 //		System.out.println(aList);	
 
 		int totalData=AccountService.getAccountService().userAlertCount(userNo);
-		
+		System.out.println(totalData);
 		String pageBar="";
 		int pageBarSize=5;
 		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
@@ -74,7 +67,7 @@ public class InquiryBServlet extends HttpServlet {
 		if(pageNo==1){
 			pageBar+="<span>| 이전 |</span>";
 		}else {
-			pageBar+="<a href='"+request.getContextPath()+"/account/inquiryBroker.bb?cPage="+(pageNo-1)+"'>| 이전 |</a>";
+			pageBar+="<a href='"+request.getContextPath()+"/account/broker/inquiryBroker.bb?cPage="+(pageNo-1)+"'>| 이전 |</a>";
 
 		}
 		
@@ -83,7 +76,7 @@ public class InquiryBServlet extends HttpServlet {
 				pageBar+="<span>"+" "+pageNo+" "+"</span>";
 				
 			}else {
-				pageBar+="<a href='	"+request.getContextPath()+"/account/inquiryBroker.bb?cPage="+pageNo+"'>"+" "+pageNo+" "+"</a>";
+				pageBar+="<a href='	"+request.getContextPath()+"/account/broker/inquiryBroker.bb?cPage="+pageNo+"'>"+" "+pageNo+" "+"</a>";
 			}
 			
 			pageNo++;
@@ -92,7 +85,7 @@ public class InquiryBServlet extends HttpServlet {
 		if(pageNo>totalPage) {
 			pageBar+="<span>| 다음 |</span>";
 		}else {
-			pageBar+="<a href='"+request.getContextPath()+"/account/inquiryBroker.bb?cPage="+pageNo+"'>| 다음 |</a>";
+			pageBar+="<a href='"+request.getContextPath()+"/account/broker/inquiryBroker.bb?cPage="+pageNo+"'>| 다음 |</a>";
 		}
 		
 		request.setAttribute("pageBar", pageBar);
