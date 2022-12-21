@@ -31,7 +31,7 @@
         
 	        <%if(loginUser == null){ %>
 		        <div id="buttonContainer">
-		            <button onclick='location.replace("<%=request.getContextPath()%>/user/login.bb")'><p>로그인 | 회원가입</p></button>
+		            <button style="border-radius:5px;" onclick='location.replace("<%=request.getContextPath()%>/user/login.bb")'><p>로그인 | 회원가입</p></button>
 		        </div>
 	        <%} else { %>
 	        	<div id="buttonContainer">
