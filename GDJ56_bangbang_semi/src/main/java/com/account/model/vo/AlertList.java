@@ -25,4 +25,5 @@ public class AlertList {
 	private int deposit;
 	private int monthlycharge;
 	private String renamedFilename;
+	private int feedbackCount;
 }
