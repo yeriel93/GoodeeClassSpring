@@ -44,7 +44,7 @@
                 <input type="number" name="propertyNo" id="propertyNo" value="<%=p.getPropertyNo()%>" hidden>
                 
                 
-                <div class="showProperty" onclick="fn_showPropertyInfo(event)">
+                <div class="showProperty" onclick="fn_showPropertyInfo(event)" style="height: ">
                 <div class="imgDiv">
                     <img src="<%=request.getContextPath() %>/upload/property/<%=p.getThumbnail() %>" alt="">
                 </div>
@@ -136,7 +136,7 @@
         <script>
         	//매물클릭했을때 상세페이지 이동
         	const fn_showPropertyInfo=(e)=>{
-                console.log($(e.target).parents("div.showProperty"));
+                console.log($(e.target).parents("div.showProperty")); 
                 console.log($(e.target).parents("div.showProperty").children("#showProperty"));
                 let propertyNo = $(e.target).parents("div.showProperty").prev().val();
                 console.log(propertyNo);

@@ -41,7 +41,7 @@ public class PropertyListServlet extends HttpServlet {
 			} catch (NumberFormatException e) {
 				cPage=1;
 			}
-			int numPerpage = 8;
+			int numPerpage = 6;
 			
 			brokerNo = broker.getBrokerNo();
 //			System.out.println(brokerNo);
