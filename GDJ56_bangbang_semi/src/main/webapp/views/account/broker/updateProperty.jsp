@@ -9,6 +9,7 @@
 	Property property = (Property)request.getAttribute("property");
 	List<Files> files = (List<Files>)request.getAttribute("files");
 	String option = (String)request.getAttribute("option"); 
+	/* System.out.println(option); */
 %>
 <!-- header -->
 <%@ include file="/views/common/header.jsp" %>

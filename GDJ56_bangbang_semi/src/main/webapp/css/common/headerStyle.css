@@ -88,7 +88,7 @@ div.buttonContainer *:visited{
     color:white;
 
 }
-header>a:-webkit-any-link {
+a:-webkit-any-link {
     color: black;
     cursor: pointer;
     text-decoration:none;
