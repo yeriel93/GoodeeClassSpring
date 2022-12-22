@@ -53,7 +53,7 @@ public class FeedbackEndServlet extends HttpServlet {
 		if(result>0) {
 			msg="🟢 답변이 전송되었습니다. ";
 			loc="/account/inquiryBroker.bb";
-			String script="opener.location.replace('"+request.getContextPath()+"/account/inquiryBroker.bb');close();";
+			String script="opener.location.replace('"+request.getContextPath()+"/account/broker/inquiryBroker.bb');close();";
 			request.setAttribute("script", script);
 		}else {
 			msg="🔴 답변전송에 실패했습니다. 문제가 지속될 경우 관리자에게 문의해주세요.";
