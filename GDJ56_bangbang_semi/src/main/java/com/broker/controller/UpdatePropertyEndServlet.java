@@ -27,7 +27,7 @@ public class UpdatePropertyEndServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int propertyNo = Integer.parseInt(request.getParameter("propertyNo"));
-		System.out.println(propertyNo);
+//		System.out.println(propertyNo);
 		
 		//전,월세 금액
 		int deposit = 0;
@@ -123,7 +123,7 @@ public class UpdatePropertyEndServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("updatePropertyEndServlet: "+p);
+//		System.out.println("updatePropertyEndServlet: "+p);
 		
 		
 		int result = PropertyService.getPropertyService().updateProperty(p, option);
