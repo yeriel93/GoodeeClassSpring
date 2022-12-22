@@ -9,6 +9,13 @@
 input::placeholder {  
   font-size: 13px;
 }
+
+a>.userBtn:-webkit-any-link:visited {
+    color: -webkit-link;
+    cursor: pointer;
+    text-decoration: underline;
+    font:black;
+}
 </style>
 
 <body>
@@ -29,9 +36,9 @@ input::placeholder {
         </div>      
         
         <div id="etcContainer">
-        <h5><a href="<%=request.getContextPath() %>/user/enroll.bb">회원가입</a></h5>
-        <h5><a href="<%=request.getContextPath() %>/user/searchId.bb">아이디 찾기</a></h5>
-        <h5><a href="<%=request.getContextPath() %>/user/searchPw.bb">비밀번호 찾기</a></h5>
+        <h5><a class="userBtn" href="<%=request.getContextPath() %>/user/enroll.bb">회원가입</a></h5>
+        <h5><a class="userBtn" href="<%=request.getContextPath() %>/user/searchId.bb">아이디 찾기</a></h5>
+        <h5><a class="userBtn" href="<%=request.getContextPath() %>/user/searchPw.bb">비밀번호 찾기</a></h5>
         </div>      
     </div>
 
