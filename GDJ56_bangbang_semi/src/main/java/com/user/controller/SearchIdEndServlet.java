@@ -41,10 +41,12 @@ public class SearchIdEndServlet extends HttpServlet {
 		
 		String searchId=UserService.getUserService().searchId(userName,userEmail,userPhone);
 		
-		//뒤 세자리 * 처리 
-		int idLength=searchId.length();
-		String subsId=searchId.substring(0, idLength-3)+"***";		
-		
+		String subsId = null;
+		if(searchId != null) {
+			//뒤 세자리 * 처리 
+			int idLength=searchId.length();
+			subsId=searchId.substring(0, idLength-3)+"***";		
+		}
 		
 		request.setAttribute("searchIdResult", subsId);		
 		request.getRequestDispatcher("/views/user/searchIdResult.jsp").forward(request, response);
