@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bangbang.common.PasswordEncodingWrapper;
 import com.user.model.service.UserService;
 
 /**
@@ -53,6 +54,7 @@ public class TempPasswordServlet extends HttpServlet {
 		
 		//일치한다면?
 		int result=UserService.getUserService().searchPw(userId,userEmail,userPhone);
+//		System.out.println("제발" + result);
 		if(result>1) {
 			//일치할때
 			//사용자가 입력한 이메일 주소
@@ -84,9 +86,18 @@ public class TempPasswordServlet extends HttpServlet {
 				}
 			}
 //			System.out.println(tempPw);		
+			
+			//2022-12-22 12:43 추가
+			PasswordEncodingWrapper pew = new PasswordEncodingWrapper(request);
+			StringBuffer tempPw2 = new StringBuffer(pew.makeTempPassword(tempPw.toString()));
+//			System.out.println(tempPw);
+//			System.out.println("테스트");
+//			System.out.println(tempPw2);
+			
+			
 
 			//db에서 변경해주기
-			int changeResult=UserService.getUserService().tempPassword(result,tempPw.toString()); //result는 USER_NO
+			int changeResult=UserService.getUserService().tempPassword(result,tempPw2.toString()); //result는 USER_NO
 			
 			
 			//임시비밀번호 잠깐 저장 -> 할필요 없네 ?

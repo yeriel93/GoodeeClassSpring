@@ -38,5 +38,9 @@ public class PasswordEncodingWrapper extends HttpServletRequestWrapper {
 		}
 		return super.getParameter(name);
 	}
+	
+	public String makeTempPassword(String tempPw) {
+		return getSha512(tempPw);
+	}
 
 }
