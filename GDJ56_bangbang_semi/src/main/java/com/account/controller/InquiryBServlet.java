@@ -56,7 +56,7 @@ public class InquiryBServlet extends HttpServlet {
 //		System.out.println(aList);	
 
 		int totalData=AccountService.getAccountService().userAlertCount(userNo);
-		System.out.println(totalData);
+//		System.out.println(totalData);
 		String pageBar="";
 		int pageBarSize=5;
 		int totalPage=(int)Math.ceil((double)totalData/numPerpage);
