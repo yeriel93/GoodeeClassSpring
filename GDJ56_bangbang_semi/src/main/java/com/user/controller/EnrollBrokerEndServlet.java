@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.account.model.service.AccountService;
 import com.broker.model.service.BrokerService;
 import com.broker.model.vo.Broker;
 
@@ -47,8 +48,11 @@ public class EnrollBrokerEndServlet extends HttpServlet {
 		
 		int result=BrokerService.getBrokerService().enrollBroker(b);
 		
+		int userLevelUpdateResult=AccountService.getAccountService().updateUserLevel(userNo);
+//		System.out.println(result);
+//		System.out.println(userLevelUpdateResult);
 		String msg="",loc="";
-		if(result>0) {
+		if(result>0&&userLevelUpdateResult>0) {
 			//중개사 등록신청 성공
 			msg="🟢 중개사 등록신청 성공! 평일 기준 1~3일 소요됩니다.";
 			loc="/searchAddress.bb";

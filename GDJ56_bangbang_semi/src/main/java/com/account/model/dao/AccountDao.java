@@ -300,4 +300,23 @@ public class AccountDao {
 	}
 	
 	
+	//중개사 등록신청 후 유저레벨 변경
+	public int updateUserLevel(Connection conn,int userNo) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		try {
+			pstmt=conn.prepareStatement(sql.getProperty("updateUserLevel"));
+			pstmt.setInt(1, userNo);
+			result=pstmt.executeUpdate();			
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
+
+	
 }

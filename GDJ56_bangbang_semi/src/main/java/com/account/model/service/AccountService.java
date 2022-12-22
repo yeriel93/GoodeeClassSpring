@@ -102,4 +102,14 @@ public class AccountService {
 		return result;
 	}
 	
+	//중개사 등록신청 후 유저레벨 변경
+	public int updateUserLevel(int userNo) {
+		Connection conn=getConnection();
+		int result=AccountDao.getAccountDao().updateUserLevel(conn,userNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		return result;
+	}
+	
+	
 }
