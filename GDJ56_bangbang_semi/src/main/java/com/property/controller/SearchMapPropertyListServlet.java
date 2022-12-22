@@ -55,11 +55,11 @@ public class SearchMapPropertyListServlet extends HttpServlet {
 		//전세, 월세 체크박스 parsing
 		propertyQuery += " AND RENTTYPE IN ";
 		if(renttypes[0].equals("true") && renttypes[1].equals("true")) {
-			propertyQuery += " ('전세','월세') ";
+			propertyQuery += " ('월세','전세') ";
 		} else if(renttypes[0].equals("true")) {
-			propertyQuery += " ('전세') ";
-		} else if(renttypes[1].equals("true")) {
 			propertyQuery += " ('월세') ";
+		} else if(renttypes[1].equals("true")) {
+			propertyQuery += " ('전세') ";
 		}
 		//보증금, 월세 parsing
 		propertyQuery += " AND DEPOSIT BETWEEN 0 AND " + deposit;

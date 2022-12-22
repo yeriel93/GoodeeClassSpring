@@ -556,7 +556,13 @@
    	
     //매물을 클릭했을 때 -> propertyNo를 넘기면서 propertyInfo servlet을 호출한다.
     $(document).on("click","div.propertyContainer", (e)=>{
-    	const propertyNo = $(e.target).parents("div.propertyContainer").children().first().val();
+    	let propertyNo;
+    	if($(e.target).attr("class") != "propertyContainer"){
+    		propertyNo = $(e.target).parents("div.propertyContainer").children().first().val();
+    	} else {
+    		propertyNo = $(e.target).children().first().val();
+    	}
+    	//console.log($(e.target));
     	let url = "<%=request.getContextPath()%>/property/propertyInfo.bb?propertyNo=" + propertyNo;
     	window.open(url);
     });
