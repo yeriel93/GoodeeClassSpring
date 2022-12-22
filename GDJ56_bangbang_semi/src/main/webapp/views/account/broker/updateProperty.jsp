@@ -230,7 +230,7 @@
                     <label><input type="checkbox" class="checkbox selectOpt" id="opt3" name="option" value="3" >냉장고</label>&nbsp;
                     <label><input type="checkbox" class="checkbox selectOpt" id="opt4" name="option" value="4" >인덕션</label>&nbsp;
                     <label><input type="checkbox" class="checkbox selectOpt" id="opt5" name="option" value="5" >전자레인지</label>&nbsp;
-                    <label><input type="checkbox" class="checkbox" name="option" value="6" id="optionNohidden" ></label>
+                    <label><input type="checkbox" class="checkbox" name="option" value="6" id="optionNohidden" hidden></label>
                 </div>
             </div>
             <br>
