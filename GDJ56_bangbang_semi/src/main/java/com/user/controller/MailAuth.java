@@ -2,10 +2,13 @@ package com.user.controller;
 
 import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
+
+import com.property.model.vo.Property;
 
 public class MailAuth extends Authenticator{
 	PasswordAuthentication pa;
@@ -14,10 +17,13 @@ public class MailAuth extends Authenticator{
 	      String mail_id="";
 	      String mail_pw="";
 	      
-	      try{	    	  
-	          String mail = "C:\\Users\\yurim\\git\\GDJ56_bangbang_semi\\GDJ56_bangbang_semi\\src\\main\\resources\\sql\\user\\mail_server.properties";      
-	          Properties props = new Properties();   
-	          props.load(new FileReader(mail));                      
+	      try{
+	    	  Properties props = new Properties();   
+	    	  String path = Property.class.getResource("/sql/user/mail_server.properties").getPath();
+	    	  props.load(new FileReader(path));
+	    	  
+//	          String mail = "C:\\Users\\yurim\\git\\GDJ56_bangbang_semi\\GDJ56_bangbang_semi\\src\\main\\resources\\sql\\user\\mail_server.properties";      
+//	          props.load(new FileReader(mail));                      
 	                     
 	          mail_id=props.getProperty("id") ;
 	          mail_pw=props.getProperty("pw") ;
