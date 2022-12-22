@@ -18,7 +18,7 @@ import com.bangbang.common.PasswordEncodingWrapper;
  * Servlet Filter implementation class EncryptFilter
  */
 @WebFilter(servletNames= {
-		"updatePwEnd","pwCheckUpdateEnd","pwCheckWithdrawalEnd","loginEnd","enrollEnd"
+		"updatePwEnd","pwCheckUpdateEnd","pwCheckWithdrawalEnd","loginEnd","enrollEnd","tempPw"
 })
 public class EncryptFilter extends HttpFilter implements Filter {
        

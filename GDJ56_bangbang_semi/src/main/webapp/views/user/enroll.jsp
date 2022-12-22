@@ -381,7 +381,7 @@
 							const emailchkk=$("#userEmailUnique_chk").val();
 							$("#certifyEmail").attr("disabled",false);
 							$("#certifyEmail").css("background-color","rgb(7, 90, 42)");
-							console.log($("#certifyEmail").is(":disabled"));
+							
 							
 							
 						}
