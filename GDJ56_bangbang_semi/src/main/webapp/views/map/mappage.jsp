@@ -635,10 +635,7 @@
     kakao.maps.load(function(){
     	$("input#depositRange").val("50000"); 
         $("input#monthlyChargeRange").val("300");
-        //테스트중
     	searchProperty();
-    	//console.log(propertyArray); //잘돌아감
-    	//$("div#listContainer").html("");
     	$("div#propertyWrap").html("");
     	$("#listContainer").scrollTop(0);
     	cPage = 1;
@@ -649,8 +646,6 @@
  	// 지도 시점 변화 완료 이벤트를 등록한다
 	kakao.maps.event.addListener(map, 'idle', function(){
 		searchProperty();
-    	//console.log(propertyArray); //잘돌아감
-    	//$("div#listContainer").html("");
     	$("div#propertyWrap").html("");
 	   	$("#listContainer").scrollTop(0);
 	   	cPage = 1;

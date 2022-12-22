@@ -3,7 +3,7 @@
 <%@ include file="/views/common/adminHeader.jsp" %>
 
 	<section>
-		<h1 style="text-align:center">DashBoard 개발예정..</h1>
+		<h1 style="text-align:center">Hello Admin!</h1>
 	</section>
 </body>
 </html>
