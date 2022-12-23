@@ -8,7 +8,9 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 
 <!-- 주소검색 api -->
-<script src="http://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!-- <script src="http://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> -->
+<!-- <script src="https://ssl.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js?autoload=false"></script> -->
+<script src = "https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
 
 <!-- 주소 좌표값 변환 api -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=622c2a9d3d39799df3c6db829e75db1d&libraries=services"></script>
