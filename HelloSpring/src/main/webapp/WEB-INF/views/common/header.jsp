@@ -52,7 +52,7 @@
 							<a class="nav-link" href="${path }/demo/demo.do">Demo</a>
 						</li>
 						<li class="navbar-item">
-							<a class="nav-link" href="${path }/memo/memo.do">Memo</a>
+							<a class="nav-link" href="${path }/memo/memoList.do">Memo</a>
 						</li>
 					</ul>
 					<c:if test="${loginMember==null}">
