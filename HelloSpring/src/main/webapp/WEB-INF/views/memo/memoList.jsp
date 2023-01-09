@@ -18,8 +18,8 @@
                <th scope="col">날짜</th>
                <th scope="col">삭제</th>
            </tr>
-		<c:if test="${not empty memos}">
-			<c:forEach var="m" items="${memos}">
+		<c:if test="${not empty memolist}">
+			<c:forEach var="m" items="${memolist}">
 				<tr>
 					<td><c:out value="${m.memoNo }"/></td>
 					<td><c:out value="${m.memo }"/></td>
@@ -29,6 +29,10 @@
 			</c:forEach>
 		</c:if>
        </table>
+		
+		<div id="pagebar">
+			${pageBar }
+		</div>
 		
       <button class="btn btn-outline-primary my-2 my-sm-0" onclick="location.assign('${path}/memo/insertMemo.do')">메모 작성</button>
 

@@ -1,6 +1,7 @@
 package com.bs.spring.memo.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -13,4 +14,6 @@ public interface MemoDao {
 	List<Memo> selectMemoAll(SqlSessionTemplate session);
 	
 	int selectMemoListCount(SqlSessionTemplate session);
+	
+	List<Memo> selectMemoListPage(SqlSessionTemplate session, Map<String, Integer> param);
 }

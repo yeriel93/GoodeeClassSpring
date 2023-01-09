@@ -1,6 +1,7 @@
 package com.bs.spring.memo.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +34,17 @@ public class MemoServiceImpl implements MemoService  {
 		return dao.selectMemoAll(session);
 	}
 
-
+	@Override
+	public List<Memo> selectMemoListPage(Map<String, Integer> param){
+		return dao.selectMemoListPage(session, param);
+	}
+	
+	
 	@Override
 	public int selectMemoListCount() {
 		return dao.selectMemoListCount(session);
 	}
+	
+	
 
 }

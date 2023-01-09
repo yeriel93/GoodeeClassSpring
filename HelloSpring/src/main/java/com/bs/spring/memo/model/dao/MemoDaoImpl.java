@@ -1,7 +1,9 @@
 package com.bs.spring.memo.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +21,12 @@ public class MemoDaoImpl implements MemoDao {
 	public List<Memo> selectMemoAll(SqlSessionTemplate session) {
 		return session.selectList("memo.selectMemo");
 	}
-
+	
+	@Override
+	public List<Memo> selectMemoListPage(SqlSessionTemplate session, Map<String, Integer> param) {
+		return session.selectList("memo.selectMemo", null, new RowBounds((param.get("cPage")-1) * param.get("numPerpage"), param.get("numPerpage")));
+	} 
+	
 	@Override
 	public int selectMemoListCount(SqlSessionTemplate session) {
 		return session.selectOne("memo.selectMemoListCount");
