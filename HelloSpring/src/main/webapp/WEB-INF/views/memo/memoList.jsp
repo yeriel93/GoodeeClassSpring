@@ -18,16 +18,16 @@
                <th scope="col">날짜</th>
                <th scope="col">삭제</th>
            </tr>
-		<c:if test="${not empty memolist}">
-			<c:forEach var="m" items="${memolist}">
-				<tr>
-					<td><c:out value="${m.memoNo }"/></td>
-					<td><c:out value="${m.memo }"/></td>
-					<td><c:out value="${m.memoDate }"/></td>
-					<td><button class="btn btn-outline-danger">삭제</button></td>
-				</tr>
-			</c:forEach>
-		</c:if>
+			<c:if test="${not empty memolist}">
+				<c:forEach var="m" items="${memolist}">
+					<tr>
+						<td><c:out value="${m.memoNo }"/></td>
+						<td><c:out value="${m.memo }"/></td>
+						<td><c:out value="${m.memoDate }"/></td>
+						<td><button class="btn btn-outline-danger">삭제</button></td>
+					</tr>
+				</c:forEach>
+			</c:if>
        </table>
 		
 		<div id="pagebar">
