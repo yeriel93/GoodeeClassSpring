@@ -13,7 +13,10 @@
 			<aop:after method="loggerAfter" pointcut-ref="pt"/>
 		</aop:aspect>
 	</aop:config>
-	<bean id="loggerAspect" class="com.bs.spring.common.aop.LoggerAspect"/> -->
+	<bean id="loggerAspect" class="com.bs.spring.common.aop.LoggerAspect"/>  -->
 
+	<!-- @어노테이션방식으로 aop설정하기 -->
+	<!-- @어노테이션방식으로 등록된 apect를 불러옴 -->
+	<aop:aspectj-autoproxy/>
 
 </beans>
