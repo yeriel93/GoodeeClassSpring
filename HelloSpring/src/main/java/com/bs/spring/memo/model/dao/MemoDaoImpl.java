@@ -9,11 +9,15 @@ import org.springframework.stereotype.Repository;
 
 import com.bs.spring.memo.model.vo.Memo;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Repository
+@Slf4j
 public class MemoDaoImpl implements MemoDao {
 
 	@Override
 	public int insertMemo(SqlSessionTemplate session, Memo m) {
+		log.debug("insertmemo½ÇÇà");
 		return session.insert("memo.insertMemo", m);
 	}
 

@@ -22,9 +22,6 @@ import com.bs.spring.model.vo.Animal;
 import com.bs.spring.model.vo.Food;
 import com.bs.spring.model.vo.Person;
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
 public class HomeController {
 	
@@ -95,13 +92,13 @@ public class HomeController {
 		
 		//Logger태그에 설정되어있는 레벨에 따라 메소드 실행여부가 결정이 됨 
 		// debug < info < warn < error
-		logger.debug("난 debug야");
-		logger.info("난 info야");
-		logger.warn("난 warn야");
-		logger.error("난 error야");
+//		logger.debug("난 debug야");
+//		logger.info("난 info야");
+//		logger.warn("난 warn야");
+//		logger.error("난 error야");
 		
 		//logger로 다른 타입의 값 출력하기
-		logger.debug("food {}",food);
+//		logger.debug("food {}",food);
 		
 		return "index";
 	}

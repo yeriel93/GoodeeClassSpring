@@ -9,31 +9,41 @@
 	<jsp:param name="title" value="MemoList"/>
 </jsp:include>
 
- <br />
-       <!-- 메모목록 -->
-       <table class="table">
-           <tr>
-               <th scope="col">번호</th>
-               <th scope="col">메모</th>
-               <th scope="col">날짜</th>
-               <th scope="col">삭제</th>
-           </tr>
-			<c:if test="${not empty memolist}">
-				<c:forEach var="m" items="${memolist}">
-					<tr>
-						<td><c:out value="${m.memoNo }"/></td>
-						<td><c:out value="${m.memo }"/></td>
-						<td><c:out value="${m.memoDate }"/></td>
-						<td><button class="btn btn-outline-danger">삭제</button></td>
-					</tr>
-				</c:forEach>
-			</c:if>
-       </table>
-		
-		<div id="pagebar">
-			${pageBar }
-		</div>
-		
-      <button class="btn btn-outline-primary my-2 my-sm-0" onclick="location.assign('${path}/memo/insertMemo.do')">메모 작성</button>
+<style>
+	div#memo-container{width:60%; margin:0 auto;}
+</style>
 
+	<div id="memo-container">
+	    <form action="${path }/memo/insertMemoEnd.do" class="form-inline" method="post">
+	        <input type="text" class="form-control col-sm-6" name="memo" placeholder="메모" required/>&nbsp;
+	        <input type="password" class="form-control col-sm-2" name="password" maxlength="4" placeholder="비밀번호" required/>&nbsp;
+	        <button class="btn btn-outline-success" type="submit" >저장</button>
+	    </form>
+	</div>
+	
+	 <br/>
+       <!-- 메모목록 -->
+      <table class="table">
+          <tr>
+              <th scope="col">번호</th>
+              <th scope="col">메모</th>
+              <th scope="col">날짜</th>
+              <th scope="col">삭제</th>
+          </tr>
+		<c:if test="${not empty memolist}">
+			<c:forEach var="m" items="${memolist}">
+				<tr>
+					<td><c:out value="${m.memoNo }"/></td>
+					<td><c:out value="${m.memo }"/></td>
+					<td><c:out value="${m.memoDate }"/></td>
+					<td><button class="btn btn-outline-danger">삭제</button></td>
+				</tr>
+			</c:forEach>
+		</c:if>
+      </table>
+	
+	<div id="pagebar">
+		${pageBar }
+	</div>
+		
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

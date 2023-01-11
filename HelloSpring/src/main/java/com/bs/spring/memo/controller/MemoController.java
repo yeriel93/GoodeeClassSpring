@@ -29,7 +29,7 @@ public class MemoController {
 	
 	//get방식으로 보낼때만 메소드를 실행하겠다는 뜻
 	@RequestMapping(value="/memoList.do", method= {RequestMethod.GET})
-	public ModelAndView memoList(ModelAndView mv, 
+	public ModelAndView selectMemoList(ModelAndView mv, 
 			@RequestParam (value="cPage", defaultValue = "1") int cPage, 
 			@RequestParam (value = "numPerpage", defaultValue = "5") int numPerpage) {
 		//페이징처리하기
@@ -44,14 +44,9 @@ public class MemoController {
 		return mv;
 	}
 	
-	@RequestMapping("/insertMemo.do")
-	public String Memo() {
-		return "memo/insertMemo";
-	}
-	
 	@RequestMapping("/insertMemoEnd.do")
 	public ModelAndView insertMemo(Memo m, ModelAndView mv) {
-		log.debug("{}",m);
+//		log.debug("{}",m);
 		
 		if(service.insertMemo(m)>0) {
 			mv.addObject("msg","메모 등록 완료");
