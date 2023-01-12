@@ -61,7 +61,7 @@
 	</insert>
 	
 	<insert id="insertAttachment" parameterType="attachment">
-		INSERT INTO ATTACHMENT VALUES(SEQ_ATTACHMENTNO.NEXT, #{boardNo.boardNo}, #{originalFilename},
+		INSERT INTO ATTACHMENT VALUES(SEQ_ATTACHMENTNO.NEXTVAL, #{boardNo.boardNo}, #{originalFilename},
 									 #{renamedFilename}, DEFAULT, DEFAULT, DEFAULT)
 	</insert>
 </mapper>
