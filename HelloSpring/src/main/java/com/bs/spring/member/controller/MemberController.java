@@ -1,18 +1,25 @@
 package com.bs.spring.member.controller;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bs.spring.member.service.MemberService;
 import com.bs.spring.member.vo.Member;
+import com.google.gson.Gson;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -107,4 +114,49 @@ public class MemberController {
 	public String enrollLsit() {
 		return "member/memberView";
 	}
+	
+	@RequestMapping("duplicateId.do")
+	public void duplicateId(String userId, HttpServletResponse response) throws IOException{
+		
+		Member m = service.selectMemberById(Member.builder().userId(userId).build());
+		
+		response.setContentType("application/json;charset=utf-8");
+		
+//		response.getWriter().print(m==null ? false : true);
+		new Gson().toJson(m, response.getWriter());
+	}
+	
+	
+//	jackson바이더를 이용해서 json응답 메소드 구현하기
+//	메소드에 @ResponseBody어노테이션 적용
+	
+	
+	@RequestMapping("/duplicateConverter.do")
+	@ResponseBody
+	public Member duplicateUserId(Member m) {
+		Member result = service.selectMemberById(m);
+		return result;
+	}
+	
+	
+	@RequestMapping("memberList.do")
+	@ResponseBody
+	public List<Member> selectMemberAll(){
+		List<Member> list = service.selectMemberAll();
+		return list;
+	}
+	
+	@RequestMapping(value="/ajax/insert", 
+			consumes=MediaType.APPLICATION_JSON_VALUE,
+	        produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody boolean insertTest(@RequestBody Member m) {
+		log.debug("{}", m);
+		return true;
+	}
+	
+	
+	
+	
+	
+	
 }

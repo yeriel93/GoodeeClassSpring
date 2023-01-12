@@ -1,5 +1,6 @@
 package com.bs.spring.member.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -24,5 +25,10 @@ public class MemberDaoImpl implements MemberDao{
 	@Override
 	public int insertMember(SqlSessionTemplate session, Member m) {
 		return session.insert("member.insertMember", m);
+	}
+
+	@Override
+	public List<Member> selectMemberAll(SqlSessionTemplate session) {
+		return session.selectList("member.selectMemberAll");
 	}
 }

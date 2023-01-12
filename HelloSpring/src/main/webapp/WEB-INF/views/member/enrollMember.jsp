@@ -12,7 +12,8 @@
 <style>
 	div#enroll-container{width:400px; margin:0 auto; text-align:center;}
 	div#enroll-container input, div#enroll-container select {margin-bottom:10px;}
-	div#enroll-container span.guide{display:none; font-size:12px; position:absolute; top:12px; right:10px"}
+	div#enroll-container {display: relative;}
+	div#enroll-container span.guide{display:none; font-size:12px; position:relative; top:12px; right:10px"}
 	div#enroll-container span.ok{color:green}
 	div#enroll-container span.error{color:red}
 </style>
@@ -22,9 +23,34 @@
 		<span class="guide ok">이 아이디는 사용이 가능합니다</span>
 		<span class="guide error">이 아이디는 사용이 불가능합니다</span>
 		<div>
-			<button class="btn btn-outline-success" onclick="">중복확인</button> 
+			<button class="btn btn-outline-success" onclick="fn_basicAjax();">중복확인(basic)</button> 
+			<button class="btn btn-outline-success" onclick="fn_basicAjax2();">중복확인(jackson)</button> 
 		</div>
-		
+		<script>
+			const fn_basicAjax2=()=>{
+				$.get("${path}/member/duplicateConverter.do?userId="+$("#userId_").val()
+						,data =>{
+							console.log(data);
+						});
+				
+			}
+	  		const fn_basicAjax=()=>{
+	          	$.ajax({
+	                url:"${path}/member/duplicateId.do",
+	                data:{userId:$("#userId_").val()},
+	                success:data=>{
+	                	console.log(data);	
+	                   if(data){
+	                      $("#enroll-container span.ok").hide();
+	                      $("#enroll-container span.error").show();
+	                   }else{
+	                      $("#enroll-container span.ok").show();
+	                      $("#enroll-container span.error").hide();
+	                   }
+	                }
+	            });
+	         }
+		</script>
 		
 		<input type="password" class="form-control" placeholder="비밀번호" name="password" id="password_" required>
 		<input type="password" class="form-control" placeholder="비밀번호확인" id="password2" required>
