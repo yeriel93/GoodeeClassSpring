@@ -21,7 +21,7 @@ public class BoardServiceImpl implements BoardService {
 		this.dao = dao;
 		this.session = session;
 	}
-
+	
 	@Override
 	public List<Board> selectBoardList(Map<String, Integer> map) {
 		return dao.selectBoardList(session, map);
@@ -37,5 +37,9 @@ public class BoardServiceImpl implements BoardService {
 		return dao.selectBoardByNo(session, boardNo);
 	}
 	
+	@Override
+	public int insertBoard(Board b) {
+		return dao.insertBoard(session, b);
+	}
 	
 }

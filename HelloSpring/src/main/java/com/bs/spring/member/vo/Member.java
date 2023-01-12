@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Member {
 	private String userId;
 	private String password;

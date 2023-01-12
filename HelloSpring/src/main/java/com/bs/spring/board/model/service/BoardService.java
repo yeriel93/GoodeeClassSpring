@@ -9,7 +9,9 @@ public interface BoardService {
 	
 	List<Board> selectBoardList(Map<String, Integer> map);
 	
-	int selectBoardCount();
+	int selectBoardCount(); 
 	
 	Board selectBoardByNo(int boardNo);
+	
+	int insertBoard(Board b);
 }

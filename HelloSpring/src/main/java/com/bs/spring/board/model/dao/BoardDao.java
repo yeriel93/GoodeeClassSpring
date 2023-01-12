@@ -9,9 +9,12 @@ import com.bs.spring.board.model.vo.Board;
 
 public interface BoardDao {
 	
+	
 	List<Board> selectBoardList(SqlSession session,Map<String, Integer> map);
 	
 	int selectBoardCount(SqlSession session);
 	
 	Board selectBoardByNo(SqlSession session,int boardNo);
+	
+	int insertBoard(SqlSession session, Board b);
 }
