@@ -103,7 +103,7 @@ public class BoardController {
 					//MultipartFile클래스가 제공해주는 메소드 이용해서 저장처리
 					f.transferTo(new File(path+renameFile));
 					files.add(Attachment.builder()
-							.originalFilename(f.getOriginalFilename())
+							.originalFilename(originalFileName)
 							.renamedFilename(renameFile).build());
 				} catch (IOException e) {
 					e.printStackTrace();

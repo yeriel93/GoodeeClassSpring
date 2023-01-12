@@ -38,6 +38,7 @@
 		SELECT * FROM BOARD B
 			JOIN MEMBER ON BOARDWRITER=USERID
 			LEFT JOIN ATTACHMENT A ON B.BOARDNO=A.BOARDNO
+			ORDER BY BOARDDATE DESC
 	</select>
 	
 	<select id="selectBoardCount" resultType="_int">
@@ -53,5 +54,14 @@
 	
 	<insert id="insertBoard" parameterType="board">
 		INSERT INTO BOARD VALUES(SEQ_BOARDNO.NEXTVAL,#{boardTitle}, #{boardWriter.userId}, #{boardContent}, SYSDATE, DEFAULT)
+		<!-- keyProperty : parameterType로 들어오는 객체의 필드중 어떤 필드를 가져올지 선택 -->
+		<selectKey keyProperty="boardNo" resultType="_int" order="AFTER">
+			SELECT SEQ_BOARDNO.CURRVAL FROM DUAL			
+		</selectKey>
+	</insert>
+	
+	<insert id="insertAttachment" parameterType="attachment">
+		INSERT INTO ATTACHMENT VALUES(SEQ_ATTACHMENTNO.NEXT, #{boardNo.boardNo}, #{originalFilename},
+									 #{renamedFilename}, DEFAULT, DEFAULT, DEFAULT)
 	</insert>
 </mapper>
