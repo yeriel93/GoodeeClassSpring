@@ -1,0 +1,80 @@
+/* 매물 목록 */
+table{
+	text-align: center;
+	width: 100%;
+	border-top: 1px solid #444444;
+	border-collapse: collapse;
+}
+th{
+	height: 50px; 
+	border-bottom: 1px solid rgb(190, 190, 190);
+	padding: 10px;	
+	background-color: lightgrey;
+    /* color: white; */
+}
+td{
+	height: 40px; 
+	border-bottom: 1px solid #444444;
+	padding: 10px;
+	background-color: white;
+}
+input[type=checkbox]{
+   	width: 18px;
+    height: 18px; 
+    accent-color: yellow;
+}
+input[type=checkbox]:hover {
+    border-color: 2px solid rgba(170, 170, 170, 0.5);
+}
+
+button#reply{
+	background-color: rgb(7, 90, 42);
+	color:white;
+}
+#table-container{
+    width:100%;
+
+}
+
+
+/* 모달 css */
+.modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: none;
+
+    background-color: #000000a4;
+    mix-blend-mode: normal;
+}
+
+.modal.show {
+    display: block;
+}
+
+.modal_body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 400px;
+    height: 600px;
+
+    padding: 40px;
+
+    text-align: center;
+    font-size: 13px;
+
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 1);
+
+    transform: translateX(-50%) translateY(-50%);
+    z-index: 2;
+}
+
+/* 모달 여기까지  */

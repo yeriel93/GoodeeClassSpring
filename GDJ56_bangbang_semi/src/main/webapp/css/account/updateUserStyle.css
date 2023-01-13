@@ -1,0 +1,107 @@
+/* 상단바 아래 컨텐츠 */
+/* div{
+    border: 1px solid #075A2A;
+} */
+
+#divOuter{
+    /* border: 1px solid red; */
+    /* align-content: center;
+    /* margin-top: 100px; */
+    /* padding-top:0px ; */
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    
+
+}
+#updateuser-Container{
+    /* border: 1px solid #075A2A; */
+    width: fit-content;
+    height: fit-content;
+    margin-left: 0px;
+    /* margin:auto; */
+    align-content: center;
+    
+
+}
+#updateuser-Container>#updateuserForm>hr{
+    width:310px;
+    margin-left: 0px;
+}
+#updateuser-Container>#updateuserForm>h1{
+    margin-bottom: 10px;
+    padding-top: 30px;
+}
+#updateuser-Container>#updateuserForm>input{
+    width: 290px;
+    height: 32px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-left: 10px;
+    background-color: rgb(255, 255, 255);
+
+}
+
+.btns{
+    background-color: #075A2A;
+    color:white;
+    width:100px;
+    height:30px;
+    border-radius: 3px;
+    border:none;
+
+}
+
+#signupBtn{
+    width:310px;
+    height:40px;
+    /* margin-left: 40px; */
+    margin-top: 30px;
+    margin-bottom: 10px;
+    background-color: #075A2A;
+    color: white;
+    border-color: #075a2a8c;
+    border-radius: 5px;
+    border:none;
+}
+
+/* 회원 이름/레벨 표시 */
+.profile{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    height: 80px;
+    margin: auto;
+
+}
+.profile2{
+	
+    width: fit-content;
+    height: 80px;
+    margin: 0px;
+    padding-top: 0px;
+}
+#userName{
+    margin:0px;
+}
+#userLevel{
+    background-color: #075A2A;
+    border-radius: 5px;
+    font-size: 13px;
+    padding:6px;
+    padding-left: 9px;
+    padding-right: 9px;
+    margin-top: 6px;
+    
+    color: white;
+}
+
+/* 여기까지 */
+
+
+section.content{
+    width:2000px;
+}

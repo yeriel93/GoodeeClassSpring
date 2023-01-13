@@ -1,0 +1,80 @@
+/* 상단바 아래 컨텐츠 */
+
+#divOuter{
+    /* border: 1px solid red; */
+    align-content: center;
+
+}
+#loginContainer{
+    /* border: 1px solid #075A2A; */
+    width: fit-content;
+    height: fit-content;
+    margin-left: 40%;
+    /* background-color: rgba(255, 255, 255, 0.792); */
+}
+#loginContainer>#loginForm>hr{
+    width:260px;
+    margin-left: 0px;
+}
+#loginContainer>#loginForm>h1{
+    padding-top: 30px;
+    margin-bottom: 10px;
+}
+#loginContainer>#loginForm>input{
+    width:250px;
+    height:30px;
+}
+#loginContainer>#loginForm>a>img{
+    width:260px;
+    margin-top: 0px;
+}
+#etcContainer{
+    /* border: 1px solid #075A2A; */
+    margin-left: 40%;
+    margin-right: 20%;
+
+    display:flex;
+}
+#etcContainer>h5{
+    margin:10px;
+    margin-top: 20px;
+
+    /* border: 1px solid #075A2A; */
+
+}
+#loginBtn2{
+    width:260px;
+    height:40px;
+    /* margin-left: 40px; */
+    margin-top: 30px;
+    margin-bottom: 10px;
+    background-color: #075A2A;
+    color: white;
+    border-color: #075a2a8c;
+    border-radius: 5px;
+    border:none;
+    
+}
+
+#etcContainer>h5>a{
+    text-decoration:none;
+}
+#etcContainer>h5>a:visited{
+    color:black;
+}
+
+
+#loginContainer>#loginForm>input{
+  width: 250px;
+  height: 32px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(255, 255, 255);
+}
+
+input::placeholder {  
+  font-size: 13px;
+}

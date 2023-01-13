@@ -1,0 +1,197 @@
+@charset "UTF-8";
+
+
+/*  div{
+    border: 1px black solid;
+}  */
+/* span{
+    border: 1px blue solid;
+} */
+
+/* #roomInfoWrap{
+    border: 2px solid green;
+}
+#dealInfo,#roomInfo{
+    border: 2px solid blue;
+}
+#dealDiv,#dealDataDiv,#roomDiv,#roomDataDiv{
+    border: 2px solid orange;
+}
+#option{
+    border: 2px solid yellow;
+}
+
+#fixDiv{
+    border: 2px solid purple;
+}
+#propertiInfo{
+    border: 2px solid pink;
+}
+#brokerInfo{
+    border: 2px solid pink;
+} 
+ */
+/* ------------------------------------------------------------------------------------------------------------ */
+/* 매물사진 */
+#roomWrap{
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    margin-top : 35px;
+}
+#imgFiles{
+    width: 640px;
+    height: 600px;
+    border: 2px solid rgb(64, 64, 64);
+}
+.swiper-button-next{
+	size: 30px;
+	color: red;
+}
+
+/* ------------------------------------------------------------------------------------------------------------ */
+
+/* 매물정보 */
+hr{
+    border: 1px solid gray; 
+    background-color: gray
+}
+/* 매물 타이틀 */
+#roomInfoWrap{
+    width: 65%;
+    margin-left: 30px; 
+    margin-top: 30px;
+}	
+.infoTitle{
+    width: 230px;
+    height: 60px;
+    background-color: rgb(64, 64, 64);
+    color: white;
+    margin-bottom: 10px;
+}
+.infoTitle>span{
+    font-family: 'Poor Story', cursive;
+    font-weight: bolder;
+    padding-top: 4px;
+    font-size: 40px;
+}
+/* 매물세부내용 */
+.data{
+    font-weight: bolder;
+    width:300px;
+}
+.flex{
+	display: flex;
+}
+#roomDiv>div, #roomDataDiv>div{
+	height: 40px;
+	margin-bottom : 20px;
+}
+
+#dealDiv>div,#option>span{
+    margin-left: 50px;
+}
+#dealInfo span,#roomInfo span{
+    font-size: 25px;
+}
+.icon{
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+    margin-right: 10px;
+    margin-top : 2px;
+}
+#roomDiv span{
+    margin-top: -20px;
+}
+/* 옵션 테이블 */
+#optionTbl td{    
+    /* border: 1px solid blueviolet; */
+    text-align: center;
+    width: 130px;
+    margin-right: 20px;
+}
+#optionTbl tr{
+    border: 1px solid gray;
+}
+.optionIcon{
+    width: 50px;
+    height: 50px;
+}
+
+
+/* ------------------------------------------------------------------------------------------------------------ */
+/* 부동산정보 */
+#fixDiv{
+    background-color: #d9dfd4;
+    border: 2px solid rgb(64, 64, 64);
+    box-shadow: 5px 5px gray;
+    border-radius: 10px;
+    width: 480px;
+    height: 530px;
+    font-size: 20px;
+    margin-top: 50px;
+    margin-left: 4%;
+}
+#propertiInfo{
+    margin-bottom: 20px;
+    margin-top: 25px;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+#brokerInfo{
+    margin-bottom: 20px;
+    margin-top: 25px;
+    margin-left: 25px;
+    margin-right: 25px;
+} 
+#buttonDiv{
+    display: flex; 
+    justify-content: space-around;
+}
+#buttonDiv>button{
+    background-color: rgb(7, 90, 42);
+    color: white;
+    /* border: 3px solid rgb(7, 90, 42); */
+    font-size: 20px;
+    width: 40%;
+    height: 45px;
+    margin: 15px;
+    margin-top: 30px;
+}
+#propertiNo{
+    font-size: 23px; 
+    border: 1px solid black; 
+    width: 230px; 
+    text-align: center; 
+    height: 30px;
+}
+#priceFix{
+    font-size: 40px;
+    margin-bottom: 2px;
+    font-weight: bolder;
+}
+/* 찜하기버튼 */
+/* #propertiInfo button{
+    background-color: red; 
+    color:white;
+    float: right;
+    width: 100px;
+    height: 30px;
+} */
+
+/* ------------------------------------------------------------------------------------------------------------ */
+/* 위치, 상세정보 */
+#map>img{
+    width: 90%;
+    height: 600px;
+    margin-top: 20px;
+}
+#description{
+    margin-top: 20px;
+    background-color: whitesmoke;
+    /* width: 90%; */
+    /* height: 300px; */
+    resize: none;
+    font-size: 20px;
+}
