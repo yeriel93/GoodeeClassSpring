@@ -13,12 +13,14 @@
 
 	<section>
 		<h2>Hello Spring</h2>
-		<button class="btn btn-outline-primary my-2 my-sm-0" onclick="fn_memberAjax();">회원조회</button>
+		<div style="display: flex; justify-content: center;">
+			<img src="${path }/resources/images/tea.png" width="800" height="500" id="center-image" alt="스프링로고">
+		</div>
+		
+		<button class="btn btn-outline-dark my-2 my-sm-0" onclick="fn_memberAjax();">회원조회</button>
+		<button class="btn btn-outline-dark my-2 my-sm-0" onclick="jsonTest();">회원가입</button> 
 		<div id="membercontainer"></div>
-
-		<img src="${path }/resources/images/logo-spring.png" id="center-image" alt="스프링로고">
-	
-		<button class="btn btn-outline-primary my-2 my-sm-0" onclick="jsonTest();">회원가입</button> 
+		
 	</section>
 
 	<script>

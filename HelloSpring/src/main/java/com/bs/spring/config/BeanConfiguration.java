@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.bs.spring.model.vo.Animal;
 import com.bs.spring.model.vo.Person;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 //beanConfiguration클래스로 구현하기
 @Configuration
@@ -37,4 +38,10 @@ public class BeanConfiguration {
 		p.setMyAnimal(a);
 		return p; 
 	}
+	
+	//websocket 설정
+    @Bean
+    public ObjectMapper mapper() {
+       return new ObjectMapper();
+    }
 }

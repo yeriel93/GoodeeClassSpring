@@ -65,6 +65,7 @@
 							<a href="${path }/member/memberView.do"><c:out value="${loginMember.userName }"/>님</a>
 							환영합니다
 						</span> &nbsp;
+						<button class="btn btn-outline-dark my-2 my-sm-0" onclick="chattingPageOpen();">채팅하기</button>&nbsp;
 						<button class="btn btn-outline-success my-2 my-sm-0" onclick="location.replace('${path}/member/logoutMember.do');">로그아웃</button>
 					</c:if>
 				</div>
@@ -93,7 +94,12 @@
 							data-dismiss="modal">취소</button>
 						</div>
 					</form>
-					
 				</div>
 			</div>
 		</div>
+		
+	<script type="text/javascript">
+		function chattingPageOpen() {
+			open("${pageContext.request.contextPath}/chattingpage.do","_blank","width=400, height=500")
+		}
+	</script>		

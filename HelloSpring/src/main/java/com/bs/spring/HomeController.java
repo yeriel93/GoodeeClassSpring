@@ -13,11 +13,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.bs.spring.common.AdminAccessException;
 import com.bs.spring.model.vo.Animal;
 import com.bs.spring.model.vo.Food;
 import com.bs.spring.model.vo.Person;
@@ -59,6 +61,7 @@ public class HomeController {
 		
 		return "home";
 	}
+	
 	@RequestMapping("/")
 	public String index(HttpServletRequest req, HttpServletResponse res, HttpSession session) {
 		//쿠키, 세션값 보내기
@@ -106,10 +109,19 @@ public class HomeController {
 	}
 	
 	
+	@RequestMapping("/error.do")
+	public String loginFail() {
+		//인증 실패후 실행되는 메소드
+		throw new AdminAccessException("로그인실패");
+	}
 	
-	
-	
-	
+	@RequestMapping("/successLogin.do")
+	public String successLogin(Model m) {
+		//인증 후 실행되는 메소드
+		Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		logger.debug("{}",o);
+		return "redirect:/";
+	}
 	
 	
 	
