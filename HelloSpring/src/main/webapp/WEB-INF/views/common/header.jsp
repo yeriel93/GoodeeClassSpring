@@ -28,6 +28,11 @@
 		<header>
 			<div id="header-container">
 				<h2>${param.title }</h2>
+				<!-- security에 있는 session값 가져올때 -->
+				<p>세션값 : ${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username }
+					${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.age }	
+					${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.email }	
+				</p>
 			</div>
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
 				<a class="navbar-brand" href="#">
@@ -62,11 +67,10 @@
 					</c:if>
 					<c:if test="${loginMember!=null }">
 						<span>
-							<a href="${path }/member/memberView.do"><c:out value="${loginMember.userName }"/>님</a>
-							환영합니다
+							<a href="${path }/member/memberView.do?userId=${loginMember.userId}"><c:out value="${loginMember.userId}"/>님 </a>환영합니다
 						</span> &nbsp;
 						<button class="btn btn-outline-dark my-2 my-sm-0" onclick="chattingPageOpen();">채팅하기</button>&nbsp;
-						<button class="btn btn-outline-success my-2 my-sm-0" onclick="location.replace('${path}/member/logoutMember.do');">로그아웃</button>
+						<button class="btn btn-outline-success my-2 my-sm-0" onclick="location.replace('${path}/logout');">로그아웃</button>
 					</c:if>
 				</div>
 			</nav>	
@@ -83,7 +87,7 @@
 						</button>
 					</div>
 					
-					<form action="${path}/member/loginMember.do" method="post">
+					<form action="${path}/login" method="post">
 						<div class="modal-body">
 							<input type="text" name="userId" class="form-control" placeholder="아이디입력" required> <br>
 							<input type="password" name="password" class="form-control" placeholder="패스워드입력" required>

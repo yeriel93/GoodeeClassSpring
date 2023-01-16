@@ -10,7 +10,7 @@
 </jsp:include>
 	
 	<!-- excepthion은 EL태그로 안 불러와짐 -->
-	<h2 style="color:red"><%=exception.getMessage() %></h2>
+	<h2 style="color:red">관리지 접근할 수 있습니다</h2>
 	<script>
 		setTimeout(()=>{location.replace("${path}")},3000);
 	</script>

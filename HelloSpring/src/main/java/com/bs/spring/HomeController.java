@@ -14,36 +14,41 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.bs.spring.common.AdminAccessException;
+import com.bs.spring.member.vo.Member;
 import com.bs.spring.model.vo.Animal;
 import com.bs.spring.model.vo.Food;
 import com.bs.spring.model.vo.Person;
 
 @Controller
+@SessionAttributes({"loginMember"})
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	/* 등록되어있는 springbean은 필드선언 해서 사용 */
-	@Autowired 
-	@Qualifier(value="alonge")
-	private Animal a;
-	
-	@Autowired
-	@Qualifier(value="dog")
-	private Animal b;
-	
-	@Autowired
-	@Qualifier(value="getDongmin")
-	private Person p;
-	
-	@Autowired(required = false)
-	private Food food;
+//	@Autowired 
+//	@Qualifier(value="alonge")
+//	private Animal a;
+//	
+//	@Autowired
+//	@Qualifier(value="dog")
+//	private Animal b;
+//	
+//	@Autowired
+//	@Qualifier(value="getDongmin")
+//	private Person p;
+//	
+//	@Autowired(required = false)
+//	private Food food;
 
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
@@ -120,6 +125,9 @@ public class HomeController {
 		//인증 후 실행되는 메소드
 		Object o = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		logger.debug("{}",o);
+		
+		m.addAttribute("loginMember", (Member)o);
+		
 		return "redirect:/";
 	}
 	

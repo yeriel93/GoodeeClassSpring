@@ -16,9 +16,9 @@ public class Food {
 	private String type;
 	private Person p;
 	
-	@Autowired
-	@Qualifier(value="yeonji")
-	public void setPerson(Person p) {
-		this.p=p;
-	}
+//	@Autowired
+//	@Qualifier(value="yeonji")
+//	public void setPerson(Person p) {
+//		this.p=p;
+//	}
 }
